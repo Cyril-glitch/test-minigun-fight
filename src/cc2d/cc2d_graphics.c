@@ -255,7 +255,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
                  //affichage timer 
 		char elpdTime[100];
-		sprintf(elpdTime,"TIME : %.6f",Vperf); 
+		sprintf(elpdTime,"TIME : %.6f",Vperf); //Vperf = framestart
 	        SDL_Texture* texElapsedTime = cc2d_textureTexte(elpdTime,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(texElapsedTime,renderer,1700,0,150,100,255);
 		SDL_DestroyTexture(texElapsedTime);
@@ -265,7 +265,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
 		//affichage delta time
 		char timeDt[100];
-		sprintf(timeDt,"DELTA : %.6f",Vperf); 
+		sprintf(timeDt,"DELTA : %.6f",Vperf); //Vperf = deltaTime
 	        SDL_Texture* tex_DTime = cc2d_textureTexte(timeDt,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(tex_DTime,renderer,1700,100,150,100,255);
 		SDL_DestroyTexture(tex_DTime);
@@ -274,7 +274,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
                 //affichage des fps
 		char fps[100];
-		sprintf(fps,"FPS : %.6f", 1.0 / Vperf); 
+		sprintf(fps,"FPS : %.6f", 1.0 / Vperf); //Vperf = deltaTime
 	        SDL_Texture* tex_fps = cc2d_textureTexte(fps,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(tex_fps,renderer,1700,200,150,100,255);
 		SDL_DestroyTexture(tex_fps);
@@ -283,7 +283,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
 		//affichage precis du timer 
 		char P_elapse[100];
-		sprintf(P_elapse,"TIME : %.6f",Vperf); 
+		sprintf(P_elapse,"TIME : %.6f",Vperf); //Vperf precise_fst
 	        SDL_Texture* P_tex_ElapsedTime = cc2d_textureTexte(P_elapse,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(P_tex_ElapsedTime,renderer,1700,300,150,100,255);
 		SDL_DestroyTexture(P_tex_ElapsedTime);
@@ -292,7 +292,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
                 //affichage precis du  delta time
 		char P_Dt[100];
-		sprintf(P_Dt,"DELTA : %.6f",Vperf); 
+		sprintf(P_Dt,"DELTA : %.6f",Vperf); //Vperf = precise_dt
 	        SDL_Texture* tex_P_Dt = cc2d_textureTexte(P_Dt,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(tex_P_Dt,renderer,1700,400,150,100,255);
 		SDL_DestroyTexture(tex_P_Dt);
@@ -301,7 +301,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
                 //affichage precis des fps
 		char P_fps[100];
-		sprintf(P_fps,"FPS : %.6f", 1.0 / Vperf); 
+		sprintf(P_fps,"FPS : %.6f", 1.0 / Vperf); //Vperf = precise_dt 
 	        SDL_Texture* tex_P_fps = cc2d_textureTexte(P_fps,renderer,font,300,100,255,255,255,255);
 		cc2d_Draw(tex_P_fps,renderer,1700,500,150,100,255);
 		SDL_DestroyTexture(tex_P_fps);

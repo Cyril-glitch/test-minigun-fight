@@ -8,4 +8,6 @@
 
 void cc2d_gameInit(void);
 void cc2d_gameDraw(void);
+
+void cc2d_gameUpdate(void);
 #endif

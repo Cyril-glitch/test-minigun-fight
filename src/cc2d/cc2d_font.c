@@ -19,7 +19,7 @@ SDL_Texture* cc2d_textureTexte(char* texte ,SDL_Renderer* renderer,TTF_Font* fon
 	
 	if(surface == NULL)
 	{
-		printf(" can't load surface error: %s\n",SDL_GetError());
+		printf(" can't load font surface error: %s\n",SDL_GetError());
 		return NULL;
 	}
 	else
