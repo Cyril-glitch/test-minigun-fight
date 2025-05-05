@@ -285,7 +285,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 		char P_elapse[100];
 		sprintf(P_elapse,"TIME : %.6f",Vperf); //Vperf precise_fst
 	        SDL_Texture* P_tex_ElapsedTime = cc2d_textureTexte(P_elapse,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(P_tex_ElapsedTime,renderer,1700,300,150,100,255);
+		cc2d_Draw(P_tex_ElapsedTime,renderer,125,125,150,100,255);
 		SDL_DestroyTexture(P_tex_ElapsedTime);
 	}
 	else if(strcmp(perf,"Pdelta time") == 0)
@@ -303,7 +303,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 		char P_fps[100];
 		sprintf(P_fps,"FPS : %.6f", 1.0 / Vperf); //Vperf = precise_dt 
 	        SDL_Texture* tex_P_fps = cc2d_textureTexte(P_fps,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(tex_P_fps,renderer,1700,500,150,100,255);
+		cc2d_Draw(tex_P_fps,renderer,900,0,100,100,255);
 		SDL_DestroyTexture(tex_P_fps);
 	}
 	else
