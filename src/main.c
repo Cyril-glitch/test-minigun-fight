@@ -27,49 +27,14 @@ int main( int agrc , const char argv [])
 
 
 
-		cc2d_Draw(texPlanet,renderer,centered_planetX,centered_planetY,planetWidth,planetHeight,blend);
-		cc2d_Draw(texTitre,renderer,centered_titreX,centered_titreY,titreWidth,titreHeight,blend);
+//		cc2d_Draw(texPlanet,renderer,centered_planetX,centered_planetY,planetWidth,planetHeight,blend);
+//		cc2d_Draw(titre,renderer,titre.x,titre.y,blend);
 
 		//	cc2d_printPerf("Pfps",precise_dt,renderer,retroFont);      //affichage des performances
-
-		if(cc2d_downKey(SDL_SCANCODE_D))
-		{
-			if(centered_planetX < gameWidth - planetWidth) 
-			{
-				centered_planetX++;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_A))
-		{
-			if(centered_planetX > 0)
-			{
-				centered_planetX--;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_S))
-		{
-
-			if(centered_planetY < gameWidth - planetWidth ) 
-			{
-
-				centered_planetY++;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_W))
-		{
-
-			if(centered_planetY > 0)
-			{
-				centered_planetY--;
-			}
-		}
-
 
 		cc2d_enddraw(renderer);    //affiche le rendu
 
 		//	cc2d_Precise_FpsLimiter(precise_fst ,60);
-
-
 
 	}
 

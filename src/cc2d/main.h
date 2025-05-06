@@ -6,10 +6,12 @@
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
 #include "cc2d_game.h"
-#include "cc2d_keyboard.h"
 
 #ifndef _MAIN_H_
-#define _MAIN_H
+#define _MAIN_H_
+
+//création des objets
+
 
 //création du Booleen true
 extern int true;
@@ -31,27 +33,10 @@ extern int windowHeight ;
 extern int gameWidth ;
 extern int gameHeight ;
 
+
 //intialisation graphics
-extern SDL_Texture* texPlanet;
-
-extern int planetX ;
-extern int planetY ;
-extern int planetWidth;
-extern int planetHeight;
-extern int centered_planetX ;
-extern int centered_planetY ;
-extern int new_planetWidth ;
-extern int new_planetHeight ;
-
-extern SDL_Texture* texTitre;
-
-extern int titreWidth;
-extern int titreX ;
-extern int titreY ;
-extern int titreWidth;
-extern int titreHeight;
-extern int centered_titreX ;
-extern int centered_titreY ;
+extern CC2D_Texture idiana;
+extern CC2D_Texture titre;
 
 //initialisation font et textes
 extern int sizeFont1 ;

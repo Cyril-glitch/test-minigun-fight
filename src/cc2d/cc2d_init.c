@@ -7,6 +7,7 @@
 #include "cc2d_font.h"
 #include "cc2d_keyboard.h"
 
+
 //intialisation de la condition de boucle
 
 int true = 1;
@@ -27,30 +28,23 @@ int windowHeight = 1000;
 int gameWidth = 1000;
 int gameHeight = 1000;
 
-
+/*
 //intialisation graphics
-SDL_Texture* texPlanet = NULL;
+CC2D_Texture idiana;
+idiana.texture = NULL;
+idiana.x = 0;
+idiana.y = 0;
+idiana.Width = 0;
+idiana.Height = 0;
 
 //Pour centrer une texture exemples : int centered_planetX = (windowWidth - planetWidth) / 2 ;
-
-int planetX = 0;
-int planetY = 0;
-int planetWidth = 0;
-int planetHeight = 0;
-int centered_planetX = 0 ;
-int centered_planetY = 0 ;
-int new_planetWidth = 600;
-int new_planetHeight = 600;
-
-SDL_Texture* texTitre = NULL;
-
-int titreX = 0;
-int titreY = 0;
-int titreWidth = 0;
-int titreHeight = 0;
-int centered_titreX = 0 ;
-int centered_titreY = 0 ;
-
+CC2D_Texture titre;
+titre.texIdiana = NULL;
+titre.x = 0;
+titre.y = 0;
+titre.Width = 0;
+titre.Height = 0;
+*/
 
 //initialisation font et textes
 TTF_Font* retroFont = NULL;

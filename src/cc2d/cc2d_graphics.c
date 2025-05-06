@@ -183,12 +183,16 @@ SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path)
 }
 //on a besoin d'une fonction qui defini le rectangle de destinantion puis l'affiche
 
-void cc2d_Draw(SDL_Texture* texture ,SDL_Renderer* renderer,int x, int y ,int w,int h,int a )
+void cc2d_Draw(CC2D_Texture image ,SDL_Renderer* renderer,int x,int y,int a)
 {
 
-	SDL_Rect rectDst = {x,y,w,h};
-	SDL_SetTextureAlphaMod(texture,a);
-	SDL_RenderCopy(renderer,texture,NULL,&rectDst);
+	SDL_Rect rectDst;
+	rectDst.x = x;
+	rectDst.y = y;
+	rectDst.w = image.Width;
+	rectDst.h = image.Height;
+	SDL_SetTextureAlphaMod(image.texture,a);
+	SDL_RenderCopy(renderer,image.texture,NULL,&rectDst);
 }
 
 void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w , int h)
@@ -204,6 +208,9 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
 }
+
+
+
 void cc2d_fpsLimiter(Uint32 frameStart , int fps)
 {
 	//le temps écoulé pour afficher une image
@@ -256,56 +263,12 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
                  //affichage timer 
 		char elpdTime[100];
 		sprintf(elpdTime,"TIME : %.6f",Vperf); //Vperf = framestart
-	        SDL_Texture* texElapsedTime = cc2d_textureTexte(elpdTime,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(texElapsedTime,renderer,1700,0,150,100,255);
-		SDL_DestroyTexture(texElapsedTime);
+		CC2D_Texture ElapsedTime;
+		ElapsedTime.texture = cc2d_textureTexte(elpdTime,renderer,font,125,125,255,255,255,255);
+		cc2d_Draw(ElapsedTime,renderer,1700,0,255);
+		SDL_DestroyTexture(ElapsedTime.texture);
 		
-	}
-	else if(strcmp(perf,"delta time") == 0)
-	{
-		//affichage delta time
-		char timeDt[100];
-		sprintf(timeDt,"DELTA : %.6f",Vperf); //Vperf = deltaTime
-	        SDL_Texture* tex_DTime = cc2d_textureTexte(timeDt,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(tex_DTime,renderer,1700,100,150,100,255);
-		SDL_DestroyTexture(tex_DTime);
 	}	
-	else if(strcmp(perf,"fps")== 0)
-	{
-                //affichage des fps
-		char fps[100];
-		sprintf(fps,"FPS : %.6f", 1.0 / Vperf); //Vperf = deltaTime
-	        SDL_Texture* tex_fps = cc2d_textureTexte(fps,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(tex_fps,renderer,1700,200,150,100,255);
-		SDL_DestroyTexture(tex_fps);
-         }       
-	else if(strcmp(perf,"Ptimer") == 0)
-	{
-		//affichage precis du timer 
-		char P_elapse[100];
-		sprintf(P_elapse,"TIME : %.6f",Vperf); //Vperf precise_fst
-	        SDL_Texture* P_tex_ElapsedTime = cc2d_textureTexte(P_elapse,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(P_tex_ElapsedTime,renderer,125,125,150,100,255);
-		SDL_DestroyTexture(P_tex_ElapsedTime);
-	}
-	else if(strcmp(perf,"Pdelta time") == 0)
-	{
-                //affichage precis du  delta time
-		char P_Dt[100];
-		sprintf(P_Dt,"DELTA : %.6f",Vperf); //Vperf = precise_dt
-	        SDL_Texture* tex_P_Dt = cc2d_textureTexte(P_Dt,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(tex_P_Dt,renderer,1700,400,150,100,255);
-		SDL_DestroyTexture(tex_P_Dt);
-	}		
-	else if(strcmp(perf,"Pfps") == 0)
-	{
-                //affichage precis des fps
-		char P_fps[100];
-		sprintf(P_fps,"FPS : %.6f", 1.0 / Vperf); //Vperf = precise_dt 
-	        SDL_Texture* tex_P_fps = cc2d_textureTexte(P_fps,renderer,font,300,100,255,255,255,255);
-		cc2d_Draw(tex_P_fps,renderer,900,0,100,100,255);
-		SDL_DestroyTexture(tex_P_fps);
-	}
 	else
 	{
 		printf("unknown mode\n");

@@ -1,6 +1,18 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 #ifndef CC2DD_GRAPHICS_H 
 #define CC2D_GRAPHICS_H
 
+//création des objets
+typedef struct CC2D_Texture
+{
+	SDL_Texture* texture;
+	int x;
+	int y;
+	int Width;
+	int Height;
+}CC2D_Texture;
 
 void loadBar();
 
@@ -16,7 +28,7 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 
 SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path);
 
-void cc2d_Draw(SDL_Texture* texture ,SDL_Renderer* renderer,int x, int y ,int w,int h ,int a);
+void cc2d_Draw(CC2D_Texture image,SDL_Renderer* renderer,int x, int y,int a);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
