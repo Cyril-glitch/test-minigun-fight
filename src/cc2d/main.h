@@ -10,7 +10,6 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-//création des objets
 
 
 //création du Booleen true
@@ -34,16 +33,11 @@ extern int gameWidth ;
 extern int gameHeight ;
 
 
-//intialisation graphics
+//intialisation des objets graphics
 extern CC2D_Texture idiana;
-extern CC2D_Texture titre;
 
-//initialisation font et textes
-extern int sizeFont1 ;
-extern TTF_Font* retroFont;
-extern int retroFontWidth;
-extern int retroFontHeight;
-
+//initialisation des objets textuels
+extern CC2D_texte titre;
 
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;

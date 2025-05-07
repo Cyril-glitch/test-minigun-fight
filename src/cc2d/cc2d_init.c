@@ -28,6 +28,20 @@ int windowHeight = 1000;
 int gameWidth = 1000;
 int gameHeight = 1000;
 
+//initialisation des objets textuels
+CC2D_Texte titre;
+titre.font = NULL;
+titre.texture = NULL;
+titre.color = {r,g,b,a};
+titre.r = 0;
+titre.g = 0;
+titre.b = 0;
+titre.a = blend;
+titre.fontSize = 50;
+titre.centerX = 0;
+titre.centerY = 0;
+titre.width = 0;
+titre.height = 0;
 /*
 //intialisation graphics
 CC2D_Texture idiana;
@@ -36,22 +50,6 @@ idiana.x = 0;
 idiana.y = 0;
 idiana.Width = 0;
 idiana.Height = 0;
-
-//Pour centrer une texture exemples : int centered_planetX = (windowWidth - planetWidth) / 2 ;
-CC2D_Texture titre;
-titre.texIdiana = NULL;
-titre.x = 0;
-titre.y = 0;
-titre.Width = 0;
-titre.Height = 0;
-*/
-
-//initialisation font et textes
-TTF_Font* retroFont = NULL;
-
-int sizeFont1 = 100;
-int retroFontWidth =0 ;
-int retroFontHeight =0 ;
 
 
 //initialisatioon des valeurs de temps

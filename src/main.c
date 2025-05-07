@@ -26,8 +26,7 @@ int main( int agrc , const char argv [])
 		//dessins
 
 
-
-//		cc2d_Draw(texPlanet,renderer,centered_planetX,centered_planetY,planetWidth,planetHeight,blend);
+		cc2d_Draw(titre.texture,renderer,0,0,planetWidth,planetHeight,blend);
 //		cc2d_Draw(titre,renderer,titre.x,titre.y,blend);
 
 		//	cc2d_printPerf("Pfps",precise_dt,renderer,retroFont);      //affichage des performances

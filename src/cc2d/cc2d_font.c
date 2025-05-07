@@ -8,46 +8,85 @@
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
 
-SDL_Texture* cc2d_textureTexte(char* texte ,SDL_Renderer* renderer,TTF_Font* font,int x,int y,int r,int g,int b,int a)
+
+
+int cc2d_loadFont(const char* path ,CC2D_Text texte)
 {
+	texte.font = TTF_OpenFont(path,texte.fontSize);
 
-	SDL_Color color = {r,g,b,a};
-	SDL_Texture* texture = NULL;
+	if(texte.font == NULL)
+	{
+		printf("TTF can't creat font From %s error : %s\n",path,TTF_GetError());
+		return -1;
 
+	}
 
-	SDL_Surface* surface = TTF_RenderUTF8_Solid(font,texte,color);
+	return 0;
+}
+
+int cc2d_textureTexte(char* texte ,SDL_Renderer* renderer,CC2D_Texte texte)
+{
+	SDL_Surface* surface = TTF_RenderUTF8_Solid(font,texte,texte.color);
 	
 	if(surface == NULL)
 	{
 		printf(" can't load font surface error: %s\n",SDL_GetError());
-		return NULL;
+		return -1;
 	}
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(renderer,surface);
+		texte.texture = SDL_CreateTextureFromSurface(renderer,surface);
 
 		if(texture == NULL)
 		{
 			printf(" can't create texture from surface error: %s\n",SDL_GetError());
-			return NULL;
+			return -1;
 		}
 	
 	}
 	SDL_FreeSurface(surface);
 
-	return texture;
+	return 0;
 }
-
-TTF_Font* cc2d_loadFont(const char* path ,int ftsize)
+void cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte)
 {
-	TTF_Font* font = TTF_OpenFont(path,ftsize);
 
-	if(font == NULL)
-	{
-		printf("TTF can't creat font From %s error : %s\n",path,TTF_GetError());
-		return NULL;
 
-	}
-
-	return font;
+	SDL_Rect rectDst;
+	rectDst.x = texte.x
+	rectDst.y = texte.y
+	rectDst.w = texte.width;
+	rectDst.h = texte.height;
+	SDL_SetTextureAlphaMod(texte.texture,texte.a);
+	SDL_RenderCopy(renderer,texte.texture,NULL,&rectDst);
 }
+
+void cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,SDL_Window* windoWidth,SDL_Window* windowHeight)
+{
+
+	texte.centerX = (windowWidth - texte.width) / 2;
+	texte.centerY = (windowHeight - texte.height) / 2;
+
+	SDL_Rect rectDst;
+	rectDst.x = texte.centerX;
+	rectDst.y = texte.centerY;	
+	rectDst.w = texte.width;
+	rectDst.h = texte.height;
+	SDL_SetTextureAlphaMod(texte.texture,texte.a);
+	SDL_RenderCopy(renderer,texte.texture,NULL,&rectDst);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

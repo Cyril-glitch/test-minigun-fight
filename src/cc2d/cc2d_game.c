@@ -4,25 +4,24 @@
 
 void cc2d_gameLoad(void)
 {
-	/*
+	
 	//chargement des Fonts
-	retroFont = cc2d_loadFont("../font/PixelMaster.ttf",sizeFont1);     //recupere la font et ça taille en points
-	if((TTF_SizeText(retroFont, "Mini-Gun-Fight", &retroFontWidth, &retroFontHeight)) != 0) //crée taille logique
+	cc2d_loadFont("../font/PixelMaster.ttf",titre);
+	if((TTF_SizeText(titre.font, "Mini-Gun-Fight", &titre.width, &titre.height)) != 0) //crée taille logique
 	{
 		printf("TTF_SizeText Error : %s\n",TTF_GetError());
 	}
+	
 	//chargement des Textes
-	titre.texture = cc2d_textureTexte("Mini-Gun-Fight",renderer,retroFont,retroFontWidth,retroFontHeight,255,255,255,255);
-	SDL_QueryTexture(titre.texture,NULL, NULL, titre.width,titre.Height);
-	centered_titreX = (windowWidth - titre.Width) / 2;
-	centered_titreY = (windowHeight - titre.Height) / 2;
-
+        cc2d_textureTexte("Mini-Gun-Fight",renderer,titre);
+	SDL_QueryTexture(titre.texture,NULL, NULL, titre.width,titre.height);
+/*
 	//chargement des textures Graphiques
 	idiana.texture = cc2d_loadImage(renderer,"../img/planet.png");
 	SDL_QueryTexture(idiana.texture, NULL, NULL, idiana.Width, idiana.Height);
 	centered_planetX = (windowWidth - idiana.Width) / 2;
 	centered_planetY = (windowHeight - idiana.Height) / 2;
-*/
+
 }
 void cc2d_gameUpdate(void)
 {
