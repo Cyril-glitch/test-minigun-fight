@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
+#include "cc2d_font.h"
 #ifndef CC2DD_GRAPHICS_H 
 #define CC2D_GRAPHICS_H
 
@@ -12,6 +12,7 @@ typedef struct CC2D_Texture
 	int y;
 	int Width;
 	int Height;
+	int a; 
 }CC2D_Texture;
 
 //intialisation des valeurs Alpha
@@ -33,7 +34,7 @@ extern int gameHeight ;
 
 
 //intialisation des objets graphics
-extern CC2D_Texture idiana;
+extern CC2D_Texture indiana;
 extern CC2D_Texture mini;
 
 
@@ -61,7 +62,7 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 
 SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path);
 
-void cc2d_Draw(CC2D_Texture image,SDL_Renderer* renderer,int x, int y,int a);
+void cc2d_Draw(SDL_Renderer* renderer,CC2D_Texture image);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
@@ -73,7 +74,8 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps);
 
 void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps);
 
-void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Font* font);
+
+void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps);
 
 void loadBar();
 #endif

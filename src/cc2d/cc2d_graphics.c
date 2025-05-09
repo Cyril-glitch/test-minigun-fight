@@ -9,8 +9,8 @@
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
 
-	
-	
+
+
 int cc2d_init()
 {
 
@@ -66,9 +66,9 @@ void cc2d_close(SDL_Renderer* renderer,SDL_Window* window)
 int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeight,SDL_Renderer** renderer,SDL_Window** window)
 {
 
-//window = l'adresse du pointeur 
-//*window = la valeur du premier pointeur SDL_window *window
-//**window = la valeur pointé par le premier pointeur (les donnèes de la struct)
+	//window = l'adresse du pointeur 
+	//*window = la valeur du premier pointeur SDL_window *window
+	//**window = la valeur pointé par le premier pointeur (les donnèes de la struct)
 
 	*window = SDL_CreateWindow(
 			titre,
@@ -85,7 +85,7 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 		return-1;
 	}
 
-	 *renderer = SDL_CreateRenderer(*window, -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	*renderer = SDL_CreateRenderer(*window, -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 
 	if(*renderer == NULL)
@@ -104,7 +104,7 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 		}
 
 	}
-	
+
 	if(TTF_Init() == -1)
 	{
 		printf("⛔ Impossible d'intialiser la TTF : TTF error : %s\n",TTF_GetError());
@@ -116,9 +116,9 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 		printf("✅ TTF initialisée avec succés !\n");
 	}
 
-	
+
 	SDL_SetWindowMinimumSize(*window,gameWidth,gameHeight);
-        SDL_RenderSetLogicalSize(*renderer,gameWidth,gameHeight);
+	SDL_RenderSetLogicalSize(*renderer,gameWidth,gameHeight);
 	SDL_RenderSetIntegerScale(*renderer,SDL_TRUE);
 	SDL_SetRenderDrawBlendMode(*renderer,SDL_BLENDMODE_BLEND);
 }
@@ -184,15 +184,15 @@ SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path)
 }
 //on a besoin d'une fonction qui defini le rectangle de destinantion puis l'affiche
 
-void cc2d_Draw(CC2D_Texture image ,SDL_Renderer* renderer,int x,int y,int a)
+void cc2d_Draw(SDL_Renderer* renderer,CC2D_Texture image)
 {
 
 	SDL_Rect rectDst;
-	rectDst.x = x;
-	rectDst.y = y;
+	rectDst.x = image.x;
+	rectDst.y = image.y;
 	rectDst.w = image.Width;
 	rectDst.h = image.Height;
-	SDL_SetTextureAlphaMod(image.texture,a);
+	SDL_SetTextureAlphaMod(image.texture,image.a);
 	SDL_RenderCopy(renderer,image.texture,NULL,&rectDst);
 }
 
@@ -216,7 +216,7 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps)
 {
 	//le temps écoulé pour afficher une image
 	Uint32 frameTime = SDL_GetTicks() - frameStart;
-//	printf("frameTime = %.6f\n",(double)frameTime / 1000 );
+	//	printf("frameTime = %.6f\n",(double)frameTime / 1000 );
 
 	//temps par frame rechercher 
 	Uint32 targetFrameTime = 1000.0 / fps;
@@ -238,7 +238,7 @@ void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps)
 	//on convertis le frame time en senconde
 	double sFrameTime =(double)frameTime / SDL_GetPerformanceFrequency();
 
-//	printf("frameTime = %.6f\n",sFrameTime);
+	//	printf("frameTime = %.6f\n",sFrameTime);
 
 	double targetFrameTime = 1.0 / fps;
 
@@ -256,38 +256,40 @@ void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps)
 }
 
 
-void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Font* font)
-{/*
+void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps)
+{
 
-	if(strcmp(perf,"timer")== 0)
+	if(strcmp(perf,"timer")== 0)  
 	{
-                 //affichage timer 
-		char elpdTime[100];
-		sprintf(elpdTime,"TIME : %.6f",Vperf); //Vperf = framestart
-		CC2D_Texture ElapsedTime;
-		ElapsedTime.texture = cc2d_textureTexte(elpdTime,renderer,font,125,125,255,255,255,255);
-		cc2d_Draw(ElapsedTime,renderer,1700,0,255);
-		SDL_DestroyTexture(ElapsedTime.texture);
-		
+		sprintf(texte->charTexte,"timer : %.6f\n",valeurDeTemps);
+		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
+
+		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
+		{
+			printf("TTF_SizeText Error : %s\n",TTF_GetError());
+		}	
+		cc2d_textureTexte(renderer,&timer);                                          
+		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
+		cc2d_DrawTexte(renderer,timer);
 	}	
 	else
 	{
 		printf("unknown mode\n");
 	}
-	*/
+
 }
-	
+
 void loadBar()
 {
 	// Boucle pour afficher la barre de chargement
-    for (int i = 0; i < 10; i++) 
-    {
-        // Affiche le caractère en vert clair
-        printf("\033[1;92m▓\033[0m");  // \033[1;92m est pour le vert clair (bright green)
-        fflush(stdout);  // Assure que le caractère s'affiche sans délai
-        usleep(100000);  // Pause de 100000 microsecondes (0,1 seconde)
-    }
+	for (int i = 0; i < 10; i++) 
+	{
+		// Affiche le caractère en vert clair
+		printf("\033[1;92m▓\033[0m");  // \033[1;92m est pour le vert clair (bright green)
+		fflush(stdout);  // Assure que le caractère s'affiche sans délai
+		usleep(100000);  // Pause de 100000 microsecondes (0,1 seconde)
+	}
 	printf("\n");
 }
 
-	
+

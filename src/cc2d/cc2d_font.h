@@ -26,6 +26,7 @@ typedef struct CC2D_Texte
 //variables
 
 extern CC2D_Texte titre;
+extern CC2D_Texte timer;
 
 //fontions
 

@@ -44,23 +44,30 @@ CC2D_Texte titre = {
 .height = 0,
 };
 
-
-
-//intialisation graphics
-CC2D_Texture idiana = {
+CC2D_Texte timer = {
+.font = NULL,
 .texture = NULL,
+.charTexte = NULL,
+.color.r = 255,
+.color.g = 255,
+.color.b = 255,
+.color.a = blend,
+.fontSize = 50,
 .x = 0,
 .y = 0,
-.Width = 0,
-.Height = 0,
+.width = 0,
+.height = 0,
 };
 
-CC2D_Texture mini = {
+
+//intialisation graphics                      pour obtenir centre faire :( windowW - windowH ) / 2
+CC2D_Texture indiana = {
 .texture = NULL,
 .x = 0,
-.y = 0,
+.y =488 ,                          
 .Width = 0,
 .Height = 0,
+.a = blend,
 };
 
 //initialisatioon des valeurs de temps
