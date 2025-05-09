@@ -14,7 +14,40 @@ typedef struct CC2D_Texture
 	int Height;
 }CC2D_Texture;
 
-void loadBar();
+//intialisation des valeurs Alpha
+extern const int blend ;
+extern const int semi_blend ;
+extern  const int alpha ;
+
+//initialisation SDL + Fenetre
+
+
+extern SDL_Window* window;
+extern SDL_Renderer* renderer;
+
+
+extern int windowW ;
+extern int windowH ;
+extern int gameWidth ;
+extern int gameHeight ;
+
+
+//intialisation des objets graphics
+extern CC2D_Texture idiana;
+extern CC2D_Texture mini;
+
+
+//initialisatioon des valeurs de temps
+extern Uint32 frameStart ;
+extern Uint32 now ;
+extern float deltaTime ;
+extern float elapsedTime ;
+
+//initialisation des valeurs precises
+extern Uint64 precise_fst ;
+extern Uint64 P_now;
+extern double precise_dt ;
+extern double precise_elapse ;
 
 int cc2d_init();
 
@@ -41,4 +74,6 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps);
 void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps);
 
 void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Font* font);
+
+void loadBar();
 #endif

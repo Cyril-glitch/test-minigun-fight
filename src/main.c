@@ -1,13 +1,23 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "cc2d/main.h" 
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+
+#include "cc2d/cc2d_graphics.h"
+#include "cc2d/cc2d_font.h"
+#include "cc2d/cc2d_game.h"
+#include "cc2d/cc2d_keyboard.h"
 
 int main( int agrc , const char argv [])
 { 
+	int true = 1;
+
 
 	//intialisation SDL puis fenetre de jeu
 	cc2d_init();
-	cc2d_init_window("window test",windowWidth,windowHeight,gameWidth,gameHeight,&renderer,&window);
+	cc2d_init_window("window test",windowW,windowH,gameWidth,gameHeight,&renderer,&window);
 
 	//chargement des textures
 	cc2d_gameLoad();
@@ -25,15 +35,15 @@ int main( int agrc , const char argv [])
 		}
 		//dessins
 
+		cc2d_DrawTexte(renderer,titre);
+		cc2d_Draw(idiana,renderer,0,0,255);
 
-		cc2d_Draw(titre.texture,renderer,0,0,planetWidth,planetHeight,blend);
-//		cc2d_Draw(titre,renderer,titre.x,titre.y,blend);
 
-		//	cc2d_printPerf("Pfps",precise_dt,renderer,retroFont);      //affichage des performances
+
+
 
 		cc2d_enddraw(renderer);    //affiche le rendu
 
-		//	cc2d_Precise_FpsLimiter(precise_fst ,60);
 
 	}
 

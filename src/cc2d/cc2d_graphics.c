@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <unistd.h>
+
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
 
@@ -256,7 +257,7 @@ void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps)
 
 
 void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Font* font)
-{
+{/*
 
 	if(strcmp(perf,"timer")== 0)
 	{
@@ -273,6 +274,7 @@ void cc2d_printPerf(const char* perf,double Vperf,SDL_Renderer* renderer,TTF_Fon
 	{
 		printf("unknown mode\n");
 	}
+	*/
 }
 	
 void loadBar()

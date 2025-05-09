@@ -4,11 +4,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
+//initialisation des objets textuels
+
 typedef struct CC2D_Texte
 {
-	TTF_font* font;
+	TTF_Font* font;
 	SDL_Texture* texture;
 	SDL_Color color;
+	char * charTexte;
 	int r;
 	int g;
 	int b;
@@ -18,13 +21,22 @@ typedef struct CC2D_Texte
 	int y;
 	int width;
 	int height;
-	int centerX;
-	int centerY;
 }CC2D_Texte;
 
-TTF_Font* cc2d_loadFont(const char* path ,CC2D_Texte texte);
+//variables
 
-SDL_Texture* cc2d_textureTexte(char* texte ,SDL_Renderer* renderer,TTF_Font* font,CC2D_texte texte);
+extern CC2D_Texte titre;
+
+//fontions
+
+int cc2d_loadFont(const char* path ,CC2D_Texte* texte);
+
+int cc2d_textureTexte(SDL_Renderer* renderer,CC2D_Texte* texte);
+
+int cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte);
+
+int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,SDL_Window* windoWidth,SDL_Window* windowHeight);
+
 
 #endif
 

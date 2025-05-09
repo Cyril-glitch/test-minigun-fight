@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -23,34 +23,45 @@ SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
 
-int windowWidth = 1000;
-int windowHeight = 1000;
+int windowW = 1000;
+int windowH = 1000;
 int gameWidth = 1000;
 int gameHeight = 1000;
 
 //initialisation des objets textuels
-CC2D_Texte titre;
-titre.font = NULL;
-titre.texture = NULL;
-titre.color = {r,g,b,a};
-titre.r = 0;
-titre.g = 0;
-titre.b = 0;
-titre.a = blend;
-titre.fontSize = 50;
-titre.centerX = 0;
-titre.centerY = 0;
-titre.width = 0;
-titre.height = 0;
-/*
-//intialisation graphics
-CC2D_Texture idiana;
-idiana.texture = NULL;
-idiana.x = 0;
-idiana.y = 0;
-idiana.Width = 0;
-idiana.Height = 0;
+CC2D_Texte titre = {
+.font = NULL,
+.texture = NULL,
+.charTexte = "Mini-Gun-Fight",
+.color.r = 255,
+.color.g = 255,
+.color.b = 255,
+.color.a = blend,
+.fontSize = 50,
+.x = 0,
+.y = 0,
+.width = 0,
+.height = 0,
+};
 
+
+
+//intialisation graphics
+CC2D_Texture idiana = {
+.texture = NULL,
+.x = 0,
+.y = 0,
+.Width = 0,
+.Height = 0,
+};
+
+CC2D_Texture mini = {
+.texture = NULL,
+.x = 0,
+.y = 0,
+.Width = 0,
+.Height = 0,
+};
 
 //initialisatioon des valeurs de temps
 Uint32 frameStart = 0;
