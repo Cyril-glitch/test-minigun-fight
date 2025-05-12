@@ -5,7 +5,7 @@
 #define CC2D_GRAPHICS_H
 
 //création des objets
-typedef struct CC2D_Texture
+typedef struct CC2D_Image
 {
 	SDL_Texture* texture;
 	int x;
@@ -13,7 +13,7 @@ typedef struct CC2D_Texture
 	int Width;
 	int Height;
 	int a; 
-}CC2D_Texture;
+}CC2D_Image;
 
 //intialisation des valeurs Alpha
 extern const int blend ;
@@ -34,8 +34,7 @@ extern int gameHeight ;
 
 
 //intialisation des objets graphics
-extern CC2D_Texture indiana;
-extern CC2D_Texture mini;
+extern CC2D_Image indiana;
 
 
 //initialisatioon des valeurs de temps
@@ -60,9 +59,9 @@ void cc2d_enddraw(SDL_Renderer* renderer);
 
 int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeigh,SDL_Renderer** renderer,SDL_Window** window);
 
-SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path);
+int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
-void cc2d_Draw(SDL_Renderer* renderer,CC2D_Texture image);
+void cc2d_Draw(SDL_Renderer* renderer,CC2D_Image image);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 

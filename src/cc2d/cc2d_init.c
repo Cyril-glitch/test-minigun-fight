@@ -60,7 +60,7 @@ CC2D_Texte timer = {
 
 
 //intialisation graphics                      pour obtenir centre faire :( windowW - windowH ) / 2
-CC2D_Texture indiana = {
+CC2D_Image indiana = {
 .texture = NULL,
 .x = 0,
 .y =488 ,                          

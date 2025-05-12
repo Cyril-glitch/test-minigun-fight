@@ -21,11 +21,11 @@ int cc2d_loadFont(const char* path ,CC2D_Texte* texte)
 
 	}
 
-/*        if((TTF_SizeText(texte->font,texte->charTexte, &texte->width, &texte->height)) != 0)  
+        if((TTF_SizeText(texte->font,texte->charTexte, &texte->width, &texte->height)) != 0)  
 	{
 			printf("TTF_SizeText Error : %s\n",TTF_GetError());
 	}	
-*/
+
 	return 0;
 }
 
@@ -41,6 +41,7 @@ int cc2d_textureTexte(SDL_Renderer* renderer,CC2D_Texte* texte)
 	else
 	{
 		texte->texture = SDL_CreateTextureFromSurface(renderer,surface);
+		SDL_QueryTexture(texte->texture,NULL, NULL, &timer.width,&timer.height);    
 
 		if(texte->texture == NULL)
 		{
@@ -49,6 +50,7 @@ int cc2d_textureTexte(SDL_Renderer* renderer,CC2D_Texte* texte)
 		}
 	
 	}
+
 	SDL_FreeSurface(surface);
 
 	return 0;

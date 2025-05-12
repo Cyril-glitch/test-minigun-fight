@@ -50,4 +50,5 @@ int main( int agrc , const char argv [])
 	}
 
 	cc2d_close(window,renderer);       //libere la memoire
+	cc2d_gameClose();
 }

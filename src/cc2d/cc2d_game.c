@@ -14,20 +14,10 @@ void cc2d_gameLoad(void)
 	
 	//chargement des textes et fonts
 	cc2d_loadFont("../font/PixelMaster.ttf",&titre);      //charge la font dans l'objet de texte
-
-	if((TTF_SizeText(titre.font,titre.charTexte, &titre.width, &titre.height)) != 0)  //crée sa taille logique
-	{
-		printf("TTF_SizeText Error : %s\n",TTF_GetError());
-	}	
-        cc2d_textureTexte(renderer,&titre);                                          //crée sa texture 
-	SDL_QueryTexture(titre.texture,NULL, NULL, &titre.width,&titre.height);     //recupere ses dimensions originals
+	cc2d_textureTexte(renderer,&titre);                                          //crée sa texture 
 	
-
 	//chargement des textures Graphiques
-	indiana.texture = cc2d_loadImage(renderer,"../img/indiana.png");             //crèe la texture
-	SDL_QueryTexture(indiana.texture, NULL, NULL, &indiana.Width, &indiana.Height); //recupere les dimensions orig
-
-
+	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
 }
 
 void cc2d_gameUpdate(void)
@@ -45,15 +35,23 @@ void cc2d_gameUpdate(void)
 	precise_dt = (double)(P_now - precise_fst) / SDL_GetPerformanceFrequency();
 	precise_fst = P_now ;
 }
-
 void cc2d_gameDraw(void)
 {
 
 }
+
 void cc2d_gameClose(void)
 {
+	//fermeture des textures
 
    SDL_DestroyTexture(indiana.texture);
+   indiana.texture = NULL;
    SDL_DestroyTexture(titre.texture);
+   titre.texture = NULL;
+
+   //fermeture des fonts
+
+   TTF_CloseFont(titre.font);
+   titre.font = NULL;
 }
 

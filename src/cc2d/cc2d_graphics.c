@@ -63,7 +63,7 @@ void cc2d_close(SDL_Renderer* renderer,SDL_Window* window)
 }
 
 
-int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeight,SDL_Renderer** renderer,SDL_Window** window)
+int cc2d_init_window(char* timer,int width,int height,int gameWidth,int gameHeight,SDL_Renderer** renderer,SDL_Window** window)
 {
 
 	//window = l'adresse du pointeur 
@@ -71,7 +71,7 @@ int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeig
 	//**window = la valeur pointé par le premier pointeur (les donnèes de la struct)
 
 	*window = SDL_CreateWindow(
-			titre,
+			timer,
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
 			width,
@@ -166,25 +166,26 @@ SDL_Texture* quickLoadTexture(SDL_Renderer *renderer,char* path)
 	return texture;
 }
 
-SDL_Texture* cc2d_loadImage(SDL_Renderer *renderer,const char* path)
+int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image)
 {
-	SDL_Texture* texture = IMG_LoadTexture(renderer,path);
+	image->texture = IMG_LoadTexture(renderer,path);
 
 
-	if(texture == NULL)
+	if(image->texture == NULL)
 	{
 		printf("SDL can't creat texture From %s error : %s\n",path,IMG_GetError());
-
-
-
+		return -1;
 	}
-
-	return texture;
+	else
+	{
+		SDL_QueryTexture(image->texture, NULL, NULL, &image->Width, &image->Height); 
+		return 0;
+	}
 
 }
 //on a besoin d'une fonction qui defini le rectangle de destinantion puis l'affiche
 
-void cc2d_Draw(SDL_Renderer* renderer,CC2D_Texture image)
+void cc2d_Draw(SDL_Renderer* renderer,CC2D_Image image)
 {
 
 	SDL_Rect rectDst;
@@ -266,16 +267,13 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 
 		sprintf(texte->charTexte,"timer : %.3f",valeurDeTemps);
 
-		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
-		{
-			printf("TTF_SizeText Error : %s\n",TTF_GetError());
-		}	
 		cc2d_textureTexte(renderer,&timer);                                          
-		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
 		cc2d_DrawTexte(renderer,timer);
 
 		TTF_CloseFont(timer.font);
+		timer.font = NULL;
 		SDL_DestroyTexture(timer.texture);
+		timer.texture = NULL;
 
 	}	
 	if(strcmp(perf,"deltaTime")== 0)  
@@ -285,16 +283,14 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 
 		sprintf(texte->charTexte,"deltatime : %.3f",valeurDeTemps);
 
-		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
-		{
-			printf("TTF_SizeText Error : %s\n",TTF_GetError());
-		}	
 		cc2d_textureTexte(renderer,&timer);                                          
-		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
 		cc2d_DrawTexte(renderer,timer);
 
 		TTF_CloseFont(timer.font);
+		timer.font = NULL;
 		SDL_DestroyTexture(timer.texture);
+		timer.texture = NULL;
+
 
 	}
 	if(strcmp(perf,"fps")== 0)  
@@ -302,19 +298,16 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 
 		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
 
-		sprintf(texte->charTexte,"fps : %.3f", 1.0 / valeurDeTemps);
+		sprintf(texte->charTexte,"fps : %.3f", 1.0 / valeurDeTemps);		
 
-		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
-		{
-			printf("TTF_SizeText Error : %s\n",TTF_GetError());
-		}	
 		cc2d_textureTexte(renderer,&timer);                                          
-		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
 		cc2d_DrawTexte(renderer,timer);
 
-		TTF_CloseFont(timer.font);
-		SDL_DestroyTexture(timer.texture);
 
+		TTF_CloseFont(timer.font);
+		timer.font = NULL;
+		SDL_DestroyTexture(timer.texture);
+		timer.texture = NULL;
 	}
 	else
 	{
