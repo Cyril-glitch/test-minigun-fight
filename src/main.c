@@ -38,7 +38,7 @@ int main( int agrc , const char argv [])
 		cc2d_DrawTexte(renderer,titre);
 		cc2d_Draw(renderer,indiana);
 
-		cc2d_printPerf("timer",renderer,&timer,frameStart);
+		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
 
 

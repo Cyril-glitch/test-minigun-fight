@@ -261,8 +261,10 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 
 	if(strcmp(perf,"timer")== 0)  
 	{
-		sprintf(texte->charTexte,"timer : %.6f\n",valeurDeTemps);
+
 		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
+
+		sprintf(texte->charTexte,"timer : %.3f",valeurDeTemps);
 
 		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
 		{
@@ -271,7 +273,49 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		cc2d_textureTexte(renderer,&timer);                                          
 		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
 		cc2d_DrawTexte(renderer,timer);
+
+		TTF_CloseFont(timer.font);
+		SDL_DestroyTexture(timer.texture);
+
 	}	
+	if(strcmp(perf,"deltaTime")== 0)  
+	{
+
+		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
+
+		sprintf(texte->charTexte,"deltatime : %.3f",valeurDeTemps);
+
+		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
+		{
+			printf("TTF_SizeText Error : %s\n",TTF_GetError());
+		}	
+		cc2d_textureTexte(renderer,&timer);                                          
+		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
+		cc2d_DrawTexte(renderer,timer);
+
+		TTF_CloseFont(timer.font);
+		SDL_DestroyTexture(timer.texture);
+
+	}
+	if(strcmp(perf,"fps")== 0)  
+	{
+
+		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
+
+		sprintf(texte->charTexte,"fps : %.3f", 1.0 / valeurDeTemps);
+
+		if((TTF_SizeText(timer.font,timer.charTexte, &timer.width, &timer.height)) != 0)  
+		{
+			printf("TTF_SizeText Error : %s\n",TTF_GetError());
+		}	
+		cc2d_textureTexte(renderer,&timer);                                          
+		SDL_QueryTexture(timer.texture,NULL, NULL, &timer.width,&timer.height);    
+		cc2d_DrawTexte(renderer,timer);
+
+		TTF_CloseFont(timer.font);
+		SDL_DestroyTexture(timer.texture);
+
+	}
 	else
 	{
 		printf("unknown mode\n");

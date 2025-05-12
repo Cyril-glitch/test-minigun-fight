@@ -21,6 +21,11 @@ int cc2d_loadFont(const char* path ,CC2D_Texte* texte)
 
 	}
 
+/*        if((TTF_SizeText(texte->font,texte->charTexte, &texte->width, &texte->height)) != 0)  
+	{
+			printf("TTF_SizeText Error : %s\n",TTF_GetError());
+	}	
+*/
 	return 0;
 }
 

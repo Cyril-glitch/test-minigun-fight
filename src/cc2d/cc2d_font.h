@@ -11,7 +11,7 @@ typedef struct CC2D_Texte
 	TTF_Font* font;
 	SDL_Texture* texture;
 	SDL_Color color;
-	char * charTexte;
+	char charTexte[100];
 	int r;
 	int g;
 	int b;

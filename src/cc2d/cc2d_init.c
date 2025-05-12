@@ -47,13 +47,12 @@ CC2D_Texte titre = {
 CC2D_Texte timer = {
 .font = NULL,
 .texture = NULL,
-.charTexte = NULL,
 .color.r = 255,
 .color.g = 255,
 .color.b = 255,
 .color.a = blend,
 .fontSize = 50,
-.x = 0,
+.x = 785,
 .y = 0,
 .width = 0,
 .height = 0,
@@ -73,8 +72,8 @@ CC2D_Texture indiana = {
 //initialisatioon des valeurs de temps
 Uint32 frameStart = 0;
 Uint32 now = 0 ;
-float deltaTime = 0 ;
-float elapsedTime = 0 ;
+double deltaTime = 0 ;
+double elapsedTime = 0 ;
 
 //initialisation des valeurs precises
 Uint64 precise_fst = 0;

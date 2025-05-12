@@ -41,8 +41,8 @@ extern CC2D_Texture mini;
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;
 extern Uint32 now ;
-extern float deltaTime ;
-extern float elapsedTime ;
+extern double deltaTime ;
+extern double elapsedTime ;
 
 //initialisation des valeurs precises
 extern Uint64 precise_fst ;
