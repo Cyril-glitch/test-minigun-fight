@@ -1,15 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <unistd.h>
 
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
-
-
 
 int cc2d_init()
 {
@@ -63,29 +59,28 @@ void cc2d_close(SDL_Renderer* renderer,SDL_Window* window)
 }
 
 
-int cc2d_init_window(char* timer,int width,int height,int gameWidth,int gameHeight,SDL_Renderer** renderer,SDL_Window** window)
+int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,int gameHeight)
 {
 
 	//window = l'adresse du pointeur 
-	//*window = la valeur du premier pointeur SDL_window *window
-	//**window = la valeur pointé par le premier pointeur (les donnèes de la struct)
+	//window->sdlWindow = la valeur du premier pointeur SDL_window *window
+	//*window->sdlWindow = la valeur pointé par le premier pointeur (les donnèes de la struct)
 
-	*window = SDL_CreateWindow(
-			timer,
-			SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED,
-			width,
-			height,
-			SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
-			);
+	window->sdlWindow = SDL_CreateWindow(
+			window->titreWindow,
+			window->x,
+			window->y,
+			window->width,
+			window->height,
+			window->flags);
 
-	if(*window == NULL)
+	if(window->sdlWindow == NULL)
 	{
 		printf("⛔ Impossible de créer la fenetre %s\n",SDL_GetError());
 		return-1;
 	}
 
-	*renderer = SDL_CreateRenderer(*window, -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	*renderer = SDL_CreateRenderer(window->sdlWindow, -1 , SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 
 	if(*renderer == NULL)
@@ -117,7 +112,7 @@ int cc2d_init_window(char* timer,int width,int height,int gameWidth,int gameHeig
 	}
 
 
-	SDL_SetWindowMinimumSize(*window,gameWidth,gameHeight);
+	SDL_SetWindowMinimumSize(window->sdlWindow,gameWidth,gameHeight);
 	SDL_RenderSetLogicalSize(*renderer,gameWidth,gameHeight);
 	SDL_RenderSetIntegerScale(*renderer,SDL_TRUE);
 	SDL_SetRenderDrawBlendMode(*renderer,SDL_BLENDMODE_BLEND);

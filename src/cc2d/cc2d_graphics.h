@@ -1,8 +1,8 @@
+#ifndef CC2D_GRAPHICS_H 
+#define CC2D_GRAPHICS_H
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "cc2d_font.h"
-#ifndef CC2DD_GRAPHICS_H 
-#define CC2D_GRAPHICS_H
 
 //création des objets
 typedef struct CC2D_Image
@@ -13,8 +13,24 @@ typedef struct CC2D_Image
 	int Width;
 	int Height;
 	int a; 
+
 }CC2D_Image;
 
+typedef struct CC2D_Window 
+{
+SDL_Window* sdlWindow;
+const char* titreWindow;
+int x;
+int y;
+int width ;
+int height ;
+Uint32 flags ;
+}CC2D_Window;
+
+//forward declartions 
+typedef struct CC2D_Texte CC2D_Texte;
+
+//variables
 //intialisation des valeurs Alpha
 extern const int blend ;
 extern const int semi_blend ;
@@ -23,12 +39,10 @@ extern  const int alpha ;
 //initialisation SDL + Fenetre
 
 
-extern SDL_Window* window;
+extern CC2D_Window myWindow;
 extern SDL_Renderer* renderer;
 
 
-extern int windowW ;
-extern int windowH ;
 extern int gameWidth ;
 extern int gameHeight ;
 
@@ -57,7 +71,7 @@ int cc2d_beginDraw(SDL_Renderer* renderer);
 
 void cc2d_enddraw(SDL_Renderer* renderer);
 
-int cc2d_init_window(char* titre,int width,int height,int gameWidth,int gameHeigh,SDL_Renderer** renderer,SDL_Window** window);
+int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,int gameHeight);
 
 int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
@@ -73,8 +87,8 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps);
 
 void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps);
 
-
 void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps);
 
 void loadBar();
+
 #endif

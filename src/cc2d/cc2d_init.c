@@ -1,12 +1,6 @@
-
-#include <stdlib.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include "cc2d_graphics.h"
-#include "cc2d_font.h"
 #include "cc2d_keyboard.h"
-
+#include "cc2d_font.h"
 
 //intialisation de la condition de boucle
 
@@ -19,12 +13,18 @@ const int alpha = 0;
 
 //initialisation SDL + Fenetre
 
-SDL_Window* window = NULL;
+CC2D_Window myWindow = {
+.sdlWindow = NULL,
+.titreWindow = "Mini-Gun-Fight", 
+.x = SDL_WINDOWPOS_CENTERED,
+.y = SDL_WINDOWPOS_CENTERED,
+.width = 1000,
+.height = 1000,
+.flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE ,
+};
+
 SDL_Renderer* renderer = NULL;
 
-
-int windowW = 1000;
-int windowH = 1000;
 int gameWidth = 1000;
 int gameHeight = 1000;
 

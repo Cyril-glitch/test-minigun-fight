@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <SDL2/SDL.h>
+
 #include "cc2d_keyboard.h"
 
 int cc2d_downKey(SDL_Scancode key)

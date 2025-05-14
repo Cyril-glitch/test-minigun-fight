@@ -23,6 +23,9 @@ typedef struct CC2D_Texte
 	int height;
 }CC2D_Texte;
 
+//forward declartions 
+typedef struct CC2D_Window CC2D_Window;
+
 //variables
 
 extern CC2D_Texte titre;
@@ -36,7 +39,7 @@ int cc2d_textureTexte(SDL_Renderer* renderer,CC2D_Texte* texte);
 
 int cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte);
 
-int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,SDL_Window* windoWidth,SDL_Window* windowHeight);
+int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,CC2D_Window* window);
 
 
 #endif

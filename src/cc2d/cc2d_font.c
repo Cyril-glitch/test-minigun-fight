@@ -1,13 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
 #include "cc2d_font.h"
 #include "cc2d_graphics.h"
-
 
 
 int cc2d_loadFont(const char* path ,CC2D_Texte* texte)
@@ -80,13 +78,14 @@ int cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte)
 
 }
 
-int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,SDL_Window* windoWidth,SDL_Window* windowHeight)
+int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,CC2D_Window* window)
 {
+	
 
 
 	SDL_Rect rectDst;
-	rectDst.x = (windowW - texte.x) / 2 ;
-	rectDst.y =  (windowH - texte.y) / 2 ;
+	rectDst.x = (window->width - texte.x) / 2 ;
+	rectDst.y =  (window->height - texte.y) / 2 ;
 	
 	rectDst.w = texte.width;
 	rectDst.h = texte.height;

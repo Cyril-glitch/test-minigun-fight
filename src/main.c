@@ -1,10 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-
 #include "cc2d/cc2d_graphics.h"
 #include "cc2d/cc2d_font.h"
 #include "cc2d/cc2d_game.h"
@@ -17,7 +10,8 @@ int main( int agrc , const char argv [])
 
 	//intialisation SDL puis fenetre de jeu
 	cc2d_init();
-	cc2d_init_window("window test",windowW,windowH,gameWidth,gameHeight,&renderer,&window);
+	cc2d_init_window(&myWindow,&renderer,gameWidth,gameHeight);
+	
 
 	//chargement des textures
 	cc2d_gameLoad();
@@ -49,6 +43,6 @@ int main( int agrc , const char argv [])
 
 	}
 
-	cc2d_close(window,renderer);       //libere la memoire
+	cc2d_close(myWindow.sdlWindow,renderer);       //libere la memoire
 	cc2d_gameClose();
 }
