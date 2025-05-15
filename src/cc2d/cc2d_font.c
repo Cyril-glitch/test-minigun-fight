@@ -53,7 +53,7 @@ int cc2d_textureTexte(SDL_Renderer* renderer,CC2D_Texte* texte)
 
 	return 0;
 }
-int cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte)
+int cc2d_drawTexte(SDL_Renderer* renderer,CC2D_Texte texte)
 {
 
 
@@ -78,7 +78,7 @@ int cc2d_DrawTexte(SDL_Renderer* renderer,CC2D_Texte texte)
 
 }
 
-int cc2d_DrawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,CC2D_Window* window)
+int cc2d_drawCenteredTexte(SDL_Renderer* renderer,CC2D_Texte texte,CC2D_Window* window)
 {
 	
 

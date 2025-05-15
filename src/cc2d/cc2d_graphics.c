@@ -54,6 +54,7 @@ void cc2d_close(SDL_Renderer* renderer,SDL_Window* window)
 	SDL_DestroyWindow(window);
 	IMG_Quit();
 	SDL_Quit();
+	TTF_Quit();
 
 	printf("🔒 Fermeture du programme\n");
 }
@@ -173,23 +174,18 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image)
 	}
 	else
 	{
-		SDL_QueryTexture(image->texture, NULL, NULL, &image->Width, &image->Height); 
+		SDL_QueryTexture(image->texture, NULL, NULL, &image->width, &image->height); 
 		return 0;
 	}
 
 }
 //on a besoin d'une fonction qui defini le rectangle de destinantion puis l'affiche
 
-void cc2d_Draw(SDL_Renderer* renderer,CC2D_Image image)
+void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image)
 {
 
-	SDL_Rect rectDst;
-	rectDst.x = image.x;
-	rectDst.y = image.y;
-	rectDst.w = image.Width;
-	rectDst.h = image.Height;
 	SDL_SetTextureAlphaMod(image.texture,image.a);
-	SDL_RenderCopy(renderer,image.texture,NULL,&rectDst);
+	SDL_RenderCopy(renderer,image.texture,NULL,&image.rectDst);
 }
 
 void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w , int h)
@@ -204,6 +200,12 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 	{
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
+}
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image)
+{	
+
+	SDL_SetTextureAlphaMod(image.texture,image.a);
+	SDL_RenderCopy(renderer,image.texture,&image.rectSrc,&image.rectDst);
 }
 
 
@@ -263,7 +265,7 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		sprintf(texte->charTexte,"timer : %.3f",valeurDeTemps);
 
 		cc2d_textureTexte(renderer,&timer);                                          
-		cc2d_DrawTexte(renderer,timer);
+		cc2d_drawTexte(renderer,timer);
 
 		TTF_CloseFont(timer.font);
 		timer.font = NULL;
@@ -279,7 +281,7 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		sprintf(texte->charTexte,"deltatime : %.3f",valeurDeTemps);
 
 		cc2d_textureTexte(renderer,&timer);                                          
-		cc2d_DrawTexte(renderer,timer);
+		cc2d_drawTexte(renderer,timer);
 
 		TTF_CloseFont(timer.font);
 		timer.font = NULL;
@@ -296,7 +298,7 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		sprintf(texte->charTexte,"fps : %.3f", 1.0 / valeurDeTemps);		
 
 		cc2d_textureTexte(renderer,&timer);                                          
-		cc2d_DrawTexte(renderer,timer);
+		cc2d_drawTexte(renderer,timer);
 
 
 		TTF_CloseFont(timer.font);

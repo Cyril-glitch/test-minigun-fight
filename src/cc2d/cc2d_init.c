@@ -18,15 +18,35 @@ CC2D_Window myWindow = {
 .titreWindow = "Mini-Gun-Fight", 
 .x = SDL_WINDOWPOS_CENTERED,
 .y = SDL_WINDOWPOS_CENTERED,
-.width = 1000,
-.height = 1000,
+.width = 1024,
+.height = 768,
 .flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE ,
 };
 
 SDL_Renderer* renderer = NULL;
 
-int gameWidth = 1000;
-int gameHeight = 1000;
+int gameWidth = 512;
+int gameHeight = 384;
+
+
+//intialisation graphics                      pour obtenir centre faire :( windowW - image.x ) / 2
+CC2D_Image indiana = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 25,
+.rectSrc.h = 24, 
+
+.rectDst.x = 0,
+.rectDst.y = 179.5,
+.rectDst.w = 50,
+.rectDst.h = 48, 
+
+.width = 50,
+.height = 48,
+.a = blend,
+};
+
 
 //initialisation des objets textuels
 CC2D_Texte titre = {
@@ -58,16 +78,6 @@ CC2D_Texte timer = {
 .height = 0,
 };
 
-
-//intialisation graphics                      pour obtenir centre faire :( windowW - windowH ) / 2
-CC2D_Image indiana = {
-.texture = NULL,
-.x = 0,
-.y =488 ,                          
-.Width = 0,
-.Height = 0,
-.a = blend,
-};
 
 //initialisatioon des valeurs de temps
 Uint32 frameStart = 0;

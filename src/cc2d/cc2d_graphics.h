@@ -8,10 +8,13 @@
 typedef struct CC2D_Image
 {
 	SDL_Texture* texture;
+	SDL_Rect rectSrc;
+	SDL_Rect rectDst;
+
 	int x;
 	int y;
-	int Width;
-	int Height;
+	int width;
+	int height;
 	int a; 
 
 }CC2D_Image;
@@ -75,7 +78,9 @@ int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,i
 
 int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
-void cc2d_Draw(SDL_Renderer* renderer,CC2D_Image image);
+void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
+
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
