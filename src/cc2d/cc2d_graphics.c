@@ -201,11 +201,22 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
 }
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image)
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,int* frame)
 {	
+	if(image->rectSrc.x <= (image->rectSrc.w * 15))
+	{
+		image->rectSrc.x = (image->rectSrc.w) *(*frame);
+		(*frame)++;
+	}
 
-	SDL_SetTextureAlphaMod(image.texture,image.a);
-	SDL_RenderCopy(renderer,image.texture,&image.rectSrc,&image.rectDst);
+
+
+	SDL_SetTextureAlphaMod(image->texture,image->a);        
+	SDL_RenderCopy(renderer,image->texture,&image->rectSrc,&image->rectDst); 
+
+	//on defini l'opacité de l'image a partir de sa texture
+	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
+
 }
 
 

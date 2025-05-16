@@ -52,7 +52,7 @@ extern int gameHeight ;
 
 //intialisation des objets graphics
 extern CC2D_Image indiana;
-
+extern int frame;
 
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;
@@ -80,7 +80,7 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image);
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,int* frame);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 

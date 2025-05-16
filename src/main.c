@@ -21,7 +21,7 @@ int main( int agrc , const char argv [])
 	{
 		cc2d_gameUpdate();                                        //depart du comptage des valeurs de temps
 
-		SDL_SetRenderDrawColor(renderer,0,0,10,255);               //initialise le render en bleu
+		SDL_SetRenderDrawColor(renderer,0,0,0,255);               //initialise le render en bleu
 
 		if(cc2d_beginDraw(renderer) == 0 )                         //efface le rendu ,initialise le poll event 
 		{
@@ -30,10 +30,13 @@ int main( int agrc , const char argv [])
 		//dessins
 
 		cc2d_drawTexte(renderer,titre);
-//		cc2d_draw(renderer,indiana);
-		cc2d_drawQuad(renderer,indiana);
 
+
+		cc2d_drawQuad(renderer,&indiana,&frame);
+
+		cc2d_fpsLimiter(frameStart,5);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
+
 
 		cc2d_enddraw(renderer);    //affiche le rendu
 

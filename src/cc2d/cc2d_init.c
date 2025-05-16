@@ -46,7 +46,7 @@ CC2D_Image indiana = {
 .height = 48,
 .a = blend,
 };
-
+int frame = 0;
 
 //initialisation des objets textuels
 CC2D_Texte titre = {
@@ -71,8 +71,8 @@ CC2D_Texte timer = {
 .color.g = 255,
 .color.b = 255,
 .color.a = blend,
-.fontSize = 50,
-.x = 785,
+.fontSize = 12.5,
+.x = 455,
 .y = 0,
 .width = 0,
 .height = 0,
