@@ -47,8 +47,16 @@ CC2D_Image indiana = {
 .a = blend,
 };
 
-//variables graphics
+Anime animeIndiana[] ={
+{0,7,0.1f},
+{8,11,0.1f},
+{12,16,0.1f}
+};
 
+
+
+
+//variables graphics
 float frame = 0;
 
 //initialisation des objets textuels

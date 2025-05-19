@@ -201,21 +201,23 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
 }
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,float *frame)
+
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,Anime animIndiana[],int state, float *frame)
 {	
-	int last = 17;
-	int first = 0;
-	float speed = 0.1;
-	
 
 	
-		image->rectSrc.x = (image->rectSrc.w) * (int)(*frame);
-		(*frame) += speed;
-	
 
-	if(image->rectSrc.x >= (image->rectSrc.w * last))
+	if((*frame)<=(animIndiana[state].last))
 	{
-		*frame = first;
+
+		image->rectSrc.x = (image->rectSrc.w) * (int)(*frame);
+
+		(*frame) += animeIndiana[state].speed;
+	}
+	else
+	{
+
+		*frame = animeIndiana[state].first;
 	}
 
 

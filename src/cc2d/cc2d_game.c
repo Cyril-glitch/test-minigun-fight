@@ -14,6 +14,9 @@ void cc2d_gameLoad(void)
 	
 	//chargement des textures Graphiques
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
+
+
+	
 }
 
 void cc2d_gameUpdate(void)

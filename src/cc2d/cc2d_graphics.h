@@ -30,6 +30,14 @@ int height ;
 Uint32 flags ;
 }CC2D_Window;
 
+typedef struct Anime 
+{
+	int first;
+	int last;
+	float speed;
+}Anime;
+
+
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
 
@@ -52,9 +60,10 @@ extern int gameHeight ;
 //intialisation des objets graphics
 extern CC2D_Image indiana;
 
-//variables graphics
+extern Anime animeIndiana[];
 
-extern float frame; 
+//variables graphics
+extern float frame;
 
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;
@@ -82,7 +91,8 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,float *frame);
+
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,Anime anime[],int state ,float *frame);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
