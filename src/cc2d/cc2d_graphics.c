@@ -201,14 +201,22 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
 }
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,int* frame)
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,float *frame)
 {	
-	if(image->rectSrc.x <= (image->rectSrc.w * 15))
-	{
-		image->rectSrc.x = (image->rectSrc.w) *(*frame);
-		(*frame)++;
-	}
+	int last = 17;
+	int first = 0;
+	float speed = 0.1;
+	
 
+	
+		image->rectSrc.x = (image->rectSrc.w) * (int)(*frame);
+		(*frame) += speed;
+	
+
+	if(image->rectSrc.x >= (image->rectSrc.w * last))
+	{
+		*frame = first;
+	}
 
 
 	SDL_SetTextureAlphaMod(image->texture,image->a);        
@@ -221,18 +229,18 @@ void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,int* frame)
 
 
 
-void cc2d_fpsLimiter(Uint32 frameStart , int fps)
+void cc2d_fpsLimiter(Uint32 speedStart , int fps)
 {
 	//le temps écoulé pour afficher une image
-	Uint32 frameTime = SDL_GetTicks() - frameStart;
-	//	printf("frameTime = %.6f\n",(double)frameTime / 1000 );
+	Uint32 speedTime = SDL_GetTicks() - frameStart;
+	//	printf("speedTime = %.6f\n",(double)frameTime / 1000 );
 
-	//temps par frame rechercher 
+	//temps par speed rechercher 
 	Uint32 targetFrameTime = 1000.0 / fps;
 
-	if(frameTime < targetFrameTime)
+	if(speedTime < targetFrameTime)
 	{
-		Uint32 delay = targetFrameTime - frameTime;
+		Uint32 delay = targetFrameTime - speedTime;
 		if(delay > 0)
 		{
 			SDL_Delay(delay);
@@ -242,12 +250,12 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps)
 
 void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps)
 {
-	//Nombre de ticks emis pendant une frame
-	Uint64 frameTime = SDL_GetPerformanceCounter() - precise_fst; 
-	//on convertis le frame time en senconde
-	double sFrameTime =(double)frameTime / SDL_GetPerformanceFrequency();
+	//Nombre de ticks emis pendant une speed
+	Uint64 speedTime = SDL_GetPerformanceCounter() - precise_fst; 
+	//on convertis le speed time en senconde
+	double sFrameTime =(double)speedTime / SDL_GetPerformanceFrequency();
 
-	//	printf("frameTime = %.6f\n",sFrameTime);
+	//	printf("speedTime = %.6f\n",sFrameTime);
 
 	double targetFrameTime = 1.0 / fps;
 

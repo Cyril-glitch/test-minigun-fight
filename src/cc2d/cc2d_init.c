@@ -46,7 +46,10 @@ CC2D_Image indiana = {
 .height = 48,
 .a = blend,
 };
-int frame = 0;
+
+//variables graphics
+
+float frame = 0;
 
 //initialisation des objets textuels
 CC2D_Texte titre = {

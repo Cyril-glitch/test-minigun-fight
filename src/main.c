@@ -3,6 +3,8 @@
 #include "cc2d/cc2d_game.h"
 #include "cc2d/cc2d_keyboard.h"
 
+#include <math.h>
+
 int main( int agrc , const char argv [])
 { 
 	int true = 1;
@@ -34,7 +36,7 @@ int main( int agrc , const char argv [])
 
 		cc2d_drawQuad(renderer,&indiana,&frame);
 
-		cc2d_fpsLimiter(frameStart,5);
+	//	cc2d_fpsLimiter(frameStart,5);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
 

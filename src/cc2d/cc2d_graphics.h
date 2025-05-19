@@ -33,7 +33,6 @@ Uint32 flags ;
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
 
-//variables
 //intialisation des valeurs Alpha
 extern const int blend ;
 extern const int semi_blend ;
@@ -52,7 +51,10 @@ extern int gameHeight ;
 
 //intialisation des objets graphics
 extern CC2D_Image indiana;
-extern int frame;
+
+//variables graphics
+
+extern float frame; 
 
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;
@@ -80,7 +82,7 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,int* frame);
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,float *frame);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
