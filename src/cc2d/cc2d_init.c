@@ -47,17 +47,34 @@ CC2D_Image indiana = {
 .a = blend,
 };
 
-Anime anime_indiana[] ={
-{0,7,0,0.1f},
-{8,11,11,0.1f},
-{12,16,12,0.1f}
+Anime anime_indiana[3] = {
+
+	[WALK] ={
+		.first = 0,
+		.last = 7,
+		.frame = 0,
+		.speed = 0.1f,
+		.loop = 0,
+	},
+	[FIRE] ={
+		.first = 8,
+		.last = 11,
+		.frame = 8,
+		.speed = 0.1f,
+		.loop = 0,
+	},
+	[DIE] ={
+		.first = 12,
+		.last = 17,
+		.frame = 12,
+		.speed = 0.1f,
+		.loop = 0,
+	}
+
 };
 
 
 
-
-//variables graphics
-float frame = 0;
 
 //initialisation des objets textuels
 CC2D_Texte titre = {

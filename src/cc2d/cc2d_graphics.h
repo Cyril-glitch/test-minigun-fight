@@ -36,6 +36,7 @@ typedef struct Anime
 	int last;
 	float frame;
 	float speed;
+	int loop;
 }Anime;
 
  enum state{
@@ -100,7 +101,11 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image);
+
+void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
+
+void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
