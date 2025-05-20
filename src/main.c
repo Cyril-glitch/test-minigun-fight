@@ -33,7 +33,7 @@ int main( int agrc , const char argv [])
 		cc2d_drawTexte(renderer,titre);
 
 
-		cc2d_drawQuad(renderer,&indiana,animeIndiana,2,&frame);
+		cc2d_drawQuad(renderer,&indiana,anime_indiana,WALK,&frame);
 
 	//	cc2d_fpsLimiter(frameStart,5);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);

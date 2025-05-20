@@ -37,6 +37,13 @@ typedef struct Anime
 	float speed;
 }Anime;
 
+ enum state{
+
+	 WALK,
+	 FIRE,
+	 DIE
+};
+
 
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
@@ -56,14 +63,15 @@ extern SDL_Renderer* renderer;
 extern int gameWidth ;
 extern int gameHeight ;
 
-
 //intialisation des objets graphics
 extern CC2D_Image indiana;
 
-extern Anime animeIndiana[];
+extern Anime anime_indiana[];
 
 //variables graphics
 extern float frame;
+
+
 
 //initialisatioon des valeurs de temps
 extern Uint32 frameStart ;
@@ -90,7 +98,6 @@ int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,i
 int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
-
 
 void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,Anime anime[],int state ,float *frame);
 

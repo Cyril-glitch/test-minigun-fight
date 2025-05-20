@@ -47,7 +47,7 @@ CC2D_Image indiana = {
 .a = blend,
 };
 
-Anime animeIndiana[] ={
+Anime anime_indiana[] ={
 {0,7,0.1f},
 {8,11,0.1f},
 {12,16,0.1f}
