@@ -202,21 +202,21 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 	}
 }
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,Anime anime[],int state, float *frame)
-{	
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image,Anime *anime)
+{
 
 
-	if((*frame)<=(anime[state].last))
+	if((anime->frame)<=(anime->last))
 	{
 
-		image->rectSrc.x = (image->rectSrc.w) * (int)(*frame);
+		image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
 
-		(*frame) += anime[state].speed;
+		(anime->frame) += anime->speed;
 	}
 	else
 	{
 
-		*frame = anime[state].first;
+		(anime->frame) = anime->first;
 	}
 
 

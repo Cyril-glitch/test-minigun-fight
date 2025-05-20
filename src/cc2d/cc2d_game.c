@@ -16,7 +16,7 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
 
 	//chargement des amimation 
-	frame = anime_indiana[WALK].first;
+//	frame = anime_indiana[WALK].first;
 
 	
 }

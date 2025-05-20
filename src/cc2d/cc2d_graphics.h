@@ -34,6 +34,7 @@ typedef struct Anime
 {
 	int first;
 	int last;
+	float frame;
 	float speed;
 }Anime;
 
@@ -41,7 +42,8 @@ typedef struct Anime
 
 	 WALK,
 	 FIRE,
-	 DIE
+	 DIE,
+	 STATE_MAX
 };
 
 
@@ -69,7 +71,6 @@ extern CC2D_Image indiana;
 extern Anime anime_indiana[];
 
 //variables graphics
-extern float frame;
 
 
 
@@ -99,7 +100,7 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image);
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,Anime anime[],int state ,float *frame);
+void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 
