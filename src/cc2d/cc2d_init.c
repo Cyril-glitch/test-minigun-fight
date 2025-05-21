@@ -47,7 +47,7 @@ CC2D_Image indiana = {
 .a = blend,
 };
 
-Anime anime_indiana[3] = {
+CC2D_Anime anime_indiana[3] = {
 
 	[WALK] ={
 		.first = 0,

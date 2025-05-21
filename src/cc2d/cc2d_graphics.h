@@ -30,14 +30,14 @@ int height ;
 Uint32 flags ;
 }CC2D_Window;
 
-typedef struct Anime 
+typedef struct CC2D_Anime 
 {
 	int first;
 	int last;
 	float frame;
 	float speed;
 	int loop;
-}Anime;
+}CC2D_Anime;
 
  enum state{
 
@@ -69,7 +69,7 @@ extern int gameHeight ;
 //intialisation des objets graphics
 extern CC2D_Image indiana;
 
-extern Anime anime_indiana[];
+extern CC2D_Anime anime_indiana[];
 
 //variables graphics
 
@@ -103,9 +103,9 @@ void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
 void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
+void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image ,CC2D_Anime* anime);
 
-void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image ,Anime* anime);
+void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image ,CC2D_Anime* anime);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 

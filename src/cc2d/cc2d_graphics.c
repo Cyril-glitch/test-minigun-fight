@@ -209,9 +209,9 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 	}
 }
 
-void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,Anime *anime)
+void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
 {
-	if(!anime->loop)
+	if(anime->loop)
 	{
 
 
@@ -226,10 +226,16 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,Anime *anime)
 		{
 
 			(anime->frame) = anime->first;
-			image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
-			anime->loop = 1;
 		}
+		
 
+	}
+	else
+	{
+
+		(anime->frame) = anime->first;
+		image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
+		anime->loop = 0;
 	}
 
 	SDL_SetTextureAlphaMod(image->texture,image->a);        
@@ -239,7 +245,7 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,Anime *anime)
 	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
 
 }
-void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image,Anime *anime)
+void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
 {
 
 

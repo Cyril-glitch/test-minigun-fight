@@ -28,49 +28,19 @@ int main( int agrc , const char argv [])
 		{
 			break;
 		}
+
 		//dessins
 
 		cc2d_drawTexte(renderer,titre);
 	        cc2d_drawAnime(renderer,&indiana,&anime_indiana[WALK]);
-//		cc2d_drawAnimeLoop(renderer,&indiana,&anime_indiana[WALK]);
 
-	//	cc2d_fpsLimiter(frameStart,5);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
-		if(cc2d_downKey(SDL_SCANCODE_D))
-		{
-			if(indiana.rectDst.x < gameWidth - indiana.rectSrc.w) 
-			{
-				indiana.rectDst.x++;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_A))
-		{
-			if(indiana.rectDst.x > 0)
-			{
-				indiana.rectDst.x--;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_S))
-		{
-
-			if(indiana.rectDst.y < gameWidth - indiana.rectSrc.w ) 
-			{
-
-				indiana.rectDst.y++;
-			}
-		}
-		if(cc2d_downKey(SDL_SCANCODE_W))
-		{
-
-			if(indiana.rectDst.y > 0)
-			{
-				indiana.rectDst.y--;
-			}
-		}
+		//movement
+		cc2d_playerMovement(&indiana,&anime_indiana[WALK]);
 
 
-		cc2d_enddraw(renderer);    //affiche le rendu
+				cc2d_enddraw(renderer);    //affiche le rendu
 
 
 	}

@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "cc2d_keyboard.h"
+#include "cc2d_graphics.h"
 
 int cc2d_downKey(SDL_Scancode key)
 {
@@ -19,5 +20,58 @@ int cc2d_downKey(SDL_Scancode key)
 	else
 	{
 		return 0;
+	}
+}
+void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
+{
+
+	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W))
+	{
+
+		playerAnime->loop = 1;
+
+		//DROITE
+
+		if(cc2d_downKey(SDL_SCANCODE_D))        
+		{
+			if(playerImage->rectDst.x < gameWidth - playerImage->rectDst.w ) 
+			{
+				playerImage->rectDst.x++;
+			}
+		}
+
+		//GAUCHE
+
+		if(cc2d_downKey(SDL_SCANCODE_A))
+		{
+			if(playerImage->rectDst.x > 0)
+			{
+				playerImage->rectDst.x--;
+			}		
+		}
+
+		//BAS
+
+		if(cc2d_downKey(SDL_SCANCODE_S))
+		{
+			if(playerImage->rectDst.y < gameHeight - playerImage->rectDst.h ) 
+			{
+				playerImage->rectDst.y++;
+			}
+		}
+
+		//HAUT
+
+		if(cc2d_downKey(SDL_SCANCODE_W))
+		{
+			if(playerImage->rectDst.y > 0)
+			{
+				playerImage->rectDst.y--;
+			}
+		}
+	}
+	else
+	{
+		playerAnime->loop = 0;
 	}
 }
