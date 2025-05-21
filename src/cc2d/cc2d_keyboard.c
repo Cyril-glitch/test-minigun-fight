@@ -5,11 +5,13 @@
 #include "cc2d_keyboard.h"
 #include "cc2d_graphics.h"
 
+float speed = 0.1;
+
 int cc2d_downKey(SDL_Scancode key)
 {
 
-//la fonction getkeyboardstate créer un tableau de booléens on pourras passer par le pointeur state pour y acceder
-//Ce tableau met a jours l'etat des touches du clavier : 1 si la touche est pressée 0 si elle ne l'est pas
+	//la fonction getkeyboardstate créer un tableau de booléens on pourras passer par le pointeur state pour y acceder
+	//Ce tableau met a jours l'etat des touches du clavier : 1 si la touche est pressée 0 si elle ne l'est pas
 
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 
@@ -25,7 +27,7 @@ int cc2d_downKey(SDL_Scancode key)
 void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
 {
 
-	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W))
+	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W)||cc2d_downKey(SDL_SCANCODE_SPACE))
 	{
 
 		playerAnime->loop = 1;
@@ -69,7 +71,10 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
 				playerImage->rectDst.y--;
 			}
 		}
-	}
+
+		//JUMP
+	
+	
 	else
 	{
 		playerAnime->loop = 0;
