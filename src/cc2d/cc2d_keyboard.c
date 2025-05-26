@@ -5,7 +5,8 @@
 #include "cc2d_keyboard.h"
 #include "cc2d_graphics.h"
 
-float speed = 0.1;
+float speed = 2.0;
+
 
 int cc2d_downKey(SDL_Scancode key)
 {
@@ -26,6 +27,9 @@ int cc2d_downKey(SDL_Scancode key)
 }
 void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
 {
+	static int upLimit = 0 ;
+	static int downLimit = 20;
+	static int jumpDone = 0;
 
 	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W)||cc2d_downKey(SDL_SCANCODE_SPACE))
 	{
@@ -73,10 +77,46 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
 		}
 
 		//JUMP
-	
-	
+		if(cc2d_downKey(SDL_SCANCODE_SPACE))
+		{
+			if(playerImage->rectDst.y > 0)
+			{
+					playerAnime->frame = 2 ;
+
+				if(upLimit != 20)
+				{
+						playerImage->rectDst.y -= speed;
+						upLimit ++;
+
+				}
+				else if(downLimit != 0)
+				{
+
+						playerImage->rectDst.y += speed;
+						downLimit --;
+
+						
+				}
+				else
+				{	
+						jumpDone = 1;
+						playerAnime->frame = 0 ;
+				}
+
+				
+			}
+		}		
+	 	
+
+	}	
 	else
 	{
 		playerAnime->loop = 0;
+	}
+	if(jumpDone && cc2d_downKey(SDL_SCANCODE_SPACE) == 0 )
+	{
+			upLimit = 0;
+			downLimit = 20;
+			jumpDone = 0;
 	}
 }

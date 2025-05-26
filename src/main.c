@@ -34,6 +34,7 @@ int main( int agrc , const char argv [])
 		cc2d_drawTexte(renderer,titre);
 	        cc2d_drawAnime(renderer,&indiana,&anime_indiana[WALK]);
 
+		cc2d_fpsLimiter(frameStart,60);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
 		//movement
