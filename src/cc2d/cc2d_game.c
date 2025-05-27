@@ -14,9 +14,8 @@ void cc2d_gameLoad(void)
 	
 	//chargement des textures Graphiques
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
+	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
 
-	//chargement des amimation 
-//	frame = anime_indiana[WALK].first;
 
 	
 }
@@ -47,6 +46,10 @@ void cc2d_gameClose(void)
 
    SDL_DestroyTexture(indiana.texture);
    indiana.texture = NULL;
+
+   SDL_DestroyTexture(indiana_2.texture);
+   indiana_2.texture = NULL;
+
    SDL_DestroyTexture(titre.texture);
    titre.texture = NULL;
 

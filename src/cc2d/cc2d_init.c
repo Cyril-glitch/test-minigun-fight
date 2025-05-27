@@ -45,9 +45,61 @@ CC2D_Image indiana = {
 .width = 50,
 .height = 48,
 .a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
 };
 
 CC2D_Anime anime_indiana[3] = {
+
+	[WALK] ={
+		.first = 0,
+		.last = 7,
+		.frame = 0,
+		.speed = 0.1f,
+		.loop = 0,
+	},
+	[FIRE] ={
+		.first = 8,
+		.last = 11,
+		.frame = 8,
+		.speed = 0.1f,
+		.loop = 0,
+	},
+	[DIE] ={
+		.first = 12,
+		.last = 17,
+		.frame = 12,
+		.speed = 0.1f,
+		.loop = 0,
+	}
+
+};
+
+CC2D_Image indiana_2 = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 25,
+.rectSrc.h = 24, 
+
+.rectDst.x = 462,
+.rectDst.y = 179.5,
+.rectDst.w = 50,
+.rectDst.h = 48, 
+
+.width = 50,
+.height = 48,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 1,
+.flipV = 0,
+
+};
+
+CC2D_Anime anime_indiana_2[3] = {
 
 	[WALK] ={
 		.first = 0,

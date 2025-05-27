@@ -5,7 +5,6 @@
 #include "cc2d_keyboard.h"
 #include "cc2d_graphics.h"
 
-float speed = 0.1;
 
 int cc2d_downKey(SDL_Scancode key)
 {
@@ -73,6 +72,66 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime)
 		}
 
 		//JUMP
+	}
+	
+	
+	else
+	{
+		playerAnime->loop = 0;
+	}
+
+}
+
+void cc2d_player2_Movement(CC2D_Image* playerImage,CC2D_Anime* playerAnime,CC2D)
+{
+
+	if(cc2d_downKey(SDL_SCANCODE_KP_6)||cc2d_downKey(SDL_SCANCODE_KP_4)||cc2d_downKey(SDL_SCANCODE_KP_5)||cc2d_downKey(SDL_SCANCODE_KP_8)||cc2d_downKey(SDL_SCANCODE_DOWN))
+	{
+
+		playerAnime->loop = 1;
+
+		//DROITE
+
+		if(cc2d_downKey(SDL_SCANCODE_KP_6))        
+		{
+			if(playerImage->rectDst.x < gameWidth - playerImage->rectDst.w ) 
+			{
+				playerImage->rectDst.x++;
+			}
+		}
+
+		//GAUCHE
+
+		if(cc2d_downKey(SDL_SCANCODE_KP_4))
+		{
+			if(playerImage->rectDst.x > 0)
+			{
+				playerImage->rectDst.x--;
+			}		
+		}
+
+		//BAS
+
+		if(cc2d_downKey(SDL_SCANCODE_KP_5))
+		{
+			if(playerImage->rectDst.y < gameHeight - playerImage->rectDst.h ) 
+			{
+				playerImage->rectDst.y++;
+			}
+		}
+
+		//HAUT
+
+		if(cc2d_downKey(SDL_SCANCODE_KP_8))
+		{
+			if(playerImage->rectDst.y > 0)
+			{
+				playerImage->rectDst.y--;
+			}
+		}
+
+		//JUMP
+	}
 	
 	
 	else

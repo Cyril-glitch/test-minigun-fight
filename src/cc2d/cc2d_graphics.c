@@ -183,16 +183,38 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image)
 
 void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image)
 {
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	if(image.flipH)
+	{
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+	else if(image.flipV)
+	{
+		flip = SDL_FLIP_VERTICAL;
+	}
+	
 
 	SDL_SetTextureAlphaMod(image.texture,image.a);
-	SDL_RenderCopy(renderer,image.texture,NULL,&image.rectDst);
+	SDL_RenderCopyEx(renderer,image.texture,NULL,&image.rectDst,0,NULL,flip);
 }
 
 void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image)
 {
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	if(image.flipH)
+	{
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+	else if(image.flipV)
+	{
+		flip = SDL_FLIP_VERTICAL;
+	}
+
 
 	SDL_SetTextureAlphaMod(image.texture,image.a);
-	SDL_RenderCopy(renderer,image.texture,&image.rectSrc,&image.rectDst);
+	SDL_RenderCopyEx(renderer,image.texture,&image.rectSrc,&image.rectDst,0,NULL,flip);
 }
 
 void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w , int h)
@@ -238,8 +260,8 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
 		anime->loop = 0;
 	}
 
-	SDL_SetTextureAlphaMod(image->texture,image->a);        
-	SDL_RenderCopy(renderer,image->texture,&image->rectSrc,&image->rectDst); 
+
+	cc2d_drawQuad(renderer,*image);
 
 	//on defini l'opacité de l'image a partir de sa texture
 	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
@@ -263,9 +285,8 @@ void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *ani
 	}
 
 
-	SDL_SetTextureAlphaMod(image->texture,image->a);        
-	SDL_RenderCopy(renderer,image->texture,&image->rectSrc,&image->rectDst); 
 
+	cc2d_drawQuad(renderer,*image);
 	//on defini l'opacité de l'image a partir de sa texture
 	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
 

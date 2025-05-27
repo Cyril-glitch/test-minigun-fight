@@ -33,11 +33,13 @@ int main( int agrc , const char argv [])
 
 		cc2d_drawTexte(renderer,titre);
 	        cc2d_drawAnime(renderer,&indiana,&anime_indiana[WALK]);
+	        cc2d_drawAnime(renderer,&indiana_2,&anime_indiana_2[WALK]);
 
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
 		//movement
 		cc2d_playerMovement(&indiana,&anime_indiana[WALK]);
+		cc2d_player2_Movement(&indiana_2,&anime_indiana_2[WALK]);
 
 
 				cc2d_enddraw(renderer);    //affiche le rendu

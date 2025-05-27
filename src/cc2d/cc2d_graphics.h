@@ -16,6 +16,10 @@ typedef struct CC2D_Image
 	int width;
 	int height;
 	int a; 
+	double angle;
+	SDL_Point center;
+	int flipH;
+	int flipV;
 
 }CC2D_Image;
 
@@ -70,6 +74,11 @@ extern int gameHeight ;
 extern CC2D_Image indiana;
 
 extern CC2D_Anime anime_indiana[];
+
+extern CC2D_Image indiana_2;
+
+extern CC2D_Anime anime_indiana_2[];
+
 
 //variables graphics
 
