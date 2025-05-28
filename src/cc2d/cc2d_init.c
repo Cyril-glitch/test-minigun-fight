@@ -49,6 +49,7 @@ CC2D_Image indiana = {
 .center = {0,0},
 .flipH = 0,
 .flipV = 0,
+.pastColision = {0,0,0,0},
 };
 
 CC2D_Anime anime_indiana[3] = {
@@ -96,6 +97,7 @@ CC2D_Image indiana_2 = {
 .center = {0,0},
 .flipH = 1,
 .flipV = 0,
+.pastColision = {0,0,0,0},
 
 };
 

@@ -5,6 +5,15 @@
 #include <SDL2/SDL_image.h>
 
 //création des objets
+
+typedef struct CC2D_PastColision
+{
+	int right;
+	int left;
+	int up;
+	int down;
+}CC2D_PastColision;
+
 typedef struct CC2D_Image
 {
 	SDL_Texture* texture;
@@ -20,6 +29,7 @@ typedef struct CC2D_Image
 	SDL_Point center;
 	int flipH;
 	int flipV;
+	CC2D_PastColision pastColision;
 
 }CC2D_Image;
 
@@ -50,7 +60,6 @@ typedef struct CC2D_Anime
 	 DIE,
 	 STATE_MAX
 };
-
 
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
