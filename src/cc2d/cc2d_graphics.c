@@ -231,23 +231,25 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 	}
 }
 
-void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
+void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 {
-	if(anime->loop)
+	int state = image->state;
+
+	if(image->animation[state].loop)
 	{
 
 
-		if((anime->frame)<=(anime->last)+1)
+		if((image->animation[state].frame)<=(image->animation[state].last)+1)
 		{
 
-			image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
+			image->rectSrc.x = (image->rectSrc.w) * (int)(image->animation[state].frame);
 
-			(anime->frame) += anime->speed;
+			(image->animation[state].frame) += image->animation[state].speed;
 		}
 		else
 		{
 
-			(anime->frame) = anime->first;
+			(image->animation[state].frame) = image->animation[state].first;
 		}
 		
 
@@ -255,9 +257,9 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
 	else
 	{
 
-		(anime->frame) = anime->first;
-		image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
-		anime->loop = 0;
+		(image->animation[state].frame) = image->animation[state].first;
+		image->rectSrc.x = (image->rectSrc.w) * (int)(image->animation[state].frame);
+		image->animation[state].loop = 0;
 	}
 
 
@@ -267,21 +269,23 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
 	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
 
 }
-void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image,CC2D_Anime *anime)
+void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image)
 {
 
+	int state = image->state;
 
-	if((anime->frame)<=(anime->last))
+
+	if((image->animation[state].frame)<=(image->animation[state].last))
 	{
 
-		image->rectSrc.x = (image->rectSrc.w) * (int)(anime->frame);
+		image->rectSrc.x = (image->rectSrc.w) * (int)(image->animation[state].frame);
 
-		(anime->frame) += anime->speed;
+		(image->animation[state].frame) += image->animation[state].speed;
 	}
 	else
 	{
 
-		(anime->frame) = anime->first;
+		(image->animation[state].frame) = image->animation[state].first;
 	}
 
 

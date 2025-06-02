@@ -30,6 +30,9 @@ int gameHeight = 384;
 
 
 //intialisation graphics                      pour obtenir centre faire :( windowW - image.x ) / 2
+
+//player 1
+
 CC2D_Image indiana = {
 .texture = NULL,
 .rectSrc.x = 0,
@@ -42,17 +45,7 @@ CC2D_Image indiana = {
 .rectDst.w = 50,
 .rectDst.h = 48, 
 
-.width = 50,
-.height = 48,
-.a = blend,
-.angle = 0,
-.center = {0,0},
-.flipH = 0,
-.flipV = 0,
-.pastColision = {0,0,0,0},
-};
-
-CC2D_Anime anime_indiana[3] = {
+.animation = {
 
 	[WALK] ={
 		.first = 0,
@@ -74,9 +67,28 @@ CC2D_Anime anime_indiana[3] = {
 		.frame = 12,
 		.speed = 0.1f,
 		.loop = 0,
+	},
+	[IDLE] ={
+		.first = 12,
+		.last = 12,
+		.frame = 12,
+		.speed = 0.0f,
+		.loop = 0,
 	}
+},
+.state = IDLE,
 
+.width = 50,
+.height = 48,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
 };
+
+//player 2
 
 CC2D_Image indiana_2 = {
 .texture = NULL,
@@ -90,18 +102,7 @@ CC2D_Image indiana_2 = {
 .rectDst.w = 50,
 .rectDst.h = 48, 
 
-.width = 50,
-.height = 48,
-.a = blend,
-.angle = 0,
-.center = {0,0},
-.flipH = 1,
-.flipV = 0,
-.pastColision = {0,0,0,0},
-
-};
-
-CC2D_Anime anime_indiana_2[3] = {
+.animation = {
 
 	[WALK] ={
 		.first = 0,
@@ -123,9 +124,28 @@ CC2D_Anime anime_indiana_2[3] = {
 		.frame = 12,
 		.speed = 0.1f,
 		.loop = 0,
+	},
+	[IDLE] ={
+		.first = 12,
+		.last = 12,
+		.frame = 12,
+		.speed = 0.0f,
+		.loop = 0,
 	}
+},
+.state = IDLE,
+
+.width = 50,
+.height = 48,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 1,
+.flipV = 0,
+.pastColision = {0,0,0,0},
 
 };
+
 
 
 

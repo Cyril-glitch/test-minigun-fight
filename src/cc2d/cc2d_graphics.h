@@ -14,11 +14,32 @@ typedef struct CC2D_PastColision
 	int down;
 }CC2D_PastColision;
 
+typedef struct CC2D_Anime 
+{
+	int first;
+	int last;
+	float frame;
+	float speed;
+	int loop;
+
+}CC2D_Anime;
+
+ enum AnimationState{
+
+	 WALK,
+	 FIRE,
+	 DIE,
+	 IDLE,
+	 STATE_MAX
+};
+
 typedef struct CC2D_Image
 {
 	SDL_Texture* texture;
 	SDL_Rect rectSrc;
 	SDL_Rect rectDst;
+	CC2D_Anime animation[STATE_MAX];
+	int state;
 
 	int x;
 	int y;
@@ -44,22 +65,7 @@ int height ;
 Uint32 flags ;
 }CC2D_Window;
 
-typedef struct CC2D_Anime 
-{
-	int first;
-	int last;
-	float frame;
-	float speed;
-	int loop;
-}CC2D_Anime;
 
- enum state{
-
-	 WALK,
-	 FIRE,
-	 DIE,
-	 STATE_MAX
-};
 
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
@@ -121,9 +127,9 @@ void cc2d_draw(SDL_Renderer* renderer,CC2D_Image image);
 
 void cc2d_drawQuad(SDL_Renderer* renderer,CC2D_Image image);
 
-void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image ,CC2D_Anime* anime);
+void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image );
 
-void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image ,CC2D_Anime* anime);
+void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image);
 
 SDL_Texture* LoadTexture(SDL_Renderer *renderer,char* path);
 

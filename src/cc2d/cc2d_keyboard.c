@@ -26,14 +26,22 @@ int cc2d_downKey(SDL_Scancode key)
 }
 
 
-void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime,CC2D_Image* player2_Image)
+void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 {
+
+
+	playerImage->state = IDLE;
+	
 
 	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)
 	||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W)||cc2d_downKey(SDL_SCANCODE_SPACE))
 	{
 
-		playerAnime->loop = 1;
+		playerImage->state = WALK;
+		playerImage->animation[playerImage->state].loop = 1;
+		
+
+
 
 		//DROITE
 		if(cc2d_downKey(SDL_SCANCODE_D)  )        
@@ -125,19 +133,26 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Anime* playerAnime,CC2D_Im
 	
 	else
 	{
-		playerAnime->loop = 0;
+		playerImage->animation[playerImage->state].loop = 0;
+
 	}
 
 }
 
-void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Anime* player2_Anime,CC2D_Image* playerImage)
-{
+void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
+{ 
+
+	  player2_Image->state = IDLE ; 
+
 
 	if(cc2d_downKey(SDL_SCANCODE_KP_6)||cc2d_downKey(SDL_SCANCODE_KP_4)
 	||cc2d_downKey(SDL_SCANCODE_KP_5)||cc2d_downKey(SDL_SCANCODE_KP_8)||cc2d_downKey(SDL_SCANCODE_DOWN))
 	{
+		
 
-		player2_Anime->loop = 1;
+
+		player2_Image->state = WALK ; 
+		player2_Image->animation[player2_Image->state].loop = 1;
 
 		//DROITE
 
@@ -230,7 +245,8 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Anime* player2_Anime,C
 	
 	else
 	{
-		player2_Anime->loop = 0;
+
+		player2_Image->animation[player2_Image->state].loop = 0;
 	}
 }
 
