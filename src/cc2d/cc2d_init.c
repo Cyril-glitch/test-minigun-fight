@@ -135,8 +135,8 @@ CC2D_Image indiana_2 = {
 },
 .state = IDLE,
 
-.width = 50,
-.height = 48,
+.width = 0,
+.height = 0,
 .a = blend,
 .angle = 0,
 .center = {0,0},
@@ -146,6 +146,29 @@ CC2D_Image indiana_2 = {
 
 };
 
+//projectile
+
+CC2D_Image bullet = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 200,
+.rectDst.y = 200,
+.rectDst.w = 6,
+.rectDst.h = 5, 
+
+.width = 0,
+.height = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+};
 
 
 

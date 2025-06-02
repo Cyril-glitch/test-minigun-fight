@@ -34,12 +34,15 @@ int main( int agrc , const char argv [])
 		cc2d_drawTexte(renderer,titre);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
+
 		cc2d_drawAnime(renderer,&indiana);
 		cc2d_drawAnime(renderer,&indiana_2);
 
 		//movement
 		cc2d_playerMovement(&indiana,&indiana_2);
 		cc2d_player2_Movement(&indiana_2,&indiana);
+		
+		cc2d_shoot(renderer,&bullet);
 
 		
 

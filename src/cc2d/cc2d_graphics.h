@@ -88,12 +88,9 @@ extern int gameHeight ;
 //intialisation des objets graphics
 extern CC2D_Image indiana;
 
-extern CC2D_Anime anime_indiana[];
-
 extern CC2D_Image indiana_2;
 
-extern CC2D_Anime anime_indiana_2[];
-
+extern CC2D_Image bullet;
 
 //variables graphics
 

@@ -33,8 +33,9 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 	playerImage->state = IDLE;
 	
 
-	if(cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)
-	||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W)||cc2d_downKey(SDL_SCANCODE_SPACE))
+	if((cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)
+	||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W))
+	&& !cc2d_downKey(SDL_SCANCODE_SPACE ))
 	{
 
 		playerImage->state = WALK;
@@ -126,9 +127,16 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 				playerImage->pastColision.up = 1;
 			}	
 		}
-
-		//JUMP
+	
+		
 	}
+	else if(cc2d_downKey(SDL_SCANCODE_SPACE))
+	{
+			playerImage->state = FIRE;
+			playerImage->animation[playerImage->state].loop = 1;
+	}
+	
+
 	
 	
 	else
@@ -145,8 +153,8 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 	  player2_Image->state = IDLE ; 
 
 
-	if(cc2d_downKey(SDL_SCANCODE_KP_6)||cc2d_downKey(SDL_SCANCODE_KP_4)
-	||cc2d_downKey(SDL_SCANCODE_KP_5)||cc2d_downKey(SDL_SCANCODE_KP_8)||cc2d_downKey(SDL_SCANCODE_DOWN))
+	if((cc2d_downKey(SDL_SCANCODE_KP_6)||cc2d_downKey(SDL_SCANCODE_KP_4)
+	||cc2d_downKey(SDL_SCANCODE_KP_5)||cc2d_downKey(SDL_SCANCODE_KP_8)) && !cc2d_downKey(SDL_SCANCODE_DOWN))
 	{
 		
 
@@ -241,14 +249,37 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 
 		//JUMP
 	}
-
-	
+	else if(cc2d_downKey(SDL_SCANCODE_DOWN))
+	{
+			player2_Image->state = FIRE;
+			player2_Image->animation[player2_Image->state].loop = 1;
+	}
 	else
 	{
 
 		player2_Image->animation[player2_Image->state].loop = 0;
 	}
 }
+void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile)
+{
+	static int shoot = 0;
+	
+
+	if(cc2d_downKey(SDL_SCANCODE_SPACE))
+	{
+		shoot = 1;
+	}
+	if(shoot)
+	{
+		if(projectile->rectDst.x > 0 && projectile->rectDst.x < gameWidth)
+		{
+			
+			cc2d_draw(renderer,*projectile);
+			projectile->rectDst.x++;
+		}
+	}
+}
+
 
 int colision(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 {
