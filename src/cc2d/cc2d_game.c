@@ -18,6 +18,7 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/bullet.png",renderer,&bullet);             //crèe la texture
 
 
+
 	
 }
 

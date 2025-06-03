@@ -155,7 +155,7 @@ CC2D_Image bullet = {
 .rectSrc.w = 0,
 .rectSrc.h = 0, 
 
-.rectDst.x = 200,
+.rectDst.x = 100,
 .rectDst.y = 200,
 .rectDst.w = 6,
 .rectDst.h = 5, 

@@ -260,9 +260,12 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 		player2_Image->animation[player2_Image->state].loop = 0;
 	}
 }
-void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile)
+void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage)
 {
 	static int shoot = 0;
+	static float speed = 0.1;
+	static int in = 1;
+
 	
 
 	if(cc2d_downKey(SDL_SCANCODE_SPACE))
@@ -271,12 +274,32 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile)
 	}
 	if(shoot)
 	{
-		if(projectile->rectDst.x > 0 && projectile->rectDst.x < gameWidth)
-		{
+
+		while(in)	
+		{	
+				cc2d_draw(renderer,*projectile);
+
+				if(playerImage->flipH)
+				{
+					projectile->rectDst.x --;
+				}
+				else
+				{	
+					projectile->rectDst.x ++;
+				}
 			
-			cc2d_draw(renderer,*projectile);
-			projectile->rectDst.x++;
+				if(projectile->rectDst.x > gameWidth)	
+				{
+					in = 0;
+					shoot = 0;
+				}
 		}
+		in = 1;
+		projectile->rectDst.x =100;
+		projectile->rectDst.y =200;
+
+
+
 	}
 }
 

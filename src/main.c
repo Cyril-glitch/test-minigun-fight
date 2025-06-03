@@ -42,7 +42,10 @@ int main( int agrc , const char argv [])
 		cc2d_playerMovement(&indiana,&indiana_2);
 		cc2d_player2_Movement(&indiana_2,&indiana);
 		
-		cc2d_shoot(renderer,&bullet);
+		
+		//positionement bullet
+		cc2d_shoot(renderer,&bullet,&indiana);
+
 
 		
 
