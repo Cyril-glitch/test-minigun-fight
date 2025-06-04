@@ -138,7 +138,7 @@ void cc2d_fpsLimiter(Uint32 frameStart , int fps);
 
 void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps);
 
-void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps);
+int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps);
 
 void loadBar();
 

@@ -298,18 +298,18 @@ void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image)
 
 
 
-void cc2d_fpsLimiter(Uint32 speedStart , int fps)
+void cc2d_fpsLimiter(Uint32 frameStart , int fps)
 {
 	//le temps écoulé pour afficher une image
-	Uint32 speedTime = SDL_GetTicks() - frameStart;
+	Uint32 frameTime = SDL_GetTicks() - frameStart;
 	//	printf("speedTime = %.6f\n",(double)frameTime / 1000 );
 
 	//temps par speed rechercher 
 	Uint32 targetFrameTime = 1000.0 / fps;
 
-	if(speedTime < targetFrameTime)
+	if(frameTime < targetFrameTime)
 	{
-		Uint32 delay = targetFrameTime - speedTime;
+		Uint32 delay = targetFrameTime - frameTime;
 		if(delay > 0)
 		{
 			SDL_Delay(delay);
@@ -342,7 +342,7 @@ void cc2d_Precise_FpsLimiter(Uint64 precise_fst , int fps)
 }
 
 
-void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps)
+int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,double valeurDeTemps)
 {
 
 	if(strcmp(perf,"timer")== 0)  
@@ -359,8 +359,13 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		timer.font = NULL;
 		SDL_DestroyTexture(timer.texture);
 		timer.texture = NULL;
+		return 0;
 
 	}	
+	else
+	{
+		return -1;
+	}
 	if(strcmp(perf,"deltaTime")== 0)  
 	{
 
@@ -375,8 +380,12 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		timer.font = NULL;
 		SDL_DestroyTexture(timer.texture);
 		timer.texture = NULL;
+		return 0;
 
-
+	}
+	else
+	{
+		return -1;
 	}
 	if(strcmp(perf,"fps")== 0)  
 	{
@@ -393,10 +402,11 @@ void cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,do
 		timer.font = NULL;
 		SDL_DestroyTexture(timer.texture);
 		timer.texture = NULL;
+		return 0;
 	}
 	else
 	{
-		printf("unknown mode\n");
+		return -1;
 	}
 
 }

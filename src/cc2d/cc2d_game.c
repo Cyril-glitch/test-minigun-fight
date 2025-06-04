@@ -17,6 +17,10 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
 	cc2d_loadImage("../img/bullet.png",renderer,&bullet);             //crèe la texture
 
+	//position bullet
+	bullet.rectDst.x = indiana.rectDst.x + (indiana.rectSrc.w /2);
+	bullet.rectDst.y = indiana.rectDst.y + (indiana.rectDst.h /2);
+
 
 
 	
