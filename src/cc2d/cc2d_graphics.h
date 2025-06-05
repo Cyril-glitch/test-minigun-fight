@@ -41,16 +41,19 @@ typedef struct CC2D_Image
 	CC2D_Anime animation[STATE_MAX];
 	int state;
 
-	int x;
-	int y;
-	int width;
-	int height;
+	int realWidth;
+	int realHeight;
+
 	int a; 
+
 	double angle;
 	SDL_Point center;
 	int flipH;
 	int flipV;
 	CC2D_PastColision pastColision;
+
+	int shooted;
+	int affichable;
 
 }CC2D_Image;
 
@@ -90,7 +93,7 @@ extern CC2D_Image indiana;
 
 extern CC2D_Image indiana_2;
 
-extern CC2D_Image bullet;
+extern CC2D_Image bullet[10];
 
 //variables graphics
 

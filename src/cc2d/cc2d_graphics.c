@@ -174,7 +174,7 @@ int cc2d_loadImage(const char* path,SDL_Renderer *renderer,CC2D_Image* image)
 	}
 	else
 	{
-		SDL_QueryTexture(image->texture, NULL, NULL, &image->width, &image->height); 
+		SDL_QueryTexture(image->texture, NULL, NULL, &image->realWidth, &image->realHeight); 
 		return 0;
 	}
 

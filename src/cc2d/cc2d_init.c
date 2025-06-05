@@ -78,8 +78,8 @@ CC2D_Image indiana = {
 },
 .state = IDLE,
 
-.width = 50,
-.height = 48,
+.realWidth = 50,
+.realHeight = 48,
 .a = blend,
 .angle = 0,
 .center = {0,0},
@@ -135,8 +135,8 @@ CC2D_Image indiana_2 = {
 },
 .state = IDLE,
 
-.width = 0,
-.height = 0,
+.realWidth = 0,
+.realHeight = 0,
 .a = blend,
 .angle = 0,
 .center = {0,0},
@@ -147,31 +147,7 @@ CC2D_Image indiana_2 = {
 };
 
 //projectile
-
-CC2D_Image bullet = {
-.texture = NULL,
-.rectSrc.x = 0,
-.rectSrc.y = 0,
-.rectSrc.w = 0,
-.rectSrc.h = 0, 
-
-.rectDst.x = 0,
-.rectDst.y = 0,
-.rectDst.w = 6,
-.rectDst.h = 5, 
-
-.width = 0,
-.height = 0,
-.a = blend,
-.angle = 0,
-.center = {0,0},
-.flipH = 0,
-.flipV = 0,
-.pastColision = {0,0,0,0},
-};
-
-
-
+CC2D_Image bullet[10];
 
 //initialisation des objets textuels
 CC2D_Texte titre = {

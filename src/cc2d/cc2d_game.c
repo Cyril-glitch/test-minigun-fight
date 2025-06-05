@@ -7,23 +7,21 @@
 
 void cc2d_gameLoad(void)
 {
-	
+
 	//chargement des textes et fonts
 	cc2d_loadFont("../font/PixelMaster.ttf",&titre);      //charge la font dans l'objet de texte
 	cc2d_textureTexte(renderer,&titre);                                          //crée sa texture 
-	
+
 	//chargement des textures Graphiques
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
-	cc2d_loadImage("../img/bullet.png",renderer,&bullet);             //crèe la texture
 
 	//position bullet
-	bullet.rectDst.x = indiana.rectDst.x + (indiana.rectSrc.w /2);
-	bullet.rectDst.y = indiana.rectDst.y + (indiana.rectDst.h /2);
+	initAmmo(bullet);
 
 
 
-	
+
 }
 
 void cc2d_gameUpdate(void)
@@ -50,22 +48,70 @@ void cc2d_gameClose(void)
 {
 	//fermeture des textures
 
-   SDL_DestroyTexture(indiana.texture);
-   indiana.texture = NULL;
+	SDL_DestroyTexture(indiana.texture);
+	indiana.texture = NULL;
 
-   SDL_DestroyTexture(indiana_2.texture);
-   indiana_2.texture = NULL;
+	SDL_DestroyTexture(indiana_2.texture);
+	indiana_2.texture = NULL;
 
-   SDL_DestroyTexture(bullet.texture);
-   bullet.texture = NULL;
+	for(int i = 0 ; i <= 10 ; i++)
+	{
+		SDL_DestroyTexture(bullet[i].texture);
+		bullet[i].texture = NULL;
+	}
 
-   SDL_DestroyTexture(titre.texture);
-   titre.texture = NULL;
+	SDL_DestroyTexture(titre.texture);
+	titre.texture = NULL;
 
 
-   //fermeture des fonts
+	//fermeture des fonts
 
-   TTF_CloseFont(titre.font);
-   titre.font = NULL;
+	TTF_CloseFont(titre.font);
+	titre.font = NULL;
 }
+void initAmmo(CC2D_Image* projectile)
+{
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		projectile[i]= (CC2D_Image){
+				.texture = NULL,
+				.rectSrc.x = 0,
+				.rectSrc.w = 0,
+				.rectSrc.h = 0, 
+
+				.rectDst.x = 0,
+				.rectDst.y = 0,
+				.rectDst.w = 6,
+				.rectDst.h = 5, 
+
+				.realWidth = 0,
+				.realHeight = 0,
+				.a = blend,
+				.angle = 0,
+				.center = {0,0},
+				.flipH = 0,
+				.flipV = 0,
+				.pastColision = {0,0,0,0},
+				.shooted = 0,
+				.affichable = 1,
+			};
+
+		   cc2d_loadImage("../img/bullet.png",renderer,&projectile[i]);   
+
+
+		}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

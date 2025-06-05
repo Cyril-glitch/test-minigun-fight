@@ -265,48 +265,48 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 
 void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage)
 {
-	static int shoot = 0;
-	static int out = 0;
+
+
+	static int startPos;
+	static int i = 0;
+	static int j = 0;
+
+	for( i = 0 ; i < 10 ; i++)              
+	{
+
+			projectile[i].rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2);
+			projectile[i].rectDst.y = playerImage->rectDst.y + 35;
+			startPos = projectile[i].rectDst.x;
+	}
+
 
 	if(cc2d_downKey(SDL_SCANCODE_SPACE))      
-	{/*
-		if(projectile->rectDst.x > playerImage.rectDst.x + 20 )
-		{
-			projectile.a = blend;
-		}
-	*/	
-		shoot= 1;
-
-	}
-	if(shoot)
 	{
-				
-			projectile->rectDst.x ++;
+		projectile[j].shooted = 1;
+	}
+	if(projectile[j].shooted)
+	{
+
+		projectile[j].rectDst.x ++;
+
+		if(projectile[j].rectDst.x > gameWidth)
+		{
+			projectile[j].shooted = 0;
+
+		}
+			     if(startPos == startPos + 50)
+			     {
+
+			     projectile[j+1].rectDst.x ++;
+
+			     }
 		
 	}
-	if(projectile->rectDst.x > gameWidth)
-	{
-		out = 1;
-	}
-	if(out)
-	{
-		projectile->rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2);
-		projectile->rectDst.y = playerImage->rectDst.y + (playerImage->rectDst.h /2);
-		out = 0 ;
-		shoot = 0 ;
-	}
 
 
-
-
-
-
-
-
-
-
-
-
+	
+	SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
+	SDL_RenderCopy(renderer,projectile[j].texture,NULL,&projectile[j].rectDst);
 
 }
 
