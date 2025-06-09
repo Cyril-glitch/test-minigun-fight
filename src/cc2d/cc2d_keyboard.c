@@ -265,94 +265,103 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 
 void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage)
 {
-	
 
 
-	static int startAnime;
+
 	static int tour = 0;
-	
+
 	int i = 0;
 	int j = 0;
 	int k = 0;
-	int l = 0;
+	int bulletSpeed = 2;
 
 	//On met tout les projectile a leur position initiale si il n'ont pas ete tiré	
 	for( i = 0 ; i < 10 ; i++)              
 	{
-		if(!projectile[i].shooted)
+		if(!projectile[i].shootedRight && !projectile[i].shootedLeft )
 		{
 
-			projectile[i].rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2) + 40;
-			projectile[i].rectDst.y = playerImage->rectDst.y + 20;
+			if(playerImage->flipH)
+			{
+
+				projectile[i].rectDst.x = playerImage->rectDst.x ;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 20;
+				projectile[i].a = alpha;
+			}
+			else
+			{
+				projectile[i].rectDst.x = playerImage->rectDst.x + 44;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 20;
+				projectile[i].a = alpha;
+			}
+
+			
 
 		}
 	}
+	//tir en rafale si on rest appuyer sur espaces 
 
-	//tir une balle
-
-	//quand on appuie sur espace le booleen shooted de projectile[0] = 1
-	if(cc2d_downKey(SDL_SCANCODE_SPACE))      
-	{
-		if((int)playerImage->animation[FIRE].frame == 9)
+	for( k = -1 ; k < 9 ; k ++)
+	{ 
+		//fait shooted actif a chaque coup de feu
+		if((int)playerImage->animation[FIRE].frame == 9 && !playerImage->flipH && tour == k+1 )
 		{
-			projectile[j].shooted = 1;
+			if(!projectile[k+1].shootedLeft)
+			{
+				projectile[k+1].shootedRight = 1;
+			}
 		}
-	}
-	//si shooted se verifie alors le projectile avance
-	if(projectile[j].shooted)
-	{
-		projectile[j].rectDst.x ++;	
-	}
-	//si il sort de l'affichage son boolen shooted prends 0 le projectile[0] revient a sa position initiale
-	if(projectile[j].rectDst.x > gameWidth)
-	{
-		projectile[j].shooted = 0;
+		else if((int)playerImage->animation[FIRE].frame == 9 && playerImage->flipH && tour == k+1)
+		{
+			if(!projectile[k+1].shootedRight)
+			{
+				projectile[k+1].shootedLeft = 1;
+			}
+		}
+
+
+		//si shooted se verifie alors le projectile avance
+		if(projectile[k+1].shootedRight)
+		{	
+			projectile[k+1].rectDst.x += bulletSpeed;		
+			projectile[k+1].a = blend;
+		}
+		if(projectile[k+1].shootedLeft)
+		{	
+			projectile[k+1].rectDst.x -= bulletSpeed;		
+			projectile[k+1].a = blend;
+		}
+		//si le projectile n'est plus affichable il revient a sa position initiale
+		if(projectile[k+1].rectDst.x > gameWidth || projectile[k+1].rectDst.x < 0)
+		{
+			projectile[k+1].shootedRight = 0;
+			projectile[k+1].shootedLeft = 0;
+		}
 
 	}
 	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
 	{	
-			tour ++;		
-	}
-	
 
-
-	//tir en rafale si on rest appuyer sur espaces 
-
-		for( k = 0 ; k < 10 ; k ++)
-		{ 
-			if(cc2d_downKey(SDL_SCANCODE_SPACE))
-			{
-				if((int)playerImage->animation[FIRE].frame == 9 && tour == k + 1)
-				{
-					projectile[k+1].shooted = 1;
-				}
-			}
-			//il commence d'onc sa course
-			if(projectile[k+1].shooted)
-			{
-				projectile[k+1].rectDst.x ++;	
-			}
-			//si projectile j+1 sort de l'affichage il n'est plus shooted et revient a sa posistion intiale
-			if(projectile[j+1].rectDst.x > gameWidth)
-			{
-				projectile[k+1].shooted = 0;
-			}
-
-		}
-		if(projectile[9].shooted)
+		if(tour == 9)
 		{
-			tour= 0;
+			tour = 0;
 		}
-	
+		if(tour < 9)
+		{
+			tour ++;		
+		}
+	}
+
+
+
+
 	//affiche tout les projectiles
 
-	for(l = 0 ; l < 10 ; l++)
+	for(j = 0 ; j < 10 ; j++)
 	{
-		SDL_SetTextureAlphaMod(projectile[l].texture,projectile[l].a);
-		SDL_RenderCopy(renderer,projectile[l].texture,NULL,&projectile[l].rectDst);
+		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
+		SDL_RenderCopy(renderer,projectile[j].texture,NULL,&projectile[j].rectDst);
 	}
-//printf("tour = %d\n ",tour);
-
 
 }
 

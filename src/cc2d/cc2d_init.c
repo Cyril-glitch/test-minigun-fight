@@ -147,7 +147,8 @@ CC2D_Image indiana_2 = {
 };
 
 //projectile
-CC2D_Image bullet[10];
+CC2D_Image bulletP1[10];
+CC2D_Image bulletP2[10];
 
 //initialisation des objets textuels
 CC2D_Texte titre = {

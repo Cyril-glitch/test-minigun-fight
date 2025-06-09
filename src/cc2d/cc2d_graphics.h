@@ -52,8 +52,8 @@ typedef struct CC2D_Image
 	int flipV;
 	CC2D_PastColision pastColision;
 
-	int shooted;
-	int affichable;
+	int shootedRight;
+	int shootedLeft;
 
 }CC2D_Image;
 
@@ -93,7 +93,8 @@ extern CC2D_Image indiana;
 
 extern CC2D_Image indiana_2;
 
-extern CC2D_Image bullet[10];
+extern CC2D_Image bulletP1[10];
+extern CC2D_Image bulletP2[10];
 
 //variables graphics
 

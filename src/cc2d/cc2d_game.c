@@ -17,7 +17,8 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
 
 	//position bullet
-	initAmmo(bullet);
+	initAmmo(bulletP1);
+	initAmmo(bulletP2);
 
 
 
@@ -56,9 +57,15 @@ void cc2d_gameClose(void)
 
 	for(int i = 0 ; i <= 10 ; i++)
 	{
-		SDL_DestroyTexture(bullet[i].texture);
-		bullet[i].texture = NULL;
+		SDL_DestroyTexture(bulletP1[i].texture);
+		bulletP1[i].texture = NULL;
 	}
+	for(int i = 0 ; i <= 10 ; i++)
+	{
+		SDL_DestroyTexture(bulletP2[i].texture);
+		bulletP2[i].texture = NULL;
+	}
+
 
 	SDL_DestroyTexture(titre.texture);
 	titre.texture = NULL;
@@ -92,8 +99,8 @@ void initAmmo(CC2D_Image* projectile)
 				.flipH = 0,
 				.flipV = 0,
 				.pastColision = {0,0,0,0},
-				.shooted = 0,
-				.affichable = 1,
+				.shootedRight = 0,
+				.shootedLeft = 0
 			};
 
 		   cc2d_loadImage("../img/bullet.png",renderer,&projectile[i]);   

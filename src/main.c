@@ -45,11 +45,12 @@ int main( int agrc , const char argv [])
 		
 		
 		//positionement bullet
-		cc2d_shoot(renderer,bullet,&indiana);
+		cc2d_shoot(renderer,bulletP1,&indiana);
+		cc2d_shoot(renderer,bulletP2,&indiana_2);
 
 
 		
-		cc2d_fpsLimiter(frameStart,20);
+//		cc2d_fpsLimiter(frameStart,20);
 
 
 
