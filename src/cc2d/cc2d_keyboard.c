@@ -270,6 +270,8 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	static int startPos;
 	int i = 0;
 	int j = 0;
+	int k = 0;
+	int l = 0;
 
 	//On met tout les projectile a leur position initiale si il n'ont pas ete tiré	
 	for( i = 0 ; i < 10 ; i++)              
@@ -279,10 +281,12 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 
 			projectile[i].rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2);
 			projectile[i].rectDst.y = playerImage->rectDst.y + 35;
-			startPos = projectile[i].rectDst.x;
+			startPos = projectile[i].rectDst.x;              //recupere la position initiale du projectile
+
 		}
 	}
 
+	//tir une balle
 
 	//quand on appuie sur espace le booleen shooted de projectile[0] = 1
 	if(cc2d_downKey(SDL_SCANCODE_SPACE))      
@@ -292,41 +296,47 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	//si shooted se verifie alors le projectile avance
 	if(projectile[j].shooted)
 	{
-
 		projectile[j].rectDst.x ++;	
 	}
-	//si il sort de l'affichage son boolen shooted prends 0 le projectile[0] revient a sa psotion initiale
+	//si il sort de l'affichage son boolen shooted prends 0 le projectile[0] revient a sa position initiale
 	if(projectile[j].rectDst.x > gameWidth)
 	{
-			projectile[j].shooted = 0;
+		projectile[j].shooted = 0;
 
 	}
-	//quand le projectile 0 aura parcouru 50px si espace est toujours appuyer
-	//le prochain projectile et shooted et sa course demarre
-	if(cc2d_downKey(SDL_SCANCODE_SPACE))
-	{
-		if(projectile[j].rectDst.x >= startPos + 50)
-		{
-			projectile[j+1].shooted = 1;
-		}
-	}
-	if(projectile[j+1].shooted)
-	{
-		projectile[j+1].rectDst.x ++;
-	}
-	if(projectile[j+1].rectDst.x > gameWidth)
-	{
-			projectile[j+1].shooted = 0;
-	}
 
+	//tir en rafale si on rest appuyer sur espaces 
 
+		for( k = 0 ; k < 10 ; k ++)
+		{ 
+			if(cc2d_downKey(SDL_SCANCODE_SPACE))
+			{
+				//quand le porjectile[0] a parcouru 50px le est shooted
+				if(projectile[k].rectDst.x >= startPos + 50 )
+				{ 
+					projectile[k+1].shooted = 1;
+				}		
+			}
+			//il commence d'onc sa course
+			if(projectile[k+1].shooted)
+			{
+				projectile[k+1].rectDst.x ++;	
+			}
+			//si projectile j+1 sort de l'affichage il n'est plus shooted et revient a sa posistion intiale
+			if(projectile[j+1].rectDst.x > gameWidth)
+			{
+				projectile[k+1].shooted = 0;
+
+			}
+
+	}
 	//affiche tout les projectiles
-	for(j = 0 ; j < 10 ; j++)
-	{
-		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
-		SDL_RenderCopy(renderer,projectile[j].texture,NULL,&projectile[j].rectDst);
-	}
 
+	for(l = 0 ; l < 10 ; l++)
+	{
+		SDL_SetTextureAlphaMod(projectile[l].texture,projectile[l].a);
+		SDL_RenderCopy(renderer,projectile[l].texture,NULL,&projectile[l].rectDst);
+	}
 }
 
 
@@ -335,9 +345,11 @@ int colision(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 	int marginX = player2_Image->rectDst.w / 2;
 	int marginY = player2_Image->rectDst.h ;
 
-	if(playerImage->rectDst.x >= player2_Image->rectDst.x - marginX && playerImage->rectDst.x <= player2_Image->rectDst.x + marginX
+	if(playerImage->rectDst.x >= player2_Image->rectDst.x - marginX 
+			&& playerImage->rectDst.x <= player2_Image->rectDst.x + marginX
 			&&
-			playerImage->rectDst.y <= player2_Image->rectDst.y + marginY && playerImage->rectDst.y >= player2_Image->rectDst.y- marginY)
+			playerImage->rectDst.y <= player2_Image->rectDst.y + marginY 
+			&& playerImage->rectDst.y >= player2_Image->rectDst.y- marginY)
 	{
 		return 1;
 	}
