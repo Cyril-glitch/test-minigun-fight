@@ -362,11 +362,7 @@ int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,dou
 		return 0;
 
 	}	
-	else
-	{
-		return -1;
-	}
-	if(strcmp(perf,"deltaTime")== 0)  
+	else if(strcmp(perf,"deltaTime")== 0)  
 	{
 
 		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
@@ -383,11 +379,7 @@ int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,dou
 		return 0;
 
 	}
-	else
-	{
-		return -1;
-	}
-	if(strcmp(perf,"fps")== 0)  
+	else if(strcmp(perf,"fps")== 0)  
 	{
 
 		cc2d_loadFont("../font/PixelMaster.ttf",&timer);    
@@ -406,9 +398,9 @@ int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,dou
 	}
 	else
 	{
+		printf("mode inconnue\n");
 		return -1;
 	}
-
 }
 
 void loadBar()

@@ -265,9 +265,12 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 
 void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage)
 {
+	
 
 
-	static int startPos;
+	static int startAnime;
+	static int tour = 0;
+	
 	int i = 0;
 	int j = 0;
 	int k = 0;
@@ -279,9 +282,8 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		if(!projectile[i].shooted)
 		{
 
-			projectile[i].rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2);
-			projectile[i].rectDst.y = playerImage->rectDst.y + 35;
-			startPos = projectile[i].rectDst.x;              //recupere la position initiale du projectile
+			projectile[i].rectDst.x = playerImage->rectDst.x + (playerImage->rectSrc.w /2) + 40;
+			projectile[i].rectDst.y = playerImage->rectDst.y + 20;
 
 		}
 	}
@@ -291,7 +293,10 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	//quand on appuie sur espace le booleen shooted de projectile[0] = 1
 	if(cc2d_downKey(SDL_SCANCODE_SPACE))      
 	{
-		projectile[j].shooted = 1;
+		if((int)playerImage->animation[FIRE].frame == 9)
+		{
+			projectile[j].shooted = 1;
+		}
 	}
 	//si shooted se verifie alors le projectile avance
 	if(projectile[j].shooted)
@@ -304,6 +309,12 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		projectile[j].shooted = 0;
 
 	}
+	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
+	{	
+			tour ++;		
+	}
+	
+
 
 	//tir en rafale si on rest appuyer sur espaces 
 
@@ -311,11 +322,10 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		{ 
 			if(cc2d_downKey(SDL_SCANCODE_SPACE))
 			{
-				//quand le porjectile[0] a parcouru 50px le est shooted
-				if(projectile[k].rectDst.x >= startPos + 50 )
-				{ 
+				if((int)playerImage->animation[FIRE].frame == 9 && tour == k + 1)
+				{
 					projectile[k+1].shooted = 1;
-				}		
+				}
 			}
 			//il commence d'onc sa course
 			if(projectile[k+1].shooted)
@@ -326,10 +336,14 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			if(projectile[j+1].rectDst.x > gameWidth)
 			{
 				projectile[k+1].shooted = 0;
-
 			}
 
-	}
+		}
+		if(projectile[9].shooted)
+		{
+			tour= 0;
+		}
+	
 	//affiche tout les projectiles
 
 	for(l = 0 ; l < 10 ; l++)
@@ -337,6 +351,9 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		SDL_SetTextureAlphaMod(projectile[l].texture,projectile[l].a);
 		SDL_RenderCopy(renderer,projectile[l].texture,NULL,&projectile[l].rectDst);
 	}
+//printf("tour = %d\n ",tour);
+
+
 }
 
 

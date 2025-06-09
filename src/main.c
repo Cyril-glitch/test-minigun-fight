@@ -49,6 +49,7 @@ int main( int agrc , const char argv [])
 
 
 		
+		cc2d_fpsLimiter(frameStart,20);
 
 
 
