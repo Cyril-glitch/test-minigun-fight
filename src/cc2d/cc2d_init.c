@@ -25,11 +25,35 @@ CC2D_Window myWindow = {
 
 SDL_Renderer* renderer = NULL;
 
-int gameWidth = 512;
-int gameHeight = 384;
+int gameWidth = 1024;
+int gameHeight = 768;
 
 
 //intialisation graphics                      pour obtenir centre faire :( windowW - image.x ) / 2
+
+//fond
+CC2D_Image land = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 0,
+.rectDst.y = 0,
+.rectDst.w = 1024,
+.rectDst.h = 768, 
+
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+
+};
 
 //player 1
 
@@ -41,9 +65,9 @@ CC2D_Image indiana = {
 .rectSrc.h = 24, 
 
 .rectDst.x = 0,
-.rectDst.y = 179.5,
-.rectDst.w = 50,
-.rectDst.h = 48, 
+.rectDst.y = 359,
+.rectDst.w = 100,
+.rectDst.h = 96, 
 
 .animation = {
 
@@ -97,10 +121,10 @@ CC2D_Image indiana_2 = {
 .rectSrc.w = 25,
 .rectSrc.h = 24, 
 
-.rectDst.x = 462,
-.rectDst.y = 179.5,
-.rectDst.w = 50,
-.rectDst.h = 48, 
+.rectDst.x = 924,
+.rectDst.y = 359,
+.rectDst.w = 100,
+.rectDst.h = 96, 
 
 .animation = {
 
@@ -145,6 +169,104 @@ CC2D_Image indiana_2 = {
 .pastColision = {0,0,0,0},
 
 };
+//HP BAR P1
+
+
+CC2D_Image hpBar_out = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 40,
+.rectDst.y = 30,
+.rectDst.w = 256,
+.rectDst.h = 36, 
+
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+
+};
+
+CC2D_Image hpBar_in = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 78,
+.rectDst.y = 42,
+.rectDst.w = 212,
+.rectDst.h = 12, 
+
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+
+};
+
+//HP BAR P2
+
+
+CC2D_Image hpBar_out_p2 = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 728,
+.rectDst.y = 30,
+.rectDst.w = 256,
+.rectDst.h = 36, 
+
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+
+};
+
+CC2D_Image hpBar_in_p2 = {
+.texture = NULL,
+.rectSrc.x = 0,
+.rectSrc.y = 0,
+.rectSrc.w = 0,
+.rectSrc.h = 0, 
+
+.rectDst.x = 734,
+.rectDst.y = 42,
+.rectDst.w = 212,
+.rectDst.h = 12, 
+
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+.angle = 0,
+.center = {0,0},
+.flipH = 0,
+.flipV = 0,
+.pastColision = {0,0,0,0},
+
+};
+
 
 //projectile
 CC2D_Image bulletP1[10];
@@ -156,11 +278,11 @@ CC2D_Texte titre = {
 .texture = NULL,
 .charTexte = "Mini-Gun-Fight",
 .color.r = 255,
-.color.g = 255,
-.color.b = 255,
+.color.g = 0,
+.color.b = 0,
 .color.a = blend,
 .fontSize = 50,
-.x = 0,
+.x = 410,
 .y = 0,
 .width = 0,
 .height = 0,
@@ -173,9 +295,9 @@ CC2D_Texte timer = {
 .color.g = 255,
 .color.b = 255,
 .color.a = blend,
-.fontSize = 12.5,
-.x = 455,
-.y = 0,
+.fontSize = 25,
+.x = 910,
+.y =740,
 .width = 0,
 .height = 0,
 };

@@ -31,9 +31,17 @@ int main( int agrc , const char argv [])
 
 		//dessins
 
+
+		cc2d_draw(renderer,land);
+
 		cc2d_drawTexte(renderer,titre);
 		cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
+		cc2d_draw(renderer,hpBar_out);
+		cc2d_draw(renderer,hpBar_in);
+
+		cc2d_draw(renderer,hpBar_out_p2);
+		cc2d_draw(renderer,hpBar_in_p2);
 
 		cc2d_drawAnime(renderer,&indiana);
 		cc2d_drawAnime(renderer,&indiana_2);

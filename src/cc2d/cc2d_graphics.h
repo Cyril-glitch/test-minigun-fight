@@ -89,12 +89,18 @@ extern int gameWidth ;
 extern int gameHeight ;
 
 //intialisation des objets graphics
+extern CC2D_Image land;
 extern CC2D_Image indiana;
-
 extern CC2D_Image indiana_2;
 
 extern CC2D_Image bulletP1[10];
 extern CC2D_Image bulletP2[10];
+
+extern CC2D_Image hpBar_out;
+extern CC2D_Image hpBar_in;
+
+extern CC2D_Image hpBar_out_p2;
+extern CC2D_Image hpBar_in_p2;
 
 //variables graphics
 

@@ -283,15 +283,18 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 
 			if(playerImage->flipH)
 			{
+				projectile[i].flipH = 1;
 
 				projectile[i].rectDst.x = playerImage->rectDst.x ;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 20;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
 				projectile[i].a = alpha;
 			}
 			else
 			{
-				projectile[i].rectDst.x = playerImage->rectDst.x + 44;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 20;
+				projectile[i].flipH = 0;
+
+				projectile[i].rectDst.x = playerImage->rectDst.x + 88;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
 				projectile[i].a = alpha;
 			}
 
@@ -309,6 +312,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			if(!projectile[k+1].shootedLeft)
 			{
 				projectile[k+1].shootedRight = 1;
+				projectile[i].flipH = 1;
 			}
 		}
 		else if((int)playerImage->animation[FIRE].frame == 9 && playerImage->flipH && tour == k+1)
@@ -360,7 +364,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	for(j = 0 ; j < 10 ; j++)
 	{
 		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
-		SDL_RenderCopy(renderer,projectile[j].texture,NULL,&projectile[j].rectDst);
+	SDL_RenderCopyEx(renderer,projectile[j].texture,NULL,&projectile[j].rectDst,0,NULL,projectile[j].flipH);
 	}
 
 }

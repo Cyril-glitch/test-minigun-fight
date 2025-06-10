@@ -7,14 +7,25 @@
 
 void cc2d_gameLoad(void)
 {
+	//chargement du fond
+
+	cc2d_loadImage("../img/land.jpg",renderer,&land);             //crèe la texture
+
 
 	//chargement des textes et fonts
 	cc2d_loadFont("../font/PixelMaster.ttf",&titre);      //charge la font dans l'objet de texte
 	cc2d_textureTexte(renderer,&titre);                                          //crée sa texture 
 
-	//chargement des textures Graphiques
+	//chargement des textures Graphiques P1
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
+	cc2d_loadImage("../img/hpBar_out.png",renderer,&hpBar_out);             //crèe la texture
+	cc2d_loadImage("../img/hpBar_in.png",renderer,&hpBar_in);             //crèe la texture
+
+	
+	//chargement des textures Graphiques P2
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
+	cc2d_loadImage("../img/hpFlip_out.png",renderer,&hpBar_out_p2);             //crèe la texture
+	cc2d_loadImage("../img/hpFlip_in.png",renderer,&hpBar_in_p2);             //crèe la texture
 
 	//position bullet
 	initAmmo(bulletP1);
@@ -66,6 +77,13 @@ void cc2d_gameClose(void)
 		bulletP2[i].texture = NULL;
 	}
 
+	SDL_DestroyTexture(hpBar_out.texture);
+	hpBar_out.texture = NULL;
+
+	SDL_DestroyTexture(hpBar_in.texture);
+	hpBar_in.texture = NULL;
+
+
 
 	SDL_DestroyTexture(titre.texture);
 	titre.texture = NULL;
@@ -88,8 +106,8 @@ void initAmmo(CC2D_Image* projectile)
 
 				.rectDst.x = 0,
 				.rectDst.y = 0,
-				.rectDst.w = 6,
-				.rectDst.h = 5, 
+				.rectDst.w = 20,
+				.rectDst.h = 20, 
 
 				.realWidth = 0,
 				.realHeight = 0,
@@ -103,21 +121,12 @@ void initAmmo(CC2D_Image* projectile)
 				.shootedLeft = 0
 			};
 
-		   cc2d_loadImage("../img/bullet.png",renderer,&projectile[i]);   
+		   cc2d_loadImage("../img/bullet2.png",renderer,&projectile[i]);   
 
 
 		}
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
