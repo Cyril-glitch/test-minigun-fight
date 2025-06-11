@@ -60,7 +60,7 @@ void cc2d_close(SDL_Renderer* renderer,SDL_Window* window)
 }
 
 
-int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,int gameHeight)
+int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidth,int gameHeight)
 {
 
 	//window = l'adresse du pointeur 
@@ -117,6 +117,8 @@ int cc2d_init_window(CC2D_Window* window,SDL_Renderer** renderer,int gameWidht,i
 	SDL_RenderSetLogicalSize(*renderer,gameWidth,gameHeight);
 	SDL_RenderSetIntegerScale(*renderer,SDL_TRUE);
 	SDL_SetRenderDrawBlendMode(*renderer,SDL_BLENDMODE_BLEND);
+
+	return 0;
 }
 
 
@@ -233,7 +235,7 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 
 void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 {
-	int state = image->state;
+	int state = image->animationState;
 
 	if(image->animation[state].loop)
 	{
@@ -272,7 +274,7 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image)
 {
 
-	int state = image->state;
+	int state = image->animationState;
 
 
 	if((image->animation[state].frame)<=(image->animation[state].last))
@@ -282,12 +284,12 @@ void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image)
 
 		(image->animation[state].frame) += image->animation[state].speed;
 	}
-	else
+/*	else
 	{
 
 		(image->animation[state].frame) = image->animation[state].first;
 	}
-
+*/
 
 
 	cc2d_drawQuad(renderer,*image);

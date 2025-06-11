@@ -33,13 +33,18 @@ typedef struct CC2D_Anime
 	 STATE_MAX
 };
 
+typedef struct CC2D_PlayerState
+{
+	int dead;
+}CC2D_PlayerState;
+
 typedef struct CC2D_Image
 {
 	SDL_Texture* texture;
 	SDL_Rect rectSrc;
 	SDL_Rect rectDst;
 	CC2D_Anime animation[STATE_MAX];
-	int state;
+	int animationState;
 
 	int realWidth;
 	int realHeight;
@@ -54,6 +59,12 @@ typedef struct CC2D_Image
 
 	int shootedRight;
 	int shootedLeft;
+	int damage;
+	int bulletSpeed;
+	int hit;
+
+	int hp;
+	CC2D_PlayerState state;
 
 }CC2D_Image;
 

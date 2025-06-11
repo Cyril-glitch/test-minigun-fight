@@ -30,16 +30,18 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 {
 
 
-	playerImage->state = IDLE;
+	playerImage->animationState = IDLE;
 
 
-	if((cc2d_downKey(SDL_SCANCODE_D)||cc2d_downKey(SDL_SCANCODE_A)
-				||cc2d_downKey(SDL_SCANCODE_S)||cc2d_downKey(SDL_SCANCODE_W))
-			&& !cc2d_downKey(SDL_SCANCODE_SPACE ))
+	if((cc2d_downKey(SDL_SCANCODE_D)||
+	   cc2d_downKey(SDL_SCANCODE_A)||
+	   cc2d_downKey(SDL_SCANCODE_S)||
+	   cc2d_downKey(SDL_SCANCODE_W))&& 
+	   !cc2d_downKey(SDL_SCANCODE_SPACE ))
 	{
 
-		playerImage->state = WALK;
-		playerImage->animation[playerImage->state].loop = 1;
+		playerImage->animationState = WALK;
+		playerImage->animation[playerImage->animationState].loop = 1;
 
 
 
@@ -47,11 +49,11 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 		//DROITE
 		if(cc2d_downKey(SDL_SCANCODE_D)  )        
 		{
-			if(playerImage->rectDst.x < (gameWidth - playerImage->rectDst.w ) 
-					&& !colision(playerImage,player2_Image) 
-					|| playerImage->pastColision.left 
-					|| playerImage->pastColision.up  
-					|| playerImage->pastColision.down ) 
+			if((playerImage->rectDst.x < (gameWidth - playerImage->rectDst.w ) && 
+			!colision(playerImage,player2_Image)) || 
+			playerImage->pastColision.left || 
+			playerImage->pastColision.up  || 
+			playerImage->pastColision.down ) 
 			{
 				playerImage->pastColision.left = 0;
 				playerImage->pastColision.up = 0;
@@ -71,10 +73,10 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 		//GAUCHE
 		if(cc2d_downKey(SDL_SCANCODE_A))
 		{
-			if(playerImage->rectDst.x > 0 && !colision(playerImage,player2_Image)
-					|| playerImage->pastColision.right 
-					|| playerImage->pastColision.up  
-					|| playerImage->pastColision.down )
+			if((playerImage->rectDst.x > 0 && !colision(playerImage,player2_Image))|| 
+			playerImage->pastColision.right || 
+			playerImage->pastColision.up  || 
+			playerImage->pastColision.down )
 			{
 				playerImage->pastColision.right = 0;
 				playerImage->pastColision.up = 0;
@@ -91,11 +93,11 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 		//BAS
 		if(cc2d_downKey(SDL_SCANCODE_S))
 		{
-			if(playerImage->rectDst.y < gameHeight - playerImage->rectDst.h 
-					&& !colision(playerImage,player2_Image) 
-					|| playerImage->pastColision.right 
-					|| playerImage->pastColision.left  
-					|| playerImage->pastColision.up )
+			if((playerImage->rectDst.y < gameHeight - playerImage->rectDst.h && 
+			!colision(playerImage,player2_Image)) || 
+			playerImage->pastColision.right || 
+		        playerImage->pastColision.left  || 
+			playerImage->pastColision.up )
 
 			{
 				playerImage->pastColision.right = 0;
@@ -112,10 +114,10 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 		//HAUT
 		if(cc2d_downKey(SDL_SCANCODE_W))
 		{
-			if(playerImage->rectDst.y > 0 && !colision(playerImage,player2_Image)
-					|| playerImage->pastColision.right 
-					|| playerImage->pastColision.left  
-					|| playerImage->pastColision.down )
+			if((playerImage->rectDst.y > 0 && !colision(playerImage,player2_Image))|| 
+			playerImage->pastColision.right || 
+			playerImage->pastColision.left  || 
+			playerImage->pastColision.down )
 
 			{
 				playerImage->pastColision.right = 0;
@@ -133,8 +135,8 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 	}
 	else if(cc2d_downKey(SDL_SCANCODE_SPACE))
 	{
-		playerImage->state = FIRE;
-		playerImage->animation[playerImage->state].loop = 1;
+		playerImage->animationState = FIRE;
+		playerImage->animation[playerImage->animationState].loop = 1;
 	}
 
 
@@ -142,7 +144,7 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 
 	else
 	{
-		playerImage->animation[playerImage->state].loop = 0;
+		playerImage->animation[playerImage->animationState].loop = 0;
 
 	}
 
@@ -151,27 +153,30 @@ void cc2d_playerMovement(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 { 
 
-	player2_Image->state = IDLE ; 
+	player2_Image->animationState = IDLE ; 
 
 
-	if((cc2d_downKey(SDL_SCANCODE_KP_6)||cc2d_downKey(SDL_SCANCODE_KP_4)
-				||cc2d_downKey(SDL_SCANCODE_KP_5)||cc2d_downKey(SDL_SCANCODE_KP_8)) && !cc2d_downKey(SDL_SCANCODE_DOWN))
+	if((cc2d_downKey(SDL_SCANCODE_KP_6)||
+	cc2d_downKey(SDL_SCANCODE_KP_4)||
+	cc2d_downKey(SDL_SCANCODE_KP_5)||
+	cc2d_downKey(SDL_SCANCODE_KP_8))&& 
+	!cc2d_downKey(SDL_SCANCODE_DOWN))
 	{
 
 
 
-		player2_Image->state = WALK ; 
-		player2_Image->animation[player2_Image->state].loop = 1;
+		player2_Image->animationState = WALK ; 
+		player2_Image->animation[player2_Image->animationState].loop = 1;
 
 		//DROITE
 
 		if(cc2d_downKey(SDL_SCANCODE_KP_6)  )        
 		{
-			if(player2_Image->rectDst.x < (gameWidth - player2_Image->rectDst.w )
-					&& !colision(playerImage,player2_Image) 
-					|| player2_Image->pastColision.left 
-					|| player2_Image->pastColision.up  
-					|| player2_Image->pastColision.down ) 
+			if((player2_Image->rectDst.x < (gameWidth - player2_Image->rectDst.w )&& 
+			!colision(playerImage,player2_Image)) || 
+			player2_Image->pastColision.left || 
+			player2_Image->pastColision.up  || 
+			player2_Image->pastColision.down ) 
 			{
 				player2_Image->pastColision.left = 0;
 				player2_Image->pastColision.up = 0;
@@ -190,10 +195,10 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 		//GAUCHE
 		if(cc2d_downKey(SDL_SCANCODE_KP_4))
 		{
-			if(player2_Image->rectDst.x > 0 && !colision(player2_Image,playerImage)
-					|| player2_Image->pastColision.right 
-					|| player2_Image->pastColision.up  
-					|| player2_Image->pastColision.down )
+			if((player2_Image->rectDst.x > 0 && !colision(player2_Image,playerImage))|| 
+			player2_Image->pastColision.right || 
+			player2_Image->pastColision.up  || 
+			player2_Image->pastColision.down )
 			{
 				player2_Image->pastColision.right = 0;
 				player2_Image->pastColision.up = 0;
@@ -210,11 +215,11 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 		//BAS
 		if(cc2d_downKey(SDL_SCANCODE_KP_5))
 		{
-			if(player2_Image->rectDst.y < gameHeight - playerImage->rectDst.h 
-					&& !colision(player2_Image,playerImage) 
-					|| player2_Image->pastColision.right 
-					|| player2_Image->pastColision.left  
-					|| player2_Image->pastColision.up )
+			if((player2_Image->rectDst.y < gameHeight - playerImage->rectDst.h && 
+			!colision(player2_Image,playerImage)) || 
+			player2_Image->pastColision.right || 
+			player2_Image->pastColision.left  || 
+			player2_Image->pastColision.up )
 
 			{
 				player2_Image->pastColision.right = 0;
@@ -231,10 +236,10 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 		//HAUT
 		if(cc2d_downKey(SDL_SCANCODE_KP_8))
 		{
-			if(player2_Image->rectDst.y > 0 && !colision(player2_Image,playerImage)
-					|| player2_Image->pastColision.right 
-					|| player2_Image->pastColision.left  
-					|| player2_Image->pastColision.down )
+			if((player2_Image->rectDst.y > 0 && !colision(player2_Image,playerImage))|| 
+			player2_Image->pastColision.right || 
+			player2_Image->pastColision.left  || 
+			player2_Image->pastColision.down )
 
 			{
 				player2_Image->pastColision.right = 0;
@@ -252,18 +257,19 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 	}
 	else if(cc2d_downKey(SDL_SCANCODE_DOWN))
 	{
-		player2_Image->state = FIRE;
-		player2_Image->animation[player2_Image->state].loop = 1;
+		player2_Image->animationState = FIRE;
+		player2_Image->animation[player2_Image->animationState].loop = 1;
 	}
 	else
 	{
 
-		player2_Image->animation[player2_Image->state].loop = 0;
+		player2_Image->animation[player2_Image->animationState].loop = 0;
 	}
 }
 
 
-void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage)
+void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,
+CC2D_Image* enemieHpBar)
 {
 
 
@@ -273,7 +279,6 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	int i = 0;
 	int j = 0;
 	int k = 0;
-	int bulletSpeed = 2;
 
 	//On met tout les projectile a leur position initiale si il n'ont pas ete tiré	
 	for( i = 0 ; i < 10 ; i++)              
@@ -306,7 +311,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 
 	for( k = -1 ; k < 9 ; k ++)
 	{ 
-		//fait shooted actif a chaque coup de feu
+		//shooted prend 1 a chaque coup de feu
 		if((int)playerImage->animation[FIRE].frame == 9 && !playerImage->flipH && tour == k+1 )
 		{
 			if(!projectile[k+1].shootedLeft)
@@ -327,12 +332,12 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		//si shooted se verifie alors le projectile avance
 		if(projectile[k+1].shootedRight)
 		{	
-			projectile[k+1].rectDst.x += bulletSpeed;		
+			projectile[k+1].rectDst.x += projectile[k+1].bulletSpeed;		
 			projectile[k+1].a = blend;
 		}
 		if(projectile[k+1].shootedLeft)
 		{	
-			projectile[k+1].rectDst.x -= bulletSpeed;		
+			projectile[k+1].rectDst.x -= projectile[k+1].bulletSpeed;		
 			projectile[k+1].a = blend;
 		}
 		//si le projectile n'est plus affichable il revient a sa position initiale
@@ -341,7 +346,20 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			projectile[k+1].shootedRight = 0;
 			projectile[k+1].shootedLeft = 0;
 		}
+		//si le projectile touche le player adverse 
+		if(colision(&projectile[k+1],enemie) && !projectile[k+1].hit) 
+		{
 
+			enemie->hp -= projectile[k+1].damage;
+			//la bar de vie se racourcis au pourcentage de degats infligés
+			enemieHpBar->rectDst.w -= 11;
+			enemieHpBar->rectDst.x += 11;
+
+			projectile[k+1].hit = 1;
+		}
+
+		
+		
 	}
 	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
 	{	
@@ -368,6 +386,123 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	}
 
 }
+
+void cc2d_shoot_p2(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,
+CC2D_Image* enemieHpBar)
+{
+
+
+
+	static int tour = 0;
+
+	int i = 0;
+	int j = 0;
+	int k = 0;
+
+	//On met tout les projectile a leur position initiale si il n'ont pas ete tiré	
+	for( i = 0 ; i < 10 ; i++)              
+	{
+		if(!projectile[i].shootedRight && !projectile[i].shootedLeft )
+		{
+
+			if(playerImage->flipH)
+			{
+				projectile[i].flipH = 1;
+
+				projectile[i].rectDst.x = playerImage->rectDst.x ;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
+				projectile[i].a = alpha;
+			}
+			else
+			{
+				projectile[i].flipH = 0;
+
+				projectile[i].rectDst.x = playerImage->rectDst.x + 88;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
+				projectile[i].a = alpha;
+			}
+
+			
+
+		}
+	}
+	//tir en rafale si on rest appuyer sur espaces 
+
+	for( k = -1 ; k < 9 ; k ++)
+	{ 
+		//shooted prend 1 a chaque coup de feu
+		if((int)playerImage->animation[FIRE].frame == 9 && !playerImage->flipH && tour == k+1 )
+		{
+			if(!projectile[k+1].shootedLeft)
+			{
+				projectile[k+1].shootedRight = 1;
+				projectile[i].flipH = 1;
+			}
+		}
+		else if((int)playerImage->animation[FIRE].frame == 9 && playerImage->flipH && tour == k+1)
+		{
+			if(!projectile[k+1].shootedRight)
+			{
+				projectile[k+1].shootedLeft = 1;
+			}
+		}
+
+
+		//si shooted se verifie alors le projectile avance
+		if(projectile[k+1].shootedRight)
+		{	
+			projectile[k+1].rectDst.x += projectile[k+1].bulletSpeed;		
+			projectile[k+1].a = blend;
+		}
+		if(projectile[k+1].shootedLeft)
+		{	
+			projectile[k+1].rectDst.x -= projectile[k+1].bulletSpeed;		
+			projectile[k+1].a = blend;
+		}
+		//si le projectile n'est plus affichable il revient a sa position initiale
+		if(projectile[k+1].rectDst.x > gameWidth || projectile[k+1].rectDst.x < 0)
+		{
+			projectile[k+1].shootedRight = 0;
+			projectile[k+1].shootedLeft = 0;
+		}
+		//si le projectile touche le player adverse 
+		if(colision(&projectile[k+1],enemie) && !projectile[k+1].hit) 
+		{
+
+			enemie->hp -= projectile[k+1].damage;
+			//la bar de vie se racourcis au pourcentage de degats infligés
+			enemieHpBar->rectDst.w -= 11;
+
+			projectile[k+1].hit = 1;
+		}
+		
+	}
+	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
+	{	
+
+		if(tour == 9)
+		{
+			tour = 0;
+		}
+		if(tour < 9)
+		{
+			tour ++;		
+		}
+	}
+
+
+
+
+	//affiche tout les projectiles
+
+	for(j = 0 ; j < 10 ; j++)
+	{
+		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
+	SDL_RenderCopyEx(renderer,projectile[j].texture,NULL,&projectile[j].rectDst,0,NULL,projectile[j].flipH);
+	}
+
+}
+
 
 
 int colision(CC2D_Image* playerImage,CC2D_Image* player2_Image)

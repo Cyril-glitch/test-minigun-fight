@@ -4,6 +4,7 @@
 #include "cc2d_game.h"
 #include "cc2d_graphics.h"
 #include "cc2d_font.h"
+#include "cc2d_keyboard.h"
 
 void cc2d_gameLoad(void)
 {
@@ -21,7 +22,7 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/hpBar_out.png",renderer,&hpBar_out);             //crèe la texture
 	cc2d_loadImage("../img/hpBar_in.png",renderer,&hpBar_in);             //crèe la texture
 
-	
+
 	//chargement des textures Graphiques P2
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana_2);             //crèe la texture
 	cc2d_loadImage("../img/hpFlip_out.png",renderer,&hpBar_out_p2);             //crèe la texture
@@ -53,6 +54,61 @@ void cc2d_gameUpdate(void)
 }
 void cc2d_gameDraw(void)
 {
+	playerState(&indiana);
+	playerState(&indiana_2);
+
+	// dessine le fond
+	cc2d_draw(renderer,land);
+
+	//dessine le titre
+	cc2d_drawTexte(renderer,titre);
+
+	//dessine les performance graphique ou valeur de temps
+	cc2d_printPerf("fps",renderer,&timer,deltaTime);
+
+	//dessine l'ath
+	cc2d_draw(renderer,hpBar_out);
+	cc2d_draw(renderer,hpBar_in);
+
+	cc2d_draw(renderer,hpBar_out_p2);
+	cc2d_draw(renderer,hpBar_in_p2);
+
+	//dessine les joueurs
+
+//fonction de deplacement ou d'action
+
+	//mouvement
+	if(!indiana.state.dead)
+	{
+		
+		cc2d_drawAnime(renderer,&indiana);
+	
+		cc2d_playerMovement(&indiana,&indiana_2);
+	}
+	else
+	{	
+		cc2d_drawAnimeLoop(renderer,&indiana);
+	}
+		
+	
+	if(!indiana_2.state.dead)
+	{
+
+		cc2d_drawAnime(renderer,&indiana_2);
+		cc2d_player2_Movement(&indiana_2,&indiana);
+	}
+	else
+	{	
+		cc2d_drawAnimeLoop(renderer,&indiana_2);
+	}
+
+	//positionement des projectiles
+	cc2d_shoot(renderer,bulletP1,&indiana,&indiana_2,&hpBar_in_p2);
+	cc2d_shoot_p2(renderer,bulletP2,&indiana_2,&indiana,&hpBar_in);
+
+//gestion des perfomances
+
+//	cc2d_fpsLimiter(frameStart,10);
 
 }
 
@@ -99,7 +155,7 @@ void initAmmo(CC2D_Image* projectile)
 	for(int i = 0 ; i < 10 ; i++)
 	{
 		projectile[i]= (CC2D_Image){
-				.texture = NULL,
+			.texture = NULL,
 				.rectSrc.x = 0,
 				.rectSrc.w = 0,
 				.rectSrc.h = 0, 
@@ -112,21 +168,58 @@ void initAmmo(CC2D_Image* projectile)
 				.realWidth = 0,
 				.realHeight = 0,
 				.a = blend,
+
 				.angle = 0,
 				.center = {0,0},
 				.flipH = 0,
 				.flipV = 0,
 				.pastColision = {0,0,0,0},
+
 				.shootedRight = 0,
-				.shootedLeft = 0
-			};
+				.shootedLeft = 0,
+				.damage = 10,
+				.bulletSpeed = 3,
+				.hit = 0
+		};
 
-		   cc2d_loadImage("../img/bullet2.png",renderer,&projectile[i]);   
+		cc2d_loadImage("../img/bullet2.png",renderer,&projectile[i]);   
 
 
-		}
+	}
 
 }
+void playerState(CC2D_Image* player)
+{
+	if(player->hp == 0)
+	{
+		player->state.dead = 1;
+	}
+	if(player->state.dead)
+	{
+		player->animationState = DIE;
+		player->animation[player->animationState].loop = 1;
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,8 +4,11 @@
 #include "cc2d/cc2d_keyboard.h"
 
 
-int main( int agrc , const char argv [])
+int main( int argc , const char *argv [])
 { 
+	(void)argc;
+	(void)argv;
+
 	int true = 1;
 
 
@@ -29,40 +32,14 @@ int main( int agrc , const char argv [])
 			break;
 		}
 
-		//dessins
-
-
-		cc2d_draw(renderer,land);
-
-		cc2d_drawTexte(renderer,titre);
-		cc2d_printPerf("fps",renderer,&timer,deltaTime);
-
-		cc2d_draw(renderer,hpBar_out);
-		cc2d_draw(renderer,hpBar_in);
-
-		cc2d_draw(renderer,hpBar_out_p2);
-		cc2d_draw(renderer,hpBar_in_p2);
-
-		cc2d_drawAnime(renderer,&indiana);
-		cc2d_drawAnime(renderer,&indiana_2);
-		
-
-		//movement
-		cc2d_playerMovement(&indiana,&indiana_2);
-		cc2d_player2_Movement(&indiana_2,&indiana);
-		
-		
-		//positionement bullet
-		cc2d_shoot(renderer,bulletP1,&indiana);
-		cc2d_shoot(renderer,bulletP2,&indiana_2);
-
-
-		
-//		cc2d_fpsLimiter(frameStart,20);
+		//dessine le jeu
+		cc2d_gameDraw();
 
 
 
-				cc2d_enddraw(renderer);    //affiche le rendu
+
+		cc2d_enddraw(renderer);    //affiche le rendu
+		printf("hp p1 = %d\n",indiana.hp);
 
 
 	}

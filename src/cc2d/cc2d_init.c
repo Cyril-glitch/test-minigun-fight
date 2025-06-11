@@ -58,6 +58,8 @@ CC2D_Image land = {
 //player 1
 
 CC2D_Image indiana = {
+
+//coordonees et dimensions
 .texture = NULL,
 .rectSrc.x = 0,
 .rectSrc.y = 0,
@@ -69,6 +71,10 @@ CC2D_Image indiana = {
 .rectDst.w = 100,
 .rectDst.h = 96, 
 
+.realWidth = 50,
+.realHeight = 48,
+
+//animations
 .animation = {
 
 	[WALK] ={
@@ -100,21 +106,27 @@ CC2D_Image indiana = {
 		.loop = 0,
 	}
 },
-.state = IDLE,
+.animationState = IDLE,
 
-.realWidth = 50,
-.realHeight = 48,
+//rotations
 .a = blend,
 .angle = 0,
 .center = {0,0},
 .flipH = 0,
 .flipV = 0,
 .pastColision = {0,0,0,0},
+
+//etats et stats
+.hp = 100,
+.state = {0},
+
 };
 
 //player 2
 
 CC2D_Image indiana_2 = {
+
+//coordonnées et taille
 .texture = NULL,
 .rectSrc.x = 0,
 .rectSrc.y = 0,
@@ -126,6 +138,10 @@ CC2D_Image indiana_2 = {
 .rectDst.w = 100,
 .rectDst.h = 96, 
 
+.realWidth = 0,
+.realHeight = 0,
+.a = blend,
+//animation
 .animation = {
 
 	[WALK] ={
@@ -157,16 +173,18 @@ CC2D_Image indiana_2 = {
 		.loop = 0,
 	}
 },
-.state = IDLE,
+.animationState = IDLE,
 
-.realWidth = 0,
-.realHeight = 0,
-.a = blend,
+//angles
 .angle = 0,
 .center = {0,0},
 .flipH = 1,
 .flipV = 0,
 .pastColision = {0,0,0,0},
+
+//stats
+.hp = 100,
+.state ={0},
 
 };
 //HP BAR P1
