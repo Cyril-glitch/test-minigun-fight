@@ -39,7 +39,6 @@ int main( int argc , const char *argv [])
 
 
 		cc2d_enddraw(renderer);    //affiche le rendu
-		printf("hp p1 = %d\n",indiana.hp);
 
 
 	}

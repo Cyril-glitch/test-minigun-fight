@@ -352,8 +352,8 @@ CC2D_Image* enemieHpBar)
 
 			enemie->hp -= projectile[k+1].damage;
 			//la bar de vie se racourcis au pourcentage de degats infligés
-			enemieHpBar->rectDst.w -= 11;
-			enemieHpBar->rectDst.x += 11;
+			enemieHpBar->rectDst.w -= 5;
+			enemieHpBar->rectDst.x += 5;
 
 			projectile[k+1].hit = 1;
 		}
@@ -471,7 +471,7 @@ CC2D_Image* enemieHpBar)
 
 			enemie->hp -= projectile[k+1].damage;
 			//la bar de vie se racourcis au pourcentage de degats infligés
-			enemieHpBar->rectDst.w -= 11;
+			enemieHpBar->rectDst.w -= 10;
 
 			projectile[k+1].hit = 1;
 		}
