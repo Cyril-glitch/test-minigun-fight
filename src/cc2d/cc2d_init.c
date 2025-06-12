@@ -117,7 +117,7 @@ CC2D_Image indiana = {
 .pastColision = {0,0,0,0},
 
 //etats et stats
-.hp = 100,
+.hp = 200,
 .state = {0},
 
 };
@@ -141,6 +141,7 @@ CC2D_Image indiana_2 = {
 .realWidth = 0,
 .realHeight = 0,
 .a = blend,
+
 //animation
 .animation = {
 
@@ -183,7 +184,7 @@ CC2D_Image indiana_2 = {
 .pastColision = {0,0,0,0},
 
 //stats
-.hp = 100,
+.hp = 200,
 .state ={0},
 
 };
@@ -199,7 +200,7 @@ CC2D_Image hpBar_out = {
 
 .rectDst.x = 40,
 .rectDst.y = 30,
-.rectDst.w = 256,
+.rectDst.w = 244,
 .rectDst.h = 36, 
 
 .realWidth = 0,
@@ -222,7 +223,7 @@ CC2D_Image hpBar_in = {
 
 .rectDst.x = 78,
 .rectDst.y = 42,
-.rectDst.w = 212,
+.rectDst.w = 200,
 .rectDst.h = 12, 
 
 .realWidth = 0,
@@ -248,7 +249,7 @@ CC2D_Image hpBar_out_p2 = {
 
 .rectDst.x = 728,
 .rectDst.y = 30,
-.rectDst.w = 256,
+.rectDst.w = 244,
 .rectDst.h = 36, 
 
 .realWidth = 0,
@@ -271,7 +272,7 @@ CC2D_Image hpBar_in_p2 = {
 
 .rectDst.x = 734,
 .rectDst.y = 42,
-.rectDst.w = 212,
+.rectDst.w = 200,
 .rectDst.h = 12, 
 
 .realWidth = 0,
