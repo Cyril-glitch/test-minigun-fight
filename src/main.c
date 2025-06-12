@@ -3,8 +3,9 @@
 #include "cc2d/cc2d_game.h"
 #include "cc2d/cc2d_keyboard.h"
 
+#define SDL_MAIN_HANDLED
 
-int main( int argc , const char *argv [])
+int main( int argc ,char *argv [])
 { 
 	(void)argc;
 	(void)argv;
@@ -13,6 +14,7 @@ int main( int argc , const char *argv [])
 
 
 	//intialisation SDL puis fenetre de jeu
+	SDL_SetMainReady();
 	cc2d_init();
 	cc2d_init_window(&myWindow,&renderer,gameWidth,gameHeight);
 	
@@ -39,11 +41,12 @@ int main( int argc , const char *argv [])
 
 
 		cc2d_enddraw(renderer);    //affiche le rendu
-		printf("hp p1 = %d\n",indiana.hp);
 
 
 	}
 
 	cc2d_close(myWindow.sdlWindow,renderer);       //libere la memoire
 	cc2d_gameClose();
+
+	return  0;
 }
