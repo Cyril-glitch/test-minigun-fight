@@ -268,8 +268,7 @@ void cc2d_player2_Movement(CC2D_Image* player2_Image,CC2D_Image* playerImage)
 }
 
 
-void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,
-CC2D_Image* enemieHpBar)
+void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,CC2D_Image* enemieHpBar,const char* player)
 {
 
 
@@ -309,172 +308,80 @@ CC2D_Image* enemieHpBar)
 	}
 	//tir en rafale si on rest appuyer sur espaces 
 
-	for( k = -1 ; k < 9 ; k ++)
+	for( k = 0 ; k < 9 ; k ++)
 	{ 
 		//shooted prend 1 a chaque coup de feu
-		if((int)playerImage->animation[FIRE].frame == 9 && !playerImage->flipH && tour == k+1 )
+		if((int)playerImage->animation[FIRE].frame == playerImage->animation[FIRE].last && !playerImage->flipH && tour == k)
 		{
-			if(!projectile[k+1].shootedLeft)
+			if(!projectile[k].shootedLeft)
 			{
-				projectile[k+1].shootedRight = 1;
-				projectile[i].flipH = 1;
+				projectile[k].shootedRight = 1;
+				projectile[k].flipH = 0;
 			}
 		}
-		else if((int)playerImage->animation[FIRE].frame == 9 && playerImage->flipH && tour == k+1)
+		else if((int)playerImage->animation[FIRE].frame == playerImage->animation[FIRE].last && playerImage->flipH && tour == k)
 		{
-			if(!projectile[k+1].shootedRight)
+			if(!projectile[k].shootedRight)
 			{
-				projectile[k+1].shootedLeft = 1;
+				projectile[k].shootedLeft = 1;
+				projectile[k].flipH = 1;
 			}
 		}
 
 
 		//si shooted se verifie alors le projectile avance
-		if(projectile[k+1].shootedRight)
+		if(projectile[k].shootedRight)
 		{	
-			projectile[k+1].rectDst.x += projectile[k+1].bulletSpeed;		
-			projectile[k+1].a = blend;
+			projectile[k].rectDst.x += projectile[k].bulletSpeed;		
+			projectile[k].a = blend;
 		}
-		if(projectile[k+1].shootedLeft)
+		if(projectile[k].shootedLeft)
 		{	
-			projectile[k+1].rectDst.x -= projectile[k+1].bulletSpeed;		
-			projectile[k+1].a = blend;
+			projectile[k].rectDst.x -= projectile[k].bulletSpeed;		
+			projectile[k].a = blend;
 		}
 		//si le projectile n'est plus affichable il revient a sa position initiale
-		if(projectile[k+1].rectDst.x > gameWidth || projectile[k+1].rectDst.x < 0)
+		if(projectile[k].rectDst.x > gameWidth || projectile[k].rectDst.x < 0)
 		{
-			projectile[k+1].shootedRight = 0;
-			projectile[k+1].shootedLeft = 0;
+			projectile[k].shootedRight = 0;
+			projectile[k].shootedLeft = 0;
+			projectile[k].hit = 0;
 		}
 		//si le projectile touche le player adverse 
-		if(colision(&projectile[k+1],enemie) && !projectile[k+1].hit) 
+		if(strcmp(player,"P1") == 0)
 		{
+			if(colision(&projectile[k],enemie) && !projectile[k].hit) 
+			{
 
-			enemie->hp -= projectile[k+1].damage;
-			//la bar de vie se racourcis au pourcentage de degats infligés
-			enemieHpBar->rectDst.w -= 5;
-			enemieHpBar->rectDst.x += 5;
+				enemie->hp -= projectile[k].damage;
+				//la bar de vie se racourcis au pourcentage de degats infligés
+				enemieHpBar->rectDst.w -= 10;
+				enemieHpBar->rectDst.x += 10;
 
-			projectile[k+1].hit = 1;
+				projectile[k].hit = 1;
+			}
+
+		}
+		else if(strcmp(player,"P2") == 0)
+		{
+			if(colision(&projectile[k],enemie) && !projectile[k].hit) 
+			{
+
+				enemie->hp -= projectile[k].damage;
+				//la bar de vie se racourcis au pourcentage de degats infligés
+				enemieHpBar->rectDst.w -= 10;
+				projectile[k].hit = 1;
+			}
+
 		}
 
-		
-		
-	}
-	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
-	{	
-
-		if(tour == 9)
-		{
-			tour = 0;
-		}
-		if(tour < 9)
-		{
-			tour ++;		
-		}
-	}
-
-
-
-
-	//affiche tout les projectiles
-
-	for(j = 0 ; j < 10 ; j++)
-	{
-		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
-	SDL_RenderCopyEx(renderer,projectile[j].texture,NULL,&projectile[j].rectDst,0,NULL,projectile[j].flipH);
-	}
-
-}
-
-void cc2d_shoot_p2(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,
-CC2D_Image* enemieHpBar)
+		else
 {
-
-
-
-	static int tour = 0;
-
-	int i = 0;
-	int j = 0;
-	int k = 0;
-
-	//On met tout les projectile a leur position initiale si il n'ont pas ete tiré	
-	for( i = 0 ; i < 10 ; i++)              
-	{
-		if(!projectile[i].shootedRight && !projectile[i].shootedLeft )
-		{
-
-			if(playerImage->flipH)
-			{
-				projectile[i].flipH = 1;
-
-				projectile[i].rectDst.x = playerImage->rectDst.x ;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
-				projectile[i].a = alpha;
-			}
-			else
-			{
-				projectile[i].flipH = 0;
-
-				projectile[i].rectDst.x = playerImage->rectDst.x + 88;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
-				projectile[i].a = alpha;
-			}
-
-			
-
-		}
-	}
-	//tir en rafale si on rest appuyer sur espaces 
-
-	for( k = -1 ; k < 9 ; k ++)
-	{ 
-		//shooted prend 1 a chaque coup de feu
-		if((int)playerImage->animation[FIRE].frame == 9 && !playerImage->flipH && tour == k+1 )
-		{
-			if(!projectile[k+1].shootedLeft)
-			{
-				projectile[k+1].shootedRight = 1;
-				projectile[i].flipH = 1;
-			}
-		}
-		else if((int)playerImage->animation[FIRE].frame == 9 && playerImage->flipH && tour == k+1)
-		{
-			if(!projectile[k+1].shootedRight)
-			{
-				projectile[k+1].shootedLeft = 1;
-			}
+			printf("unkowned mode");
 		}
 
-
-		//si shooted se verifie alors le projectile avance
-		if(projectile[k+1].shootedRight)
-		{	
-			projectile[k+1].rectDst.x += projectile[k+1].bulletSpeed;		
-			projectile[k+1].a = blend;
-		}
-		if(projectile[k+1].shootedLeft)
-		{	
-			projectile[k+1].rectDst.x -= projectile[k+1].bulletSpeed;		
-			projectile[k+1].a = blend;
-		}
-		//si le projectile n'est plus affichable il revient a sa position initiale
-		if(projectile[k+1].rectDst.x > gameWidth || projectile[k+1].rectDst.x < 0)
-		{
-			projectile[k+1].shootedRight = 0;
-			projectile[k+1].shootedLeft = 0;
-		}
-		//si le projectile touche le player adverse 
-		if(colision(&projectile[k+1],enemie) && !projectile[k+1].hit) 
-		{
-
-			enemie->hp -= projectile[k+1].damage;
-			//la bar de vie se racourcis au pourcentage de degats infligés
-			enemieHpBar->rectDst.w -= 10;
-
-			projectile[k+1].hit = 1;
-		}
+					
+		
 		
 	}
 	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
@@ -493,17 +400,18 @@ CC2D_Image* enemieHpBar)
 
 
 
+
 	//affiche tout les projectiles
 
 	for(j = 0 ; j < 10 ; j++)
 	{
 		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
 	SDL_RenderCopyEx(renderer,projectile[j].texture,NULL,&projectile[j].rectDst,0,NULL,projectile[j].flipH);
+
+//	printf("projectile P2 [%d] : shootedright = %d shootedleft :%d hit :%d \n",j,projectile[j].shootedRight,projectile[j].shootedLeft,projectile[j].hit);
 	}
 
 }
-
-
 
 int colision(CC2D_Image* playerImage,CC2D_Image* player2_Image)
 {

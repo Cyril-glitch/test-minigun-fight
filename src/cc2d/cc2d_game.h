@@ -12,7 +12,7 @@ void cc2d_gameClose(void);
 
 void cc2d_gameUpdate(void);
 
-void initAmmo(CC2D_Image *projectile);
+void initAmmo(void);
 
 void playerState(CC2D_Image* player);
 #endif

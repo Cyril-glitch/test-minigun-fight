@@ -29,8 +29,8 @@ void cc2d_gameLoad(void)
 	cc2d_loadImage("../img/hpFlip_in.png",renderer,&hpBar_in_p2);             //crèe la texture
 
 	//position bullet
-	initAmmo(bulletP1);
-	initAmmo(bulletP2);
+	initAmmo();
+	
 
 
 
@@ -103,8 +103,8 @@ void cc2d_gameDraw(void)
 	}
 
 	//positionement des projectiles
-	cc2d_shoot(renderer,bulletP1,&indiana,&indiana_2,&hpBar_in_p2);
-	cc2d_shoot_p2(renderer,bulletP2,&indiana_2,&indiana,&hpBar_in);
+	cc2d_shoot(renderer,bulletP1,&indiana,&indiana_2,&hpBar_in_p2,"P1");
+	cc2d_shoot(renderer,bulletP2,&indiana_2,&indiana,&hpBar_in,"P2");
 
 //gestion des perfomances
 
@@ -150,11 +150,11 @@ void cc2d_gameClose(void)
 	TTF_CloseFont(titre.font);
 	titre.font = NULL;
 }
-void initAmmo(CC2D_Image* projectile)
+void initAmmo(void)
 {
 	for(int i = 0 ; i < 10 ; i++)
 	{
-		projectile[i]= (CC2D_Image){
+		bulletP1[i]= (CC2D_Image){
 			.texture = NULL,
 				.rectSrc.x = 0,
 				.rectSrc.w = 0,
@@ -182,10 +182,45 @@ void initAmmo(CC2D_Image* projectile)
 				.hit = 0
 		};
 
-		cc2d_loadImage("../img/bullet2.png",renderer,&projectile[i]);   
+		cc2d_loadImage("../img/bullet.png",renderer,&bulletP1[i]);   
 
 
 	}
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		bulletP2[i]= (CC2D_Image){
+			.texture = NULL,
+				.rectSrc.x = 0,
+				.rectSrc.w = 0,
+				.rectSrc.h = 0, 
+
+				.rectDst.x = 0,
+				.rectDst.y = 0,
+				.rectDst.w = 20,
+				.rectDst.h = 20, 
+
+				.realWidth = 0,
+				.realHeight = 0,
+				.a = blend,
+
+				.angle = 0,
+				.center = {0,0},
+				.flipH = 0,
+				.flipV = 0,
+				.pastColision = {0,0,0,0},
+
+				.shootedRight = 0,
+				.shootedLeft = 0,
+				.damage = 10,
+				.bulletSpeed = 3,
+				.hit = 0
+		};
+
+		cc2d_loadImage("../img/bullet.png",renderer,&bulletP2[i]);   
+
+
+	}
+
 
 }
 void playerState(CC2D_Image* player)

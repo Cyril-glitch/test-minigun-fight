@@ -3,7 +3,6 @@
 #include "cc2d/cc2d_game.h"
 #include "cc2d/cc2d_keyboard.h"
 
-#define SDL_MAIN_HANDLED
 
 int main( int argc ,char *argv [])
 { 
@@ -14,10 +13,8 @@ int main( int argc ,char *argv [])
 
 
 	//intialisation SDL puis fenetre de jeu
-	SDL_SetMainReady();
 	cc2d_init();
 	cc2d_init_window(&myWindow,&renderer,gameWidth,gameHeight);
-	
 
 	//chargement des textures
 	cc2d_gameLoad();
