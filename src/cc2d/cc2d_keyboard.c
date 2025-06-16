@@ -273,7 +273,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 
 
 
-	static int tour = 0;
+	static int currentShoot = 0;
 
 	int i = 0;
 	int j = 0;
@@ -308,10 +308,10 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 	}
 	//tir en rafale si on rest appuyer sur espaces 
 
-	for( k = 0 ; k < 9 ; k ++)
+	for( k = 0 ; k < 10 ; k ++)
 	{ 
 		//shooted prend 1 a chaque coup de feu
-		if((int)playerImage->animation[FIRE].frame == playerImage->animation[FIRE].last && !playerImage->flipH && tour == k)
+		if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1 && !playerImage->flipH && currentShoot == k)
 		{
 			if(!projectile[k].shootedLeft)
 			{
@@ -319,7 +319,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 				projectile[k].flipH = 0;
 			}
 		}
-		else if((int)playerImage->animation[FIRE].frame == playerImage->animation[FIRE].last && playerImage->flipH && tour == k)
+		else if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1 && playerImage->flipH && currentShoot == k)
 		{
 			if(!projectile[k].shootedRight)
 			{
@@ -335,7 +335,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			projectile[k].rectDst.x += projectile[k].bulletSpeed;		
 			projectile[k].a = blend;
 		}
-		if(projectile[k].shootedLeft)
+		else if(projectile[k].shootedLeft)
 		{	
 			projectile[k].rectDst.x -= projectile[k].bulletSpeed;		
 			projectile[k].a = blend;
@@ -384,16 +384,16 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		
 		
 	}
-	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1)
+	if((int)playerImage->animation[FIRE].frame >= playerImage->animation[FIRE].last +1 )
 	{	
 
-		if(tour == 9)
+		if(currentShoot == 9 )
 		{
-			tour = 0;
+			currentShoot = 0;
 		}
-		if(tour < 9)
+		if(currentShoot < 9)
 		{
-			tour ++;		
+			currentShoot ++;		
 		}
 	}
 
@@ -408,7 +408,10 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		SDL_SetTextureAlphaMod(projectile[j].texture,projectile[j].a);
 	SDL_RenderCopyEx(renderer,projectile[j].texture,NULL,&projectile[j].rectDst,0,NULL,projectile[j].flipH);
 
-//	printf("projectile P2 [%d] : shootedright = %d shootedleft :%d hit :%d \n",j,projectile[j].shootedRight,projectile[j].shootedLeft,projectile[j].hit);
+
+
+//	printf("projectile [%d] : shootedright = %d shootedleft :%d hit :%d \n",j,projectile[j].shootedRight,projectile[j].shootedLeft,projectile[j].hit);
+
 	}
 
 }
