@@ -19,8 +19,8 @@ void cc2d_gameLoad(void)
 
 	//chargement des textures Graphiques P1
 	cc2d_loadImage("../img/indiana.png",renderer,&indiana);             //crèe la texture
-	cc2d_loadImage("../img/hpBar_out.png",renderer,&hpBar_out);             //crèe la texture
-	cc2d_loadImage("../img/hpBar_in.png",renderer,&hpBar_in);             //crèe la texture
+	cc2d_loadImage("../img/hpBar_out.png",renderer,&hpBar_out_p1);             //crèe la texture
+	cc2d_loadImage("../img/hpBar_in.png",renderer,&hpBar_in_p1);             //crèe la texture
 
 
 	//chargement des textures Graphiques P2
@@ -54,8 +54,6 @@ void cc2d_gameUpdate(void)
 }
 void cc2d_gameDraw(void)
 {
-	playerState(&indiana);
-	playerState(&indiana_2);
 
 	// dessine le fond
 	cc2d_draw(renderer,land);
@@ -67,44 +65,27 @@ void cc2d_gameDraw(void)
 	cc2d_printPerf("fps",renderer,&timer,deltaTime);
 
 	//dessine l'ath
-	cc2d_draw(renderer,hpBar_out);
-	cc2d_draw(renderer,hpBar_in);
+	cc2d_draw(renderer,hpBar_out_p1);
+	cc2d_draw(renderer,hpBar_in_p1);
 
 	cc2d_draw(renderer,hpBar_out_p2);
 	cc2d_draw(renderer,hpBar_in_p2);
 
-	//dessine les joueurs
 
-//fonction de deplacement ou d'action
+	//modifie les coordonnées et le animation du joueur en fonction de leur mouvement
+	cc2d_playerMovement(&indiana,&indiana_2,&hpBar_in_p1);
+	cc2d_player2_Movement(&indiana_2,&indiana,&hpBar_in_p2);
 
-	//mouvement
-	if(!indiana.state.dead)
-	{
-		
-		cc2d_drawAnime(renderer,&indiana);
-	
-		cc2d_playerMovement(&indiana,&indiana_2);
-	}
-	else
-	{	
-		cc2d_drawAnimeLoop(renderer,&indiana);
-	}
-		
-	
-	if(!indiana_2.state.dead)
-	{
-
-		cc2d_drawAnime(renderer,&indiana_2);
-		cc2d_player2_Movement(&indiana_2,&indiana);
-	}
-	else
-	{	
-		cc2d_drawAnimeLoop(renderer,&indiana_2);
-	}
-
-	//positionement des projectiles
+	//dessine les projectiles en fonction de l'etat de la touche de tir
+	//met a jour la barre de vie 
+	//inflige les degats
 	cc2d_shoot(renderer,bulletP1,&indiana,&indiana_2,&hpBar_in_p2,"P1");
-	cc2d_shoot(renderer,bulletP2,&indiana_2,&indiana,&hpBar_in,"P2");
+	cc2d_shoot(renderer,bulletP2,&indiana_2,&indiana,&hpBar_in_p1,"P2");
+
+
+	//dessine les joueur en fonction de leurs etat
+	cc2d_drawAnime(renderer,&indiana);
+	cc2d_drawAnime(renderer,&indiana_2);
 
 //gestion des perfomances
 
@@ -133,11 +114,11 @@ void cc2d_gameClose(void)
 		bulletP2[i].texture = NULL;
 	}
 
-	SDL_DestroyTexture(hpBar_out.texture);
-	hpBar_out.texture = NULL;
+	SDL_DestroyTexture(hpBar_out_p1.texture);
+	hpBar_out_p1.texture = NULL;
 
-	SDL_DestroyTexture(hpBar_in.texture);
-	hpBar_in.texture = NULL;
+	SDL_DestroyTexture(hpBar_in_p1.texture);
+	hpBar_in_p1.texture = NULL;
 
 
 
@@ -168,6 +149,16 @@ void initAmmo(void)
 				.realWidth = 0,
 				.realHeight = 0,
 				.a = blend,
+				.animation ={ 
+
+					[0]={
+					.first = 0,
+					.last = 2,
+					.frame = 0,
+					.speed = 0,
+					.loop = 0,
+					},
+				},
 
 				.angle = 0,
 				.center = {0,0},
@@ -175,14 +166,16 @@ void initAmmo(void)
 				.flipV = 0,
 				.pastColision = {0,0,0,0},
 
+				.affichable = 0,
 				.shootedRight = 0,
 				.shootedLeft = 0,
 				.damage = 10,
 				.bulletSpeed = 3,
 				.hit = 0
 		};
+	
+	cc2d_loadImage("../img/bullet_p1.png",renderer,&bulletP1[i]);
 
-		cc2d_loadImage("../img/bullet.png",renderer,&bulletP1[i]);   
 
 
 	}
@@ -209,6 +202,7 @@ void initAmmo(void)
 				.flipV = 0,
 				.pastColision = {0,0,0,0},
 
+				.affichable = 0,
 				.shootedRight = 0,
 				.shootedLeft = 0,
 				.damage = 10,
@@ -216,45 +210,13 @@ void initAmmo(void)
 				.hit = 0
 		};
 
-		cc2d_loadImage("../img/bullet.png",renderer,&bulletP2[i]);   
 
 
+		cc2d_loadImage("../img/bullet_p1.png",renderer,&bulletP2[i]);
 	}
 
 
 }
-void playerState(CC2D_Image* player)
-{
-	if(player->hp == 0)
-	{
-		player->state.dead = 1;
-	}
-	if(player->state.dead)
-	{
-		player->animationState = DIE;
-		player->animation[player->animationState].loop = 1;
-
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -35,7 +35,11 @@ typedef struct CC2D_Anime
 
 typedef struct CC2D_PlayerState
 {
+	int hp;
+	int heart;
 	int dead;
+	int deathCounter;
+
 }CC2D_PlayerState;
 
 typedef struct CC2D_Image
@@ -57,16 +61,20 @@ typedef struct CC2D_Image
 	int flipV;
 	CC2D_PastColision pastColision;
 
+	int affichable;
 	int shootedRight;
 	int shootedLeft;
 	int damage;
 	int bulletSpeed;
 	int hit;
 
-	int hp;
+	
 	CC2D_PlayerState state;
 
+
 }CC2D_Image;
+
+
 
 typedef struct CC2D_Window 
 {
@@ -107,8 +115,8 @@ extern CC2D_Image indiana_2;
 extern CC2D_Image bulletP1[10];
 extern CC2D_Image bulletP2[10];
 
-extern CC2D_Image hpBar_out;
-extern CC2D_Image hpBar_in;
+extern CC2D_Image hpBar_out_p1;
+extern CC2D_Image hpBar_in_p1;
 
 extern CC2D_Image hpBar_out_p2;
 extern CC2D_Image hpBar_in_p2;

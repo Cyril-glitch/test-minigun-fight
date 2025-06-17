@@ -237,38 +237,29 @@ void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 {
 	int state = image->animationState;
 
-	if(image->animation[state].loop)
-	{
-
-
+		//si le compteur frame est inferieure ou egale la derniere frame de l'animation
 		if((image->animation[state].frame)<=(image->animation[state].last)+1)
 		{
 
+			//alors on deplace les coordeenes de l'image source pour que l'image s'anime
 			image->rectSrc.x = (image->rectSrc.w) * (int)(image->animation[state].frame);
 
 			(image->animation[state].frame) += image->animation[state].speed;
 		}
-		else
+		//une fois arrivée à la fin de l'animation si loop est actif on remet le compteur frame a 0 pour créer une boucle
+		else if(image->animation[state].loop)
 		{
 
 			(image->animation[state].frame) = image->animation[state].first;
 		}
-		
+		else
+		{
+			image->animationState = IDLE;
+		}
 
-	}
-	else
-	{
-
-		(image->animation[state].frame) = image->animation[state].first;
-		image->rectSrc.x = (image->rectSrc.w) * (int)(image->animation[state].frame);
-		image->animation[state].loop = 0;
-	}
 
 
 	cc2d_drawQuad(renderer,*image);
-
-	//on defini l'opacité de l'image a partir de sa texture
-	//on copie la texture de sur le render a partir de rectangle source en direction du rectange de destination
 
 }
 void cc2d_drawAnimeLoop(SDL_Renderer* renderer,CC2D_Image* image)

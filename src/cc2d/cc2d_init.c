@@ -2,16 +2,22 @@
 #include "cc2d_keyboard.h"
 #include "cc2d_font.h"
 
-//intialisation de la condition de boucle
+//BOUCLE
 
 int true = 1;
 
-//intialisation des valeurs Alpha
+
+
+
+//VALEURS APLHA
 const int blend = 255;
 const int semi_blend = 125;
 const int alpha = 0;
 
-//initialisation SDL + Fenetre
+
+
+
+//SDL + WINDOW
 
 CC2D_Window myWindow = {
 .sdlWindow = NULL,
@@ -29,9 +35,11 @@ int gameWidth = 1024;
 int gameHeight = 768;
 
 
-//intialisation graphics                      pour obtenir centre faire :( windowW - image.x ) / 2
 
-//fond
+
+
+
+//FOND
 CC2D_Image land = {
 .texture = NULL,
 .rectSrc.x = 0,
@@ -54,6 +62,11 @@ CC2D_Image land = {
 .pastColision = {0,0,0,0},
 
 };
+
+
+
+
+
 
 //player 1
 
@@ -117,10 +130,17 @@ CC2D_Image indiana = {
 .pastColision = {0,0,0,0},
 
 //etats et stats
-.hp = 200,
-.state = {0},
+
+.state = {200,3,0,0},
 
 };
+
+
+
+
+
+
+
 
 //player 2
 
@@ -184,14 +204,21 @@ CC2D_Image indiana_2 = {
 .pastColision = {0,0,0,0},
 
 //stats
-.hp = 200,
-.state ={0},
-
+.state = {200,3,0,0},
 };
+
+
+
+
+
+
+
+
+
 //HP BAR P1
 
 
-CC2D_Image hpBar_out = {
+CC2D_Image hpBar_out_p1 = {
 .texture = NULL,
 .rectSrc.x = 0,
 .rectSrc.y = 0,
@@ -214,7 +241,7 @@ CC2D_Image hpBar_out = {
 
 };
 
-CC2D_Image hpBar_in = {
+CC2D_Image hpBar_in_p1 = {
 .texture = NULL,
 .rectSrc.x = 0,
 .rectSrc.y = 0,
@@ -236,6 +263,13 @@ CC2D_Image hpBar_in = {
 .pastColision = {0,0,0,0},
 
 };
+
+
+
+
+
+
+
 
 //HP BAR P2
 
@@ -287,11 +321,20 @@ CC2D_Image hpBar_in_p2 = {
 };
 
 
-//projectile
+
+
+
+
+
+//PROJECTILE
 CC2D_Image bulletP1[10];
 CC2D_Image bulletP2[10];
 
-//initialisation des objets textuels
+
+
+
+
+//TEXTE
 CC2D_Texte titre = {
 .font = NULL,
 .texture = NULL,
@@ -322,13 +365,20 @@ CC2D_Texte timer = {
 };
 
 
-//initialisatioon des valeurs de temps
+
+
+
+//VALEURS DE TEMPS
 Uint32 frameStart = 0;
 Uint32 now = 0 ;
 double deltaTime = 0 ;
 double elapsedTime = 0 ;
 
-//initialisation des valeurs precises
+
+
+
+
+//VALEURS DE TEMPS PRECISES
 Uint64 precise_fst = 0;
 Uint64 P_now = 0;
 double precise_dt = 0;

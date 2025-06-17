@@ -14,5 +14,4 @@ void cc2d_gameUpdate(void);
 
 void initAmmo(void);
 
-void playerState(CC2D_Image* player);
 #endif
