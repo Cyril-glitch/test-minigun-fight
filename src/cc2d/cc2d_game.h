@@ -1,8 +1,14 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "cc2d_graphics.h"
+
 #ifndef _CC2D_GAME_H
 #define _CC2D_GAME_H 
 
 //forward declartions 
 typedef struct CC2D_Image CC2D_Image;
+
+
 
 void cc2d_gameLoad(void);
 
@@ -13,5 +19,10 @@ void cc2d_gameClose(void);
 void cc2d_gameUpdate(void);
 
 void initAmmo(void);
+
+void mapPx(PIXEL [768][1024],SDL_Rect h);
+
+int frontColision(PIXEL map[768][1024],SDL_Rect h);
+
 
 #endif

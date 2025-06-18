@@ -6,6 +6,11 @@
 
 //création des objets
 
+typedef struct PIXEL 
+{
+	int plein;
+}PIXEL;
+
 typedef struct CC2D_PastColision
 {
 	int right;
@@ -47,6 +52,7 @@ typedef struct CC2D_Image
 	SDL_Texture* texture;
 	SDL_Rect rectSrc;
 	SDL_Rect rectDst;
+	int speed ;
 	CC2D_Anime animation[STATE_MAX];
 	int animationState;
 
@@ -88,7 +94,6 @@ Uint32 flags ;
 }CC2D_Window;
 
 
-
 //forward declartions 
 typedef struct CC2D_Texte CC2D_Texte;
 
@@ -109,8 +114,8 @@ extern int gameHeight ;
 
 //intialisation des objets graphics
 extern CC2D_Image land;
-extern CC2D_Image indiana;
-extern CC2D_Image indiana_2;
+extern CC2D_Image player1;
+extern CC2D_Image player2;
 
 extern CC2D_Image bulletP1[10];
 extern CC2D_Image bulletP2[10];
@@ -120,9 +125,11 @@ extern CC2D_Image hpBar_in_p1;
 
 extern CC2D_Image hpBar_out_p2;
 extern CC2D_Image hpBar_in_p2;
+extern SDL_Rect hitBox1;
+extern SDL_Rect hitBox2;
 
 //variables graphics
-
+extern PIXEL map[768][1024];
 
 
 //initialisatioon des valeurs de temps
@@ -171,4 +178,5 @@ int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,dou
 
 void loadBar();
 
+void cc2d_drawHitBox(SDL_Renderer* renderer,SDL_Rect* hitBox, CC2D_Image* image);
 #endif

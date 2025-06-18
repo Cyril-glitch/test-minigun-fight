@@ -34,8 +34,9 @@ SDL_Renderer* renderer = NULL;
 int gameWidth = 1024;
 int gameHeight = 768;
 
+//MAP
 
-
+PIXEL map[768][1024]={0};
 
 
 
@@ -70,7 +71,7 @@ CC2D_Image land = {
 
 //player 1
 
-CC2D_Image indiana = {
+CC2D_Image player1 = {
 
 //coordonees et dimensions
 .texture = NULL,
@@ -83,6 +84,7 @@ CC2D_Image indiana = {
 .rectDst.y = 359,
 .rectDst.w = 100,
 .rectDst.h = 96, 
+.speed = 2,
 
 .realWidth = 50,
 .realHeight = 48,
@@ -144,7 +146,7 @@ CC2D_Image indiana = {
 
 //player 2
 
-CC2D_Image indiana_2 = {
+CC2D_Image player2 = {
 
 //coordonnées et taille
 .texture = NULL,
@@ -157,6 +159,7 @@ CC2D_Image indiana_2 = {
 .rectDst.y = 359,
 .rectDst.w = 100,
 .rectDst.h = 96, 
+.speed= 2,
 
 .realWidth = 0,
 .realHeight = 0,
@@ -320,8 +323,19 @@ CC2D_Image hpBar_in_p2 = {
 
 };
 
+SDL_Rect hitBox1 ={
+.x = 0,
+.y = 0,
+.w = 80,
+.h = 100
+};
 
-
+SDL_Rect hitBox2 ={
+.x = 0,
+.y = 0,
+.w = 80,
+.h = 100
+};
 
 
 
