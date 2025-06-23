@@ -80,16 +80,20 @@ void cc2d_gameDraw(void)
 	mapPx(map,player1.hitBox.rect,renderer);
 	mapPx(map,player2.hitBox.rect,renderer);
 
-	frontColision(map,&player1.hitBox);
-	backColision(map,&player1.hitBox);
-	downColision(map,&player1.hitBox);
-	upColision(map,&player1.hitBox);
+	frontColision(map,&player1);
+	backColision(map,&player1);
+	downColision(map,&player1);
+	upColision(map,&player1);
 
 
+	frontColision(map,&player2);
+	backColision(map,&player2);
+	downColision(map,&player2);
+	upColision(map,&player2);
 
 	//modifie les coordonnées et le animation du joueur en fonction de leur mouvement
-	cc2d_playerMovement(&player1,&player2,&hpBar_in_p1);
-	cc2d_player2_Movement(&player2,&player1,&hpBar_in_p2);
+	cc2d_playerMovement(&player1,&hpBar_in_p1);
+	cc2d_player2_Movement(&player2,&hpBar_in_p2);
 
 	//dessine les projectiles en fonction de l'etat de la touche de tir
 	//met a jour la barre de vie 
@@ -246,12 +250,16 @@ void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 			{
 
 				map[y][x].plein = 1;
-				cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
+			
 			else
 			{
 				
 				map[y][x].plein = 0;
+			}
+			if(map[y][x].plein)
+			{
+				cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
 
 		}
@@ -260,27 +268,27 @@ void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 
 }
 
-int frontColision(PIXEL map[768][1024],HITBOX* h)
+int frontColision(PIXEL map[768][1024],CC2D_Image* h)
 {
 
-	int x = h->rect.x + h->rect.w +1;
+	int x = h->hitBox.rect.x + h->hitBox.rect.w +1;
 	
 //droite
 
-	for(int y = h->rect.y ; y <= (h->rect.y + h->rect.h) ; y ++)
+	for(int y = h->hitBox.rect.y ; y <= (h->hitBox.rect.y + h->hitBox.rect.h) ; y ++)
 	{
 
 	
 		if(map[y][x].plein) 
 		{
-			h->frontCol = 1;
+			h->hitBox.frontCol = 1;
 			return 0;
 		
 		}
 		else
 		{
 
-			h->frontCol = 0;
+			h->hitBox.frontCol = 0;
 		}
 
 	} 
@@ -289,24 +297,24 @@ int frontColision(PIXEL map[768][1024],HITBOX* h)
 }
 //gauche
 
-int backColision(PIXEL map[768][1024],HITBOX* h)
+int backColision(PIXEL map[768][1024],CC2D_Image* h)
 {
-	int x = h->rect.x;
+	int x = h->hitBox.rect.x + 1;
 
-	for(int y = h->rect.y ; y <= (h->rect.y + h->rect.h) ; y ++)
+	for(int y = h->hitBox.rect.y ; y <= (h->hitBox.rect.y + h->hitBox.rect.h) ; y ++)
 	{
 
 
 		if(map[y][x].plein) 
 		{
-			h->backCol = 1;
+			h->hitBox.backCol = 1;
 			return 0;
 
 		}
 		else
 		{
 
-			h->backCol = 0;
+			h->hitBox.backCol = 0;
 		}
 
 	} 
@@ -315,24 +323,24 @@ int backColision(PIXEL map[768][1024],HITBOX* h)
 }
 //BAS
 
-int downColision(PIXEL map[768][1024],HITBOX* h)
+int downColision(PIXEL map[768][1024],CC2D_Image* h)
 {
-        int y = h->rect.y + h->rect.h +1;
+        int y = h->hitBox.rect.y + h->hitBox.rect.h +1;
 
-	for(int  x = h->rect.x ; x <= (h->rect.x + h->rect.w) ; x ++)
+	for(int  x = h->hitBox.rect.x ; x <= (h->hitBox.rect.x + h->hitBox.rect.w) ; x ++)
 	{
 
 
 		if(map[y][x].plein) 
 		{
-			h->downCol = 1;
+			h->hitBox.downCol = 1;
 			return 0;
 
 		}
 		else
 		{
 
-			h->downCol = 0;
+			h->hitBox.downCol = 0;
 		}
 
 	}
@@ -342,23 +350,23 @@ int downColision(PIXEL map[768][1024],HITBOX* h)
 
 //HAUT
 
-int upColision(PIXEL map[768][1024],HITBOX* h)
+int upColision(PIXEL map[768][1024],CC2D_Image* h)
 {
-	int y = h->rect.y - 1;
-	for(int x= h->rect.x ; x <= (h->rect.x + h->rect.w) ; x ++)
+	int y = h->hitBox.rect.y - 1;
+	for(int x= h->hitBox.rect.x ; x <= (h->hitBox.rect.x + h->hitBox.rect.w) ; x ++)
 	{
 
 
 		if(map[y][x].plein) 
 		{
-			h->upCol = 1;
+			h->hitBox.upCol = 1;
 			return 0;
 
 		}
 		else
 		{
 
-			h->upCol = 0;
+			h->hitBox.upCol = 0;
 		}
 
 	}

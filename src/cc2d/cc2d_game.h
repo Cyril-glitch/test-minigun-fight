@@ -22,11 +22,11 @@ void initAmmo(void);
 
 void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer);
 
-int frontColision(PIXEL map[768][1024],HITBOX* h);
+int frontColision(PIXEL map[768][1024],CC2D_Image* h);
 
-int backColision(PIXEL map[768][1024],HITBOX* h);
+int backColision(PIXEL map[768][1024],CC2D_Image* h);
 
-int downColision(PIXEL map[768][1024],HITBOX* h);
+int downColision(PIXEL map[768][1024],CC2D_Image* h);
 
-int upColision(PIXEL map[768][1024],HITBOX* h);
+int upColision(PIXEL map[768][1024],CC2D_Image* h);
 #endif
