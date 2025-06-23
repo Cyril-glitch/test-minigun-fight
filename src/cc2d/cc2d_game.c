@@ -73,16 +73,22 @@ void cc2d_gameDraw(void)
 
 	//dessin hit box
 
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);               //initialise le render en bleu
-	cc2d_drawHitBox(renderer,&hitBox1,&player1);
-	cc2d_drawHitBox(renderer,&hitBox2,&player2);
+	SDL_SetRenderDrawColor(renderer,0,255,0,255);               //initialise le render en bleu
+	cc2d_drawHitBox(renderer,&player1);
+	cc2d_drawHitBox(renderer,&player2);
 
-	mapPx(map,hitBox1);
-	mapPx(map,hitBox2);
+	mapPx(map,player1.hitBox.rect,renderer);
+	mapPx(map,player2.hitBox.rect,renderer);
+
+	frontColision(map,&player1.hitBox);
+	backColision(map,&player1.hitBox);
+	downColision(map,&player1.hitBox);
+	upColision(map,&player1.hitBox);
+
 
 
 	//modifie les coordonnées et le animation du joueur en fonction de leur mouvement
-	cc2d_playerMovement(&player1,&player2,&hpBar_in_p1,map,hitBox1);
+	cc2d_playerMovement(&player1,&player2,&hpBar_in_p1);
 	cc2d_player2_Movement(&player2,&player1,&hpBar_in_p2);
 
 	//dessine les projectiles en fonction de l'etat de la touche de tir
@@ -226,30 +232,21 @@ void initAmmo(void)
 
 
 }
-void mapPx(PIXEL map[768][1024],SDL_Rect h)
+void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 {
 	 
-
-	//on definis la marg 
-        int mx = h.w /2;
-	int my = h.h /2;
-
-	// on defini les coordonee du carré
-	int hx = h.x + mx;
-	int hy = h.y +my;
-
-
 
 	//le pixel compris dans la hitbox devienne plein
 	for(int y = 0 ; y < 768 ; y ++)
 	{
 		for(int x = 0 ; x < 1024 ; x++)
 		{
-			if((x >= hx - mx && x <= x + mx)&&
-			  (y >= hy - my && y <= hy + my))
+			if((x >= h.x  && x <= h.x + h.w)&&                 //si x supp au point x du de la hitbox moins sa marge mais inferieur au x de la hitbox + sa marge
+			  (y >= h.y   && y <= h.y + h.h))
 			{
 
 				map[y][x].plein = 1;
+				cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
 			else
 			{
@@ -261,58 +258,111 @@ void mapPx(PIXEL map[768][1024],SDL_Rect h)
 	}
 
 
-
-
-	
-	
-
 }
 
-int frontColision(PIXEL map[768][1024],SDL_Rect h)
+int frontColision(PIXEL map[768][1024],HITBOX* h)
 {
-	 
-	//on definis la marg 
-        int mx = h.w /2;
-	int my = h.h /2;
 
-	// on defini les coordonee du carré
-	int hx = h.x + mx;
-	int hy = h.y +my;
+	int x = h->rect.x + h->rect.w +1;
+	
+//droite
 
-	if(map[hy][hx+mx].plein == 0)
+	for(int y = h->rect.y ; y <= (h->rect.y + h->rect.h) ; y ++)
 	{
-		return 0;
-	}
-	else
-	{
-		return 1;
-	}
-
 
 	
+		if(map[y][x].plein) 
+		{
+			h->frontCol = 1;
+			return 0;
+		
+		}
+		else
+		{
 
+			h->frontCol = 0;
+		}
+
+	} 
+
+		return 0;
 }
+//gauche
+
+int backColision(PIXEL map[768][1024],HITBOX* h)
+{
+	int x = h->rect.x;
+
+	for(int y = h->rect.y ; y <= (h->rect.y + h->rect.h) ; y ++)
+	{
 
 
+		if(map[y][x].plein) 
+		{
+			h->backCol = 1;
+			return 0;
+
+		}
+		else
+		{
+
+			h->backCol = 0;
+		}
+
+	} 
+
+		return 0;
+}
+//BAS
+
+int downColision(PIXEL map[768][1024],HITBOX* h)
+{
+        int y = h->rect.y + h->rect.h +1;
+
+	for(int  x = h->rect.x ; x <= (h->rect.x + h->rect.w) ; x ++)
+	{
 
 
+		if(map[y][x].plein) 
+		{
+			h->downCol = 1;
+			return 0;
+
+		}
+		else
+		{
+
+			h->downCol = 0;
+		}
+
+	}
+
+		return 0;
+}	
+
+//HAUT
+
+int upColision(PIXEL map[768][1024],HITBOX* h)
+{
+	int y = h->rect.y - 1;
+	for(int x= h->rect.x ; x <= (h->rect.x + h->rect.w) ; x ++)
+	{
 
 
+		if(map[y][x].plein) 
+		{
+			h->upCol = 1;
+			return 0;
 
+		}
+		else
+		{
 
+			h->upCol = 0;
+		}
 
+	}
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		return 0;
+}

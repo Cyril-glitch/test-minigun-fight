@@ -5,6 +5,16 @@
 #include <SDL2/SDL_image.h>
 
 //création des objets
+typedef struct HITBOX 
+{
+	SDL_Rect rect;
+	int frontCol;
+	int backCol;
+	int upCol;
+	int downCol;
+
+}HITBOX;
+
 
 typedef struct PIXEL 
 {
@@ -74,6 +84,8 @@ typedef struct CC2D_Image
 	int bulletSpeed;
 	int hit;
 
+	HITBOX hitBox;
+
 	
 	CC2D_PlayerState state;
 
@@ -125,8 +137,6 @@ extern CC2D_Image hpBar_in_p1;
 
 extern CC2D_Image hpBar_out_p2;
 extern CC2D_Image hpBar_in_p2;
-extern SDL_Rect hitBox1;
-extern SDL_Rect hitBox2;
 
 //variables graphics
 extern PIXEL map[768][1024];
@@ -178,5 +188,5 @@ int cc2d_printPerf(const char* perf,SDL_Renderer* renderer,CC2D_Texte* texte,dou
 
 void loadBar();
 
-void cc2d_drawHitBox(SDL_Renderer* renderer,SDL_Rect* hitBox, CC2D_Image* image);
+void cc2d_drawHitBox(SDL_Renderer* renderer, CC2D_Image* image);
 #endif

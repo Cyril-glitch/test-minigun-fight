@@ -135,6 +135,12 @@ CC2D_Image player1 = {
 
 .state = {200,3,0,0},
 
+.hitBox.rect = {0,0,80,100},
+.hitBox.frontCol = 0,
+.hitBox.backCol = 0,
+.hitBox.upCol = 0,
+.hitBox.downCol = 0,
+
 };
 
 
@@ -208,6 +214,14 @@ CC2D_Image player2 = {
 
 //stats
 .state = {200,3,0,0},
+
+.hitBox.rect = {0,0,80,100},
+.hitBox.frontCol = 0,
+.hitBox.backCol = 0,
+.hitBox.upCol = 0,
+.hitBox.downCol = 0,
+
+
 };
 
 

@@ -232,12 +232,12 @@ void cc2d_drawRect(SDL_Renderer* renderer,const char* mode , int x ,int y ,int w
 		SDL_RenderFillRects(renderer,&rect,1);
 	}
 }
-void cc2d_drawHitBox(SDL_Renderer* renderer,SDL_Rect* hitBox, CC2D_Image* image)
+void cc2d_drawHitBox(SDL_Renderer* renderer,CC2D_Image* image)
 {
-	hitBox->x = image->rectDst.x;
-	hitBox-> y = image->rectDst.y;
+	image->hitBox.rect.x = image->rectDst.x;
+	image->hitBox.rect.y = image->rectDst.y;
 
-	SDL_RenderDrawRects(renderer,hitBox,1);
+	SDL_RenderDrawRects(renderer,&image->hitBox.rect,1);
 }
 void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 {

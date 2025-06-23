@@ -26,9 +26,13 @@ int cc2d_downKey(SDL_Scancode key)
 }
 
 
-void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* p2,CC2D_Image* hpBar,PIXEL map[768][1024],SDL_Rect h1)
+void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* p2,CC2D_Image* hpBar)
 {
 	
+	printf("DOWNCOL = %d\n",p1->hitBox.downCol);
+	printf("UPCOL = %d\n",p1->hitBox.upCol);
+	printf("frontCOL = %d\n",p1->hitBox.frontCol);
+	printf("backCOL = %d\n",p1->hitBox.backCol);
 
 	if(p2)
 	{
@@ -75,7 +79,7 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* p2,CC2D_Image* hpBar,PIXEL m
 
 		//DROITE
 
-		if(cc2d_downKey(SDL_SCANCODE_D) && frontColision(map,h1) == 0)        
+		if(cc2d_downKey(SDL_SCANCODE_D) &&  p1->hitBox.frontCol == 0)        
 		{
 			 
 			p1->rectDst.x += p1->speed;
@@ -85,21 +89,21 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* p2,CC2D_Image* hpBar,PIXEL m
 		}
 
 		//GAUCHE
-		if(cc2d_downKey(SDL_SCANCODE_A))
+		if(cc2d_downKey(SDL_SCANCODE_A) && p1->hitBox.backCol == 0)
 		{
 				p1->rectDst.x -= p1->speed;
 				p1->flipH = 1;
 		}
 
 		//BAS
-		if(cc2d_downKey(SDL_SCANCODE_S))
+		if(cc2d_downKey(SDL_SCANCODE_S) && p1->hitBox.downCol == 0)
 		{
 
 				p1->rectDst.y += p1->speed;
 		}
 
 		//HAUT
-		if(cc2d_downKey(SDL_SCANCODE_W))
+		if(cc2d_downKey(SDL_SCANCODE_W) && p1->hitBox.upCol == 0)
 		{
 
 				p1->rectDst.y-= p1->speed;

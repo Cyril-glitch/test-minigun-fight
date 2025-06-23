@@ -20,9 +20,13 @@ void cc2d_gameUpdate(void);
 
 void initAmmo(void);
 
-void mapPx(PIXEL [768][1024],SDL_Rect h);
+void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer);
 
-int frontColision(PIXEL map[768][1024],SDL_Rect h);
+int frontColision(PIXEL map[768][1024],HITBOX* h);
 
+int backColision(PIXEL map[768][1024],HITBOX* h);
 
+int downColision(PIXEL map[768][1024],HITBOX* h);
+
+int upColision(PIXEL map[768][1024],HITBOX* h);
 #endif
