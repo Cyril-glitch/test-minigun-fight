@@ -25,16 +25,16 @@ void cc2d_gameLoad(void)
 
 	//chargement des textures Graphiques P2
 	cc2d_loadImage("../img/indiana.png",renderer,&player2);             //crèe la texture
+
 	cc2d_loadImage("../img/hpFlip_out.png",renderer,&hpBar_out_p2);             //crèe la texture
 	cc2d_loadImage("../img/hpFlip_in.png",renderer,&hpBar_in_p2);             //crèe la texture
+
+	cc2d_loadImage("../img/Heart.png",renderer,&heartP1);             //crèe la texture
+	cc2d_loadImage("../img/Heart.png",renderer,&heartP2);             //crèe la texture
 
 	//position bullet
 	initAmmo();
 	
-
-
-
-
 }
 
 void cc2d_gameUpdate(void)
@@ -51,9 +51,14 @@ void cc2d_gameUpdate(void)
 	precise_elapse = (double)P_now / SDL_GetPerformanceFrequency();
 	precise_dt = (double)(P_now - precise_fst) / SDL_GetPerformanceFrequency();
 	precise_fst = P_now ;
+
+	
+	freshMap(map);
 }
+
 void cc2d_gameDraw(void)
 {
+	
 
 	// dessine le fond
 	cc2d_draw(renderer,land);
@@ -71,6 +76,9 @@ void cc2d_gameDraw(void)
 	cc2d_draw(renderer,hpBar_out_p2);
 	cc2d_draw(renderer,hpBar_in_p2);
 
+	heartMaj();
+
+
 	//DESSINE LA HITBOX DU P2
 
 	SDL_SetRenderDrawColor(renderer,0,255,0,255);           
@@ -78,7 +86,6 @@ void cc2d_gameDraw(void)
 	cc2d_drawHitBox(renderer,&player2);
 	cc2d_drawHitBox(renderer,&player1);
 
-	//DESSINE LA HITBOX DU P2
 
 
 	//DESSINE LA HITBOX DES PROJECTILES
@@ -89,8 +96,6 @@ void cc2d_gameDraw(void)
 	//DESSINE LES OBJETS EN DUR
 
 	mapPx(map,player1.hitBox.rect,renderer);
-
-
 	mapPx(map,player2.hitBox.rect,renderer);
 
 
@@ -161,7 +166,18 @@ void cc2d_gameClose(void)
 	SDL_DestroyTexture(hpBar_in_p1.texture);
 	hpBar_in_p1.texture = NULL;
 
+	SDL_DestroyTexture(hpBar_out_p2.texture);
+	hpBar_out_p2.texture = NULL;
 
+	SDL_DestroyTexture(hpBar_in_p2.texture);
+	hpBar_in_p2.texture = NULL;
+
+
+	SDL_DestroyTexture(heartP1.texture);
+	heartP1.texture = NULL;
+
+	SDL_DestroyTexture(heartP2.texture);
+	heartP2.texture = NULL;
 
 	SDL_DestroyTexture(titre.texture);
 	titre.texture = NULL;
@@ -281,7 +297,7 @@ void hitBoxAmmo(CC2D_Image* projectile)
 			projectile[i].hitBox.rect.y = projectile[i].rectDst.y +5 ;
 		}
 
-		SDL_RenderDrawRects(renderer,&projectile[i].hitBox.rect,1);
+//		SDL_RenderDrawRects(renderer,&projectile[i].hitBox.rect,1);
 	}
 }
 
@@ -511,3 +527,91 @@ int upColision(PIXEL map[768][1024],CC2D_Image* h)
 
 		return 0;
 }
+void drawHeart(CC2D_Image* heart,int x)
+{
+	
+	//COEUR 1
+	
+	SDL_Rect rectDst ;
+	rectDst.x = heart->rectDst.x + x;
+	rectDst.y = heart->rectDst.y;
+	rectDst.w = heart->rectDst.w;
+	rectDst.h = heart->rectDst.h;
+
+
+
+	SDL_RenderCopy(renderer,heart->texture,NULL,&rectDst);
+
+}
+
+void drawHeartP2(CC2D_Image* heart,int x)
+{
+	
+	//COEUR 1
+	
+	SDL_Rect rectDst ;
+	rectDst.x = heart->rectDst.x - x;
+	rectDst.y = heart->rectDst.y;
+	rectDst.w = heart->rectDst.w;
+	rectDst.h = heart->rectDst.h;
+
+
+
+	SDL_SetTextureAlphaMod(heart->texture,heart->a);
+	SDL_RenderCopy(renderer,heart->texture,NULL,&rectDst);
+
+}
+
+
+
+void heartMaj()
+{
+	//PLAYER 1
+	if(player1.state.heart == 3 )
+	{
+		drawHeart(&heartP1,0);
+		drawHeart(&heartP1,(heartP1.rectDst.w + 10));
+		drawHeart(&heartP1,(heartP1.rectDst.w *2 + 20));
+	}
+	else if(player1.state.heart == 2 )
+	{
+		drawHeart(&heartP1,0);
+		drawHeart(&heartP1,(heartP1.rectDst.w + 10));
+	}
+	else if(player1.state.heart == 1 )
+	{
+		drawHeart(&heartP1,0);
+	}
+
+//PLAYER 2
+
+	if(player2.state.heart == 3 )
+	{
+		drawHeartP2(&heartP2,0);
+		drawHeartP2(&heartP2,heartP2.rectDst.w + 10);
+		drawHeartP2(&heartP2,(heartP2.rectDst.w *2 + 20));
+	}	
+	else if(player2.state.heart == 2)
+	{
+		drawHeartP2(&heartP2,0);
+		drawHeartP2(&heartP2,heartP2.rectDst.w + 10);
+	}
+	else if(player2.state.heart == 1)
+	{
+		drawHeartP2(&heartP2,0);
+	}	
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+

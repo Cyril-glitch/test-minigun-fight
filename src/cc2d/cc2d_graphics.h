@@ -16,13 +16,6 @@ typedef struct HITBOX
 }HITBOX;
 
 
-typedef struct PIXEL 
-{
-	int plein;
-	int p1;
-	int p2;
-}PIXEL;
-
 typedef struct CC2D_PastColision
 {
 	int right;
@@ -140,8 +133,12 @@ extern CC2D_Image hpBar_in_p1;
 extern CC2D_Image hpBar_out_p2;
 extern CC2D_Image hpBar_in_p2;
 
+
+extern CC2D_Image heartP1;
+extern CC2D_Image heartP2;
+extern CC2D_Image emptyHeartP1;
+extern CC2D_Image emptyHeartP2;
 //variables graphics
-extern PIXEL map[768][1024];
 
 
 //initialisatioon des valeurs de temps

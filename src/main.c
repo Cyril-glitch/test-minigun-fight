@@ -39,7 +39,6 @@ int main( int argc ,char *argv [])
 
 		cc2d_enddraw(renderer);    //affiche le rendu
 
-		freshMap(map);
 
 
 	}

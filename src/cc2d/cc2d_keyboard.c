@@ -36,7 +36,6 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 		//on joue l'anime DIE
 		p1->animationState = DIE;	
 		//il perd une vie 
-		p1->state.heart --;
 
 
 		//quand on arrive apres avoir joué l'animation le player retouve ses hp et donc sa position de base
@@ -47,6 +46,9 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 
 			p1->rectDst.x = 0;
 			p1->rectDst.y = 50;
+
+			p1->state.heart --;
+		
 			p1->animation[DIE].frame = p1->animation[DIE].first;
 		}
 
@@ -137,8 +139,6 @@ void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 		//on joue l'anime DIE
 		p2->animationState = DIE;	
 		//il perd une vie 
-		p2->state.heart --;
-
 
 		//quand on arrive apres avoir joué l'animation le player retouve ses hp et donc sa position de base
 		if((int)p2->animation[DIE].frame >= p2->animation[DIE].last +1)
@@ -150,6 +150,8 @@ void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 
 			p2->rectDst.x = 924;
 			p2->rectDst.y = 50;
+
+			p2->state.heart --;
 
 			p2->animation[DIE].frame = p2->animation[DIE].first;
 		}
@@ -261,30 +263,8 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 				projectile[i].a = alpha;
 
 			}
-/*
-			if(playerImage->flipH)
-			{
-				projectile[i].flipH = 1;
 
-				projectile[i].rectDst.x = playerImage->hitBox.rect.x + playerImage->hitBox.rect.w;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
-				projectile[i].a = alpha;
-
-
-			}
-			else
-			{
-				projectile[i].flipH = 0;
-
-				projectile[i].rectDst.x = playerImage->hitBox.rect.x;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
-				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
-				projectile[i].a = alpha;
-
-			}
-
-*/			
-
+						
 		}
 	}
 	//tir en rafale si on rest appuyer sur espaces 

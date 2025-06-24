@@ -1,6 +1,7 @@
 #include "cc2d_graphics.h"
 #include "cc2d_keyboard.h"
 #include "cc2d_font.h"
+#include "cc2d_game.h"
 
 //BOUCLE
 
@@ -281,10 +282,50 @@ CC2D_Image hpBar_in_p1 = {
 
 };
 
+//COEUR P1
 
+CC2D_Image heartP1 = {
 
+.texture = NULL,
+.rectDst.x = 40,
+.rectDst.y = 70,
+.rectDst.w = 25,
+.rectDst.h = 25, 
+.a = blend,
+};
 
+CC2D_Image emptyHeartP1 = {
 
+.texture = NULL,
+.rectDst.x = 40,
+.rectDst.y = 70,
+.rectDst.w = 25,
+.rectDst.h = 25, 
+.a = blend,
+};
+
+//COEUR P1
+
+CC2D_Image heartP2 = {
+
+.texture = NULL,
+.rectDst.x = 947,
+.rectDst.y = 70,
+.rectDst.w = 25,
+.rectDst.h = 25, 
+
+.a = blend,
+};
+
+CC2D_Image emptyHeartP2 = {
+
+.texture = NULL,
+.rectDst.x = 40,
+.rectDst.y = 70,
+.rectDst.w = 25,
+.rectDst.h = 25, 
+.a = blend,
+};
 
 
 

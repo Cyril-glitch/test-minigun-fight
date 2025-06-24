@@ -247,7 +247,7 @@ void cc2d_drawHitBox(SDL_Renderer* renderer,CC2D_Image* image)
 		image->hitBox.rect.y = image->rectDst.y;
 	}
 
-	SDL_RenderDrawRects(renderer,&image->hitBox.rect,1);
+//	SDL_RenderDrawRects(renderer,&image->hitBox.rect,1);
 }
 void cc2d_drawAnime(SDL_Renderer* renderer,CC2D_Image* image)
 {
