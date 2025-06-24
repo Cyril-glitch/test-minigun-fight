@@ -71,41 +71,62 @@ void cc2d_gameDraw(void)
 	cc2d_draw(renderer,hpBar_out_p2);
 	cc2d_draw(renderer,hpBar_in_p2);
 
-	//dessin hit box
+	//DESSINE LA HITBOX DU P2
 
-	SDL_SetRenderDrawColor(renderer,0,255,0,255);               //initialise le render en bleu
+	SDL_SetRenderDrawColor(renderer,0,255,0,255);           
+
 	cc2d_drawHitBox(renderer,&player1);
+
+	//DESSINE LA HITBOX DU P2
+
 	cc2d_drawHitBox(renderer,&player2);
+
+	//DESSINE LA HITBOX DES PROJECTILES
+
+	hitBoxAmmo(&bulletP1[0]);
+	hitBoxAmmo(&bulletP2[0]);
+
+	//DESSINE LES OBJETS EN DUR
 
 	mapPx(map,player1.hitBox.rect,renderer);
 
+
 	mapPx(map,player2.hitBox.rect,renderer);
 
+
+	mapPlayer(map,renderer);
+
+	//EMPECHE LES OBJETS DE SE TRAVERSER ENTRE EUX
+
+	//p1
 	frontColision(map,&player1);
 	backColision(map,&player1);
 	downColision(map,&player1);
 	upColision(map,&player1);
 
 
+	//p2
 	frontColision(map,&player2);
 	backColision(map,&player2);
 	downColision(map,&player2);
 	upColision(map,&player2);
 
-	//modifie les coordonnées et le animation du joueur en fonction de leur mouvement
+
+	//GERE LES DEPLACEMENTS DES JOEURS
+
 	cc2d_playerMovement(&player1,&hpBar_in_p1);
 	cc2d_player2_Movement(&player2,&hpBar_in_p2);
 
-	//dessine les projectiles en fonction de l'etat de la touche de tir
-	//met a jour la barre de vie 
-	//inflige les degats
-//	cc2d_shoot(renderer,bulletP1,&player1,&player2,&hpBar_in_p2,"P1");
-//	cc2d_shoot(renderer,bulletP2,&player2,&player1,&hpBar_in_p1,"P2");
 
+	//GERE LES ACTIONS LIE AUX TIRS
 
-	//dessine les joueur en fonction de leurs etat
-//	cc2d_drawAnime(renderer,&player1);
-//	cc2d_drawAnime(renderer,&player2);
+	cc2d_shoot(renderer,bulletP1,&player1,&player2,&hpBar_in_p2,"P1");
+	cc2d_shoot(renderer,bulletP2,&player2,&player1,&hpBar_in_p1,"P2");
+
+	//DESSINE LES JOUEURS	
+
+	cc2d_drawAnime(renderer,&player1);
+	cc2d_drawAnime(renderer,&player2);
 
 //gestion des perfomances
 
@@ -191,7 +212,9 @@ void initAmmo(void)
 				.shootedLeft = 0,
 				.damage = 10,
 				.bulletSpeed = 3,
-				.hit = 0
+				.hit = 0,
+
+				.hitBox.rect = {0,0,20,10}
 		};
 	
 	cc2d_loadImage("../img/bullet_p1.png",renderer,&bulletP1[i]);
@@ -207,7 +230,7 @@ void initAmmo(void)
 				.rectSrc.w = 0,
 				.rectSrc.h = 0, 
 
-				.rectDst.x = 0,
+				.rectDst.x = 1004,
 				.rectDst.y = 0,
 				.rectDst.w = 20,
 				.rectDst.h = 20, 
@@ -227,16 +250,41 @@ void initAmmo(void)
 				.shootedLeft = 0,
 				.damage = 10,
 				.bulletSpeed = 3,
-				.hit = 0
+				.hit = 0,
+
+				.hitBox.rect = {0,0,20,10}
 		};
 
 
 
 		cc2d_loadImage("../img/bullet_p1.png",renderer,&bulletP2[i]);
+
 	}
 
 
 }
+
+void hitBoxAmmo(CC2D_Image* projectile)
+{
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		
+		if(projectile[i].flipH)
+		{	
+			projectile[i].hitBox.rect.x = projectile[i].rectDst.x +2 ;
+			projectile[i].hitBox.rect.y = projectile[i].rectDst.y +5;
+
+		}
+		else
+		{
+			projectile[i].hitBox.rect.x = projectile[i].rectDst.x +2 ;
+			projectile[i].hitBox.rect.y = projectile[i].rectDst.y +5 ;
+		}
+
+		SDL_RenderDrawRects(renderer,&projectile[i].hitBox.rect,1);
+	}
+}
+
 void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 {
 	 
@@ -254,7 +302,7 @@ void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 			}	
 			if(map[y][x].plein)
 			{
-				cc2d_drawRect(renderer,"fill",x,y,1,1);
+//				cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
 
 		}
@@ -270,13 +318,15 @@ void freshMap(PIXEL map[768][1024])
 		for(int x = 0 ; x < 1024 ; x++)
 		{
 			map[y][x].plein = 0;
+			map[y][x].p1 = 0;
+			map[y][x].p2 = 0;
 		}
 	}
 
 
 }
 
-void mapPx2(PIXEL map[768][1024],SDL_Renderer* renderer)
+void mapPlayer(PIXEL map[768][1024],SDL_Renderer* renderer)
 {
 	 
 
@@ -286,23 +336,21 @@ void mapPx2(PIXEL map[768][1024],SDL_Renderer* renderer)
 		for(int x = 0 ; x < 1024 ; x++)
 		{
 			//PLAYER1
-			if(((x >= player1.hitBox.rect.x  && x <=  player1.hitBox.rect.x + player1.hitBox.rect.w)&&                 
-			  (y >= player1.hitBox.rect.y   && y <= player1.hitBox.rect.y + player1.hitBox.rect.h))||
-			//PLAYER2
-			((x >= player2.hitBox.rect.x  && x <=  player2.hitBox.rect.x + player2.hitBox.rect.w)&&                 
-			  (y >= player2.hitBox.rect.y   && y <= player2.hitBox.rect.y + player2.hitBox.rect.h)))
+			if((x >= player1.hitBox.rect.x  && x <=  player1.hitBox.rect.x + player1.hitBox.rect.w)&&                 
+			  (y >= player1.hitBox.rect.y   && y <= player1.hitBox.rect.y + player1.hitBox.rect.h))
 			{
 
-				map[y][x].plein = 1;
+				map[y][x].p1 = 1;
+
+	//			cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
-			else
+			//PLAYER2
+			if((x >= player2.hitBox.rect.x  && x <=  player2.hitBox.rect.x + player2.hitBox.rect.w)&&                 
+			  (y >= player2.hitBox.rect.y   && y <= player2.hitBox.rect.y + player2.hitBox.rect.h))
 			{
-				map[y][x].plein = 0;
-			}
-				
-			if(map[y][x].plein)
-			{
-				cc2d_drawRect(renderer,"fill",x,y,1,1);
+
+				map[y][x].p2 = 1;
+	//			cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
 
 		}
@@ -311,13 +359,59 @@ void mapPx2(PIXEL map[768][1024],SDL_Renderer* renderer)
 
 }
 
+int bulletDamage(PIXEL map[768][1024],CC2D_Image* projectile)
+{
+
+	//on regarde une case a droite de notre hitBox
+	int x = projectile->hitBox.rect.x + projectile->hitBox.rect.w +1;
+	
+
+	//puis on parcours toute ces cases de haut en bas
+	for(int y = projectile->hitBox.rect.y ; y <= (projectile->hitBox.rect.y + projectile->hitBox.rect.h) ; y ++)
+	{
+
+	
+		//si cette case appartient a un joueur notre fontion prend 1
+		if(map[y][x].p1 || map[y][x].p2) 
+		{
+			return 1;
+		
+		}
+
+	} 
+
+
+	//on regarde une case a gauche de notre hitBox
+	int x2 = projectile->hitBox.rect.x - 1;
+	
+
+	//puis on parcours toute ces cases de haut en bas
+	for(int y2 = projectile->hitBox.rect.y ; y2 <= (projectile->hitBox.rect.y + projectile->hitBox.rect.h) ; y2 ++)
+	{
+
+	
+		//si cette case appartient a un joueur notre fontion prend 1
+		if(map[y2][x2].p1 || map[y2][x2].p2) 
+		{
+			return 1;
+		
+		}
+
+	} 
+
+	return 0;
+	
+}
+
+
 int frontColision(PIXEL map[768][1024],CC2D_Image* h)
 {
 
+	//on regarde une case a droite de notre hitbox
 	int x = h->hitBox.rect.x + h->hitBox.rect.w +1;
 	
-//droite
 
+	//puis on parcours toute ces cases de haut en bas
 	for(int y = h->hitBox.rect.y ; y <= (h->hitBox.rect.y + h->hitBox.rect.h) ; y ++)
 	{
 

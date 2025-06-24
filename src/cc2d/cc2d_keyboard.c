@@ -4,6 +4,7 @@
 
 #include "cc2d_keyboard.h"
 #include "cc2d_graphics.h"
+#include "cc2d_game.h"
 
 
 int cc2d_downKey(SDL_Scancode key)
@@ -127,10 +128,10 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 { 
 
-	printf("DOWNCOL = %d\n",p2->hitBox.downCol);
-	printf("UPCOL = %d\n",p2->hitBox.upCol);
-	printf("frontCOL = %d\n",p2->hitBox.frontCol);
-	printf("backCOL = %d\n",p2->hitBox.backCol);
+//	printf("DOWNCOL = %d\n",p2->hitBox.downCol);
+//	printf("UPCOL = %d\n",p2->hitBox.upCol);
+//	printf("frontCOL = %d\n",p2->hitBox.frontCol);
+//	printf("backCOL = %d\n",p2->hitBox.backCol);
 	
 	
 	
@@ -225,7 +226,7 @@ void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 	}
 }
 
-/*
+
 void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,CC2D_Image* enemieHpBar,const char* player)
 {
 
@@ -247,7 +248,29 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			{
 				projectile[i].flipH = 1;
 
-				projectile[i].rectDst.x = playerImage->rectDst.x ;
+				projectile[i].rectDst.x = playerImage->hitBox.rect.x - 50 ;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
+
+				projectile[i].a = alpha;
+
+
+			}
+			else
+			{
+				projectile[i].flipH = 0;
+
+				projectile[i].rectDst.x = playerImage->hitBox.rect.x + playerImage->hitBox.rect.w +10;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
+
+				projectile[i].a = alpha;
+
+			}
+/*
+			if(playerImage->flipH)
+			{
+				projectile[i].flipH = 1;
+
+				projectile[i].rectDst.x = playerImage->hitBox.rect.x + playerImage->hitBox.rect.w;
 				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
 				projectile[i].a = alpha;
 
@@ -257,13 +280,14 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			{
 				projectile[i].flipH = 0;
 
-				projectile[i].rectDst.x = playerImage->rectDst.x + 88;
+				projectile[i].rectDst.x = playerImage->hitBox.rect.x;
+				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
 				projectile[i].rectDst.y = playerImage->rectDst.y + 34;
 				projectile[i].a = alpha;
 
 			}
 
-			
+*/			
 
 		}
 	}
@@ -313,10 +337,16 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 
 			projectile[k].affichable = 0;
 		}
+
+
+
+
+
+
 		//si le projectile touche le player adverse 
 		if(strcmp(player,"P1") == 0)
 		{
-			if(colision(&projectile[k],enemie) && !projectile[k].hit && projectile[k].affichable) 
+			if(bulletDamage(map,&projectile[k]) && !projectile[k].hit && projectile[k].affichable) 
 			{
 
 
@@ -332,9 +362,10 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 			}
 
 		}
+		
 		else if(strcmp(player,"P2") == 0)
 		{
-			if(colision(&projectile[k],enemie) && !projectile[k].hit && projectile[k].affichable) 
+			if(bulletDamage(map,&projectile[k]) && !projectile[k].hit && projectile[k].affichable) 
 			{
 
 
@@ -353,6 +384,11 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 		{
 			printf("unkowned mode");
 		}
+
+
+
+
+
 
 		if(!projectile[k].affichable)
 		{
@@ -399,7 +435,7 @@ void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* player
 //				printf("HP P1= %d\n",playerImage->state.hp);
 //				printf("HP P2= %d\n",enemie->state.hp);
 }
-*/
+
 
 
 

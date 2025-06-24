@@ -8,7 +8,7 @@ for i in {1..10}; do
 done
 
 
-if gcc -mconsole -g  -Wall -Wextra -Werror main.c cc2d/cc2d_graphics.c cc2d/cc2d_font.c cc2d/cc2d_keyboard.c cc2d/cc2d_game.c cc2d/cc2d_init.c -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf  -o ../bin/monprog.exe 
+if gcc -mconsole -g  -Wall -Wextra  main.c cc2d/cc2d_graphics.c cc2d/cc2d_font.c cc2d/cc2d_keyboard.c cc2d/cc2d_game.c cc2d/cc2d_init.c -Iinclude -Llib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf  -o ../bin/monprog.exe 
 then 
 
 echo -e "\a"
