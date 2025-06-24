@@ -78,6 +78,7 @@ void cc2d_gameDraw(void)
 	cc2d_drawHitBox(renderer,&player2);
 
 	mapPx(map,player1.hitBox.rect,renderer);
+
 	mapPx(map,player2.hitBox.rect,renderer);
 
 	frontColision(map,&player1);
@@ -250,13 +251,55 @@ void mapPx(PIXEL map[768][1024],SDL_Rect h,SDL_Renderer* renderer)
 			{
 
 				map[y][x].plein = 1;
+			}	
+			if(map[y][x].plein)
+			{
+				cc2d_drawRect(renderer,"fill",x,y,1,1);
 			}
-			
+
+		}
+	}
+
+
+}
+void freshMap(PIXEL map[768][1024])
+{
+	//le pixel compris dans la hitbox devienne plein
+	for(int y = 0 ; y < 768 ; y ++)
+	{
+		for(int x = 0 ; x < 1024 ; x++)
+		{
+			map[y][x].plein = 0;
+		}
+	}
+
+
+}
+
+void mapPx2(PIXEL map[768][1024],SDL_Renderer* renderer)
+{
+	 
+
+	//le pixel compris dans la hitbox devienne plein
+	for(int y = 0 ; y < 768 ; y ++)
+	{
+		for(int x = 0 ; x < 1024 ; x++)
+		{
+			//PLAYER1
+			if(((x >= player1.hitBox.rect.x  && x <=  player1.hitBox.rect.x + player1.hitBox.rect.w)&&                 
+			  (y >= player1.hitBox.rect.y   && y <= player1.hitBox.rect.y + player1.hitBox.rect.h))||
+			//PLAYER2
+			((x >= player2.hitBox.rect.x  && x <=  player2.hitBox.rect.x + player2.hitBox.rect.w)&&                 
+			  (y >= player2.hitBox.rect.y   && y <= player2.hitBox.rect.y + player2.hitBox.rect.h)))
+			{
+
+				map[y][x].plein = 1;
+			}
 			else
 			{
-				
 				map[y][x].plein = 0;
 			}
+				
 			if(map[y][x].plein)
 			{
 				cc2d_drawRect(renderer,"fill",x,y,1,1);
@@ -299,7 +342,7 @@ int frontColision(PIXEL map[768][1024],CC2D_Image* h)
 
 int backColision(PIXEL map[768][1024],CC2D_Image* h)
 {
-	int x = h->hitBox.rect.x + 1;
+	int x = h->hitBox.rect.x - 1;
 
 	for(int y = h->hitBox.rect.y ; y <= (h->hitBox.rect.y + h->hitBox.rect.h) ; y ++)
 	{
