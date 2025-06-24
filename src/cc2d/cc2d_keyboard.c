@@ -29,11 +29,7 @@ int cc2d_downKey(SDL_Scancode key)
 
 void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 {
-	
-
-	
-
-	
+		
 	//si le player est a 0 hp
 	if(p1->state.hp < 1)
 	{
@@ -48,7 +44,7 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 		{
 			p1->state.hp = 200;
 			hpBar->rectDst.w = 200;
-			
+
 			p1->rectDst.x = 0;
 			p1->rectDst.y = 50;
 			p1->animation[DIE].frame = p1->animation[DIE].first;
@@ -59,82 +55,82 @@ void cc2d_playerMovement(CC2D_Image* p1,CC2D_Image* hpBar)
 	{
 
 		p1->animationState = IDLE;
-	}
-
-
-	if((cc2d_downKey(SDL_SCANCODE_D)||
-	cc2d_downKey(SDL_SCANCODE_A)||
-	cc2d_downKey(SDL_SCANCODE_S)||
-	cc2d_downKey(SDL_SCANCODE_W))&& 
-	!cc2d_downKey(SDL_SCANCODE_SPACE))
-	{
 
 
 
-		p1->animationState = WALK ; 
-		p1->animation[p1->animationState].loop = 1;
-
-		//DROITE
-
-		if(cc2d_downKey(SDL_SCANCODE_D) &&  p1->hitBox.frontCol == 0)        
+		if((cc2d_downKey(SDL_SCANCODE_D)||
+					cc2d_downKey(SDL_SCANCODE_A)||
+					cc2d_downKey(SDL_SCANCODE_S)||
+					cc2d_downKey(SDL_SCANCODE_W))&& 
+				!cc2d_downKey(SDL_SCANCODE_SPACE))
 		{
-			 
-			p1->rectDst.x += p1->speed;
-			p1->flipH = 0;
 
 
-		}
 
-		//GAUCHE
-		if(cc2d_downKey(SDL_SCANCODE_A) && p1->hitBox.backCol == 0)
-		{
+			p1->animationState = WALK ; 
+			p1->animation[p1->animationState].loop = 1;
+
+			//DROITE
+
+			if(cc2d_downKey(SDL_SCANCODE_D) &&  p1->hitBox.frontCol == 0)        
+			{
+
+				p1->rectDst.x += p1->speed;
+				p1->flipH = 0;
+
+
+			}
+
+			//GAUCHE
+			if(cc2d_downKey(SDL_SCANCODE_A) && p1->hitBox.backCol == 0)
+			{
 				p1->rectDst.x -= p1->speed;
 				p1->flipH = 1;
-		}
+			}
 
-		//BAS
-		if(cc2d_downKey(SDL_SCANCODE_S) && p1->hitBox.downCol == 0)
-		{
+			//BAS
+			if(cc2d_downKey(SDL_SCANCODE_S) && p1->hitBox.downCol == 0)
+			{
 
 				p1->rectDst.y += p1->speed;
-		}
+			}
 
-		//HAUT
-		if(cc2d_downKey(SDL_SCANCODE_W) && p1->hitBox.upCol == 0)
-		{
+			//HAUT
+			if(cc2d_downKey(SDL_SCANCODE_W) && p1->hitBox.upCol == 0)
+			{
 
 				p1->rectDst.y-= p1->speed;
+			}
+
+			//JUMP
 		}
+		else if(cc2d_downKey(SDL_SCANCODE_SPACE)  )
+		{
+			p1->animationState = FIRE;
+			p1->animation[p1->animationState].loop = 1;
+		}
+		else
+		{
 
-		//JUMP
+			p1->animation[p1->animationState].loop = 0;
+		}
 	}
-	else if(cc2d_downKey(SDL_SCANCODE_SPACE))
-	{
-		p1->animationState = FIRE;
-		p1->animation[p1->animationState].loop = 1;
-	}
-	else
-	{
 
-		p1->animation[p1->animationState].loop = 0;
-	}
+
+
 }
-
-
-
-
 
 
 void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 { 
 
-//	printf("DOWNCOL = %d\n",p2->hitBox.downCol);
-//	printf("UPCOL = %d\n",p2->hitBox.upCol);
-//	printf("frontCOL = %d\n",p2->hitBox.frontCol);
-//	printf("backCOL = %d\n",p2->hitBox.backCol);
-	
-	
-	
+	//	printf("DOWNCOL = %d\n",p2->hitBox.downCol);
+	//	printf("UPCOL = %d\n",p2->hitBox.upCol);
+	//	printf("frontCOL = %d\n",p2->hitBox.frontCol);
+	//	printf("backCOL = %d\n",p2->hitBox.backCol);
+
+
+
 	//si le player est a 0 hp
 	if(p2->state.hp < 1)
 	{
@@ -151,7 +147,7 @@ void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 			p2->state.hp = 200;
 			hpBar->rectDst.w = 200;
 			hpBar->rectDst.x = 734;
-			
+
 			p2->rectDst.x = 924;
 			p2->rectDst.y = 50;
 
@@ -163,69 +159,69 @@ void cc2d_player2_Movement(CC2D_Image* p2,CC2D_Image* hpBar)
 	{
 
 		p2->animationState = IDLE;
-	}
-
-
-	
-
-
-	if((cc2d_downKey(SDL_SCANCODE_KP_6)||
-	cc2d_downKey(SDL_SCANCODE_KP_4)||
-	cc2d_downKey(SDL_SCANCODE_KP_5)||
-	cc2d_downKey(SDL_SCANCODE_KP_8))&& 
-	!cc2d_downKey(SDL_SCANCODE_KP_0))
-	{
 
 
 
-		p2->animationState = WALK ; 
-		p2->animation[p2->animationState].loop = 1;
 
-		//DROITE
 
-		if(cc2d_downKey(SDL_SCANCODE_KP_6) && p2->hitBox.frontCol == 0 )        
+
+		if((cc2d_downKey(SDL_SCANCODE_KP_6)||
+					cc2d_downKey(SDL_SCANCODE_KP_4)||
+					cc2d_downKey(SDL_SCANCODE_KP_5)||
+					cc2d_downKey(SDL_SCANCODE_KP_8))&& 
+				!cc2d_downKey(SDL_SCANCODE_KP_0))
 		{
+
+
+
+			p2->animationState = WALK ; 
+			p2->animation[p2->animationState].loop = 1;
+
+			//DROITE
+
+			if(cc2d_downKey(SDL_SCANCODE_KP_6) && p2->hitBox.frontCol == 0 )        
+			{
 				p2->rectDst.x+= p2->speed;
 				p2->flipH = 0;
 
 
-		}
+			}
 
-		//GAUCHE
-		if(cc2d_downKey(SDL_SCANCODE_KP_4) && p2->hitBox.backCol == 0)
-		{
+			//GAUCHE
+			if(cc2d_downKey(SDL_SCANCODE_KP_4) && p2->hitBox.backCol == 0)
+			{
 				p2->rectDst.x-= p2->speed;
 				p2->flipH = 1;
-		}
+			}
 
-		//BAS
-		if(cc2d_downKey(SDL_SCANCODE_KP_5) && p2->hitBox.downCol == 0)
-		{
+			//BAS
+			if(cc2d_downKey(SDL_SCANCODE_KP_5) && p2->hitBox.downCol == 0)
+			{
 
 				p2->rectDst.y+= p2->speed;
-		}
+			}
 
-		//HAUT
-		if(cc2d_downKey(SDL_SCANCODE_KP_8) && p2->hitBox.upCol == 0)
-		{
+			//HAUT
+			if(cc2d_downKey(SDL_SCANCODE_KP_8) && p2->hitBox.upCol == 0)
+			{
 
 				p2->rectDst.y-= p2->speed;
+			}
+
+			//JUMP
 		}
+		else if(cc2d_downKey(SDL_SCANCODE_KP_0))
+		{
+			p2->animationState = FIRE;
+			p2->animation[p2->animationState].loop = 1;
+		}
+		else
+		{
 
-		//JUMP
-	}
-	else if(cc2d_downKey(SDL_SCANCODE_KP_0))
-	{
-		p2->animationState = FIRE;
-		p2->animation[p2->animationState].loop = 1;
-	}
-	else
-	{
-
-		p2->animation[p2->animationState].loop = 0;
+			p2->animation[p2->animationState].loop = 0;
+		}
 	}
 }
-
 
 void cc2d_shoot(SDL_Renderer* renderer,CC2D_Image* projectile,CC2D_Image* playerImage,CC2D_Image* enemie,CC2D_Image* enemieHpBar,const char* player)
 {

@@ -75,11 +75,11 @@ void cc2d_gameDraw(void)
 
 	SDL_SetRenderDrawColor(renderer,0,255,0,255);           
 
+	cc2d_drawHitBox(renderer,&player2);
 	cc2d_drawHitBox(renderer,&player1);
 
 	//DESSINE LA HITBOX DU P2
 
-	cc2d_drawHitBox(renderer,&player2);
 
 	//DESSINE LA HITBOX DES PROJECTILES
 
@@ -271,7 +271,7 @@ void hitBoxAmmo(CC2D_Image* projectile)
 		
 		if(projectile[i].flipH)
 		{	
-			projectile[i].hitBox.rect.x = projectile[i].rectDst.x +2 ;
+			projectile[i].hitBox.rect.x = projectile[i].rectDst.x -2 ;
 			projectile[i].hitBox.rect.y = projectile[i].rectDst.y +5;
 
 		}
