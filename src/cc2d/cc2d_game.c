@@ -227,7 +227,7 @@ void initAmmo(void)
 				.shootedRight = 0,
 				.shootedLeft = 0,
 				.damage = 10,
-				.bulletSpeed = 3,
+				.bulletSpeed = 6,
 				.hit = 0,
 
 				.hitBox.rect = {0,0,20,10}
@@ -265,7 +265,7 @@ void initAmmo(void)
 				.shootedRight = 0,
 				.shootedLeft = 0,
 				.damage = 10,
-				.bulletSpeed = 3,
+				.bulletSpeed = 6,
 				.hit = 0,
 
 				.hitBox.rect = {0,0,20,10}

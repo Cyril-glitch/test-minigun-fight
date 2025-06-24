@@ -20,7 +20,7 @@ int main( int argc ,char *argv [])
 	cc2d_gameLoad();
 
 	//depart de la gameloop
-	while(true)
+	while(player1.state.heart  &&  player2.state.heart )
 	{
 		cc2d_gameUpdate();                                        //depart du comptage des valeurs de temps
 
@@ -38,6 +38,9 @@ int main( int argc ,char *argv [])
 
 
 		cc2d_enddraw(renderer);    //affiche le rendu
+
+		
+		
 
 
 

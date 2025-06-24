@@ -85,7 +85,7 @@ CC2D_Image player1 = {
 .rectDst.y = 359,
 .rectDst.w = 100,
 .rectDst.h = 96, 
-.speed = 2,
+.speed = 3,
 
 .realWidth = 50,
 .realHeight = 48,
@@ -166,7 +166,7 @@ CC2D_Image player2 = {
 .rectDst.y = 359,
 .rectDst.w = 100,
 .rectDst.h = 96, 
-.speed= 2,
+.speed= 3,
 
 .realWidth = 0,
 .realHeight = 0,
